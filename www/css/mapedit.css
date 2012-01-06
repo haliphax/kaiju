@@ -1,0 +1,52 @@
+#view {
+	width: 130px;
+	height: 130px;
+	float: right;
+}
+
+#view table {
+	width: 0px;
+	margin: 12px auto;
+	text-align: center;
+}
+
+#view .button {
+	width: 30px;
+	height: 30px;
+}
+
+.map_cell {
+	cursor: pointer;
+	float: left;
+	height: 60px;
+	width: 60px;
+}
+
+#minimap
+{
+	text-align: center;
+}
+
+#minimap_img {
+	cursor: pointer;
+}
+
+.ed_button {
+	margin-top: 10px;
+	float: right;
+	width: 130px !important;
+}
+
+#chooser {
+	display: none;
+	position: absolute;
+	background-color: #f0f0f0;
+	overflow-y: scroll;
+	height: 112px;
+	padding: 4px;
+	width: auto;
+}
+
+#nav_int {
+	width: 2em;
+}

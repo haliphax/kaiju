@@ -1,0 +1,323 @@
+#ui_middle
+{
+	position: relative;
+	height: auto;
+	float: left;
+	clear: both;
+}
+
+#log_accordion
+{
+	width: 740px;
+	margin-bottom: 10px;
+	height: auto;
+}
+
+#log
+{
+	top: -1px;
+	margin: 0px;
+	padding: 0px;
+	width: 738px;
+    overflow-x: hidden;
+}
+
+#log_text
+{
+	position: relative;
+	text-align: left;
+	width: 730px;
+	height: 120px;
+	margin: 0;
+	padding: 0;
+	padding-top: 4px;
+	padding-bottom: 8px;
+	left: 8px;
+    overflow: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+	list-style-type: none;
+}
+
+
+#chat_form input
+{
+	margin-left: 1px;
+	width: 736px;
+	background-color: #d5d5d5;
+	border-style: none;
+	border-width: 0px;
+	height: 18px;
+	font-size: 10pt;
+	text-indent: 2px;
+	color: gray;
+	/*display: none;*/
+}
+
+div#leftcol
+{
+	width: 428px;
+	float: left;
+	clear: left;
+}
+
+div#rightcol
+{
+	width: 300px;
+	float: right;
+	clear: right;
+	margin-left: 10px;
+}
+
+div#location > div, div#surroundings > div, div#actions > div, div#log > div,
+div#occupants > div, div#skills > div, div#effects
+{
+	padding-bottom: 4px;
+	padding-top: 4px;
+}
+
+div#status
+{
+	margin-bottom: 10px;
+}
+
+div#effects
+{
+	width: 100%;
+	text-align: center;
+}
+
+div#surroundings, div#actions, div#occupants, div#skills
+{
+	width: 428px;
+	margin-bottom: 10px;
+}
+
+div#map
+{
+	height: 300px;
+	width: 300px;
+	background-color: black;
+	float: left;
+	clear: right;
+}
+
+div#location
+{
+	float: left;
+	clear: both;
+	width: 298px;
+	line-height: 20px;
+	word-wrap: break-word;
+	overflow-x: hidden;
+}
+
+div .ui-accordion-content
+{
+	font-size: 8pt;
+}
+
+.map_cell
+{
+	float: left;
+	height: 60px;
+	width: 60px;
+	cursor: default;
+}
+
+td.odd
+{
+	background-color: white;
+	color: black;
+}
+
+#inventory
+{
+	overflow: visible;
+}
+	
+#inventory > div
+{
+	width: 100%;
+	max-height: 400px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+#inventory_tbl
+{
+	width: 100%;
+}
+
+#inventory_tbl td
+{
+	white-space: nowrap;
+}
+
+span.occ
+{
+	color: white;
+	background-color: black;
+	margin-left: 2px;
+}
+
+div#status table
+{
+	margin: 0 auto;
+	padding: 0px;
+}
+
+div#status table td
+{
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.skillbutton
+{
+	float: left;
+	margin-bottom: 4px;
+	margin-right: 4px;
+}
+
+#item_desc_weapon,
+#item_desc_armor,
+#item_desc_ammo,
+#item_desc_classes
+{
+	float: left;
+	clear: both;
+	width: 100%;
+}
+
+#item_desc_weapon table,
+#item_desc_armor table,
+#item_desc_ammo *
+{
+	margin: 0 auto;
+}
+
+#item_desc_classes
+{
+	text-align: center;
+}
+
+#scan_map
+{
+	width: 540px;
+	height: 540px;
+	background-color: black;
+	margin: 0 auto;
+}
+
+#scan_map div,
+#map_cell div
+{
+	text-align: center;
+}
+
+#skillparams, #actparams
+{
+	text-align: center;
+}
+
+.mvarrow
+{
+	height: 60px;
+	width: 60px;
+}
+
+#trans_icon
+{
+	position: absolute;
+	margin-top: 3px; 
+	margin-left: 717px;
+}
+
+span.cost
+{
+	color: #aaaaaa;
+	/*font-size: 7pt;*/
+}
+
+.nowrap
+{
+	white-space: pre;
+}
+
+.hidden
+{
+	display: none;
+}
+
+.wrapdivs div
+{
+	float: left;
+}
+
+#auction_auction_auction select,
+#auction_auction_inventory select,
+#auction_bid_bid select,
+#auction_bid_inventory select
+{
+	font-size: 8pt;
+}
+
+.a-loading
+{
+	color: #444444 !important;
+}
+
+.inline
+{
+	display: inline;
+}
+
+.nowrap
+{
+	white-space: nowrap;
+}
+
+span.stamp
+{
+	font-family: Courier;
+	color: #aaaaaa;
+}
+
+.block
+{
+	margin-bottom: 4px;
+}
+
+span.surr
+{
+	color: #cccccc;
+}
+
+.map_cell .sh
+{
+	height: 60px;
+	width: 60px;
+	position: absolute;
+	background: url(../images/ui/stronghold.gif) no-repeat left top;
+}
+
+.allyname
+{
+	color: #00ff00 !important;
+}
+
+.enemyname
+{
+	color: #770000 !important;
+}
+
+.goodguy
+{
+	color: #ffffff !important;
+}
+
+.badguy
+{
+	color: #000000 !important;
+}

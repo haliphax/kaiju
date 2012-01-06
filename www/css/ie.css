@@ -1,0 +1,36 @@
+div#wrapper
+{
+	height: 100%;
+}
+
+div#inner
+{
+	margin-left: -20px;
+	margin-bottom: 10px;
+}
+
+div#inventory div table
+{
+	width: 560px;
+}
+
+#trans_icon
+{
+	margin-left: 348px !important;
+}
+
+#chat_input
+{
+	width: 99% !important;
+}
+
+#log_text
+{
+	margin-top: -20px !important;
+}
+
+div.sh
+{
+	position: relative !important;
+	float: left;
+}

@@ -1,0 +1,14 @@
+div#characters
+{
+	width: 734px;
+}
+
+td
+{
+	width: 184px;
+}
+
+div.progbar
+{
+	width: 100%;
+}

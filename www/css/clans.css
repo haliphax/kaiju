@@ -1,0 +1,8 @@
+#inner table tbody tr td {
+	width: 100%;
+	white-space: nowrap;
+}
+
+#inner table tbody tr th {
+	text-align: center;
+}
