@@ -72,10 +72,10 @@ $(function()
 	{
 		$('#' + $(this).attr('dialog')).dialog('open');
 	});
-	$('#btn_logout').click(function() { window.location = document.getElementById('base_url').innerHTML + 'login';	});
-	$('#btn_characters').click(function() { window.location = document.getElementById('base_url').innerHTML + 'characters'; });
-	$('#btn_account').click(function() { window.location = document.getElementById('base_url').innerHTML + 'account'; });
-	$('#btn_return').click(function() { window.location = document.getElementById('base_url').innerHTML + 'game'; });
+	$('#btn_logout').click(function() { window.location = kaiju_globals.base_url + 'login';	});
+	$('#btn_characters').click(function() { window.location = kaiju_globals.base_url + 'characters'; });
+	$('#btn_account').click(function() { window.location = kaiju_globals.base_url + 'account'; });
+	$('#btn_return').click(function() { window.location = kaiju_globals.base_url + 'game'; });
 	$('.accordion').accordion({ autoHeight: false, clearType: true, collapsible: true, animated: false });
 	$('.dialog').dialog({ maxHeight: 600 }).dialog('close');
 	$('.tabs').tabs();
