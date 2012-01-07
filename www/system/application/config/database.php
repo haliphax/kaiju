@@ -38,9 +38,9 @@ $active_group = "default";
 $active_record = TRUE;
 
 $db['default']['hostname'] = "localhost";
-$db['default']['username'] = "haliphax";
+$db['default']['username'] = "roadhaus_kaiju";
 $db['default']['password'] = "m4i1b0x";
-$db['default']['database'] = "kaiju";
+$db['default']['database'] = "roadhaus_kaiju_test";
 $db['default']['dbdriver'] = "mysql";
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;
