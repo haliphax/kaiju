@@ -52,6 +52,7 @@ $(function()
 	kaiju_globals.base_url = document.getElementById('base_url').innerHTML;
 	if(! /\/$/.exec(kaiju_globals.base_url))
 		kaiju_globals.base_url += '/';
+	kaiju_globals.base_url_path = kaiju_globals.base_url.replace(/\/index\.php/i, '');
 	touchHandler_init();
 	$('.button')
 		.addClass('ui-state-default')

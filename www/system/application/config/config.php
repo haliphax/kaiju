@@ -12,7 +12,7 @@ allowed');
 |	http://example.com/
 |
 */
-$config['base_url']	= "";
+$config['base_url']	= "http://kaiju-dev.roadha.us/";
 
 /*
 |--------------------------------------------------------------------------
