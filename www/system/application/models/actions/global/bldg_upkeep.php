@@ -36,7 +36,9 @@ class bldg_upkeep extends Model
 		if($this->db->affected_rows() <= 0)
 			return array("There was an error submitting the repairs.");
 		$this->ci->actor->dropItems(array($ins), $who['actor']);
-		$msg = $this->ci->actor->spendAP(1, $actor);
+		$ret = $this->ci->actor->spendAP(1, $actor);
+		foreach($ret as $r)
+			$msg[] = $r;
 		$msg[] = "You repair the building."; 
 		return $msg;
 	}
