@@ -33,7 +33,7 @@ class i_bp_shack extends Model
 		$struct = $r['structure'];
 		$s = <<<SQL
 			insert into building (map, building, structure, owner, hp)
-			values (?, ?, ?, ?, NULL)
+			values (?, ?, ?, ?, 200)
 SQL;
 		$y = str_pad($actor['y'], 3, '0', STR_PAD_LEFT);
 		$bldg = $actor['x'] . $y;
