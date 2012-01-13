@@ -39,8 +39,13 @@ class give extends Model
 		$this->ci->load->model('item');
 		$item = $this->ci->item->getInfo($ins);
 		if(! $item) return array("Unknown item: {$i}.");
-		if($this->ci->actor->isOverEncumbered($tar['actor']))
+		
+		if($this->ci->actor->isOverEncumbered($tar['actor']) ||
+			$this->ci->actor->wouldBeOverEncumbered($tar['actor'], $item['weight']))
+		{
 			return array("They do not have room in their inventory.");
+		}
+		
 		$sql =
 			'update actor_item set actor = ? where actor = ? and instance = ?';
 		$this->db->query($sql, array($tar['actor'], $actor['actor'], $ins));

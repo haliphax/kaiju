@@ -386,15 +386,24 @@ SQL;
 	# is character over-encumbered? ============================================
 	function isOverEncumbered($actor)
 	{
-		$enc = $this->getEncumbrance($actor);
-		
+		return $this->_overEncumbered($actor, $this->getEncumbrance($actor));
+	}
+	
+	# would character be overencumbered if x encumbrance was added? ============
+	function wouldBeOverEncumbered($actor, $weight)
+	{
+		return $this->_overEncumbered($actor, $this->getEncumbrance($actor) + $weight);
+	}
+	
+	private function _overEncumbered($actor, $enc)
+	{
 		if($this->hasSkill("packmule", $actor))
 		{
 			if($enc > 75)
 				return true;
 		}
 		else if($enc > 60)
-			return true;
+			return true;	
 		
 		return false;
 	}
