@@ -1,7 +1,7 @@
 // load the view
 incTrans();
 $.ajax({
-	url: kaiju_globals.base_url + 'index.php/client/actionview/cell/clan_create/?1&2',
+	url: kaiju_globals.base_url + 'client/actionview/cell/clan_create/?1&2',
 	type: 'GET',
 	dataType: 'html',
 	async: true,
@@ -38,7 +38,7 @@ function clan_create_hooks()
 		
 		incTrans();
 		$.ajax({
-			url: kaiju_globals.base_url + 'index.php/client/action/cell/clan_create/?1&2',
+			url: kaiju_globals.base_url + 'client/action/cell/clan_create/?1&2',
 			type: 'POST',
 			data: { name: clanname, policy: clanpolicy },
 			dataType: 'json',

@@ -1,7 +1,7 @@
 // load the view
 incTrans();
 $.ajax({
-	url: kaiju_globals.base_url + 'index.php/client/actionview/global/bldg_opts/?1&2',
+	url: kaiju_globals.base_url + 'client/actionview/global/bldg_opts/?1&2',
 	type: 'GET',
 	dataType: 'html',
 	async: true,
@@ -28,7 +28,7 @@ function bldg_opts()
 {
 	incTrans();
 	$.ajax({
-		url: kaiju_globals.base_url + 'index.php/client/actparams/global/bldg_opts/?1&2',
+		url: kaiju_globals.base_url + 'client/actparams/global/bldg_opts/?1&2',
 		type: 'GET',
 		dataType: 'json',
 		async: true,
@@ -64,7 +64,7 @@ function bldg_opts()
 function building_upkeep_params() {
 	incTrans();
 	$.ajax({
-		url: kaiju_globals.base_url + 'index.php/client/actparams/global/bldg_upkeep/?1&2',
+		url: kaiju_globals.base_url + 'client/actparams/global/bldg_upkeep/?1&2',
 		type: 'GET',
 		dataType: 'json',
 		async: false,
@@ -95,7 +95,7 @@ function building_opts_hooks() {
 		$.ajax(
 		{
 			type: 'POST',
-			url: kaiju_globals.base_url + 'index.php/client/action/global/bldg_opts/?1&2',
+			url: kaiju_globals.base_url + 'client/action/global/bldg_opts/?1&2',
 			data: {
 				name: $('#building_opts_name').val(),
 				idescr: $('#building_opts_idescr').val(),
@@ -119,7 +119,7 @@ function building_opts_hooks() {
 		incTrans();
 		$.ajax({
 			type: 'GET',
-			url: kaiju_globals.base_url + 'index.php/client/action/global/bldg_upkeep/'
+			url: kaiju_globals.base_url + 'client/action/global/bldg_upkeep/'
 				+ $('#building_upkeep_params').val() + '/?1&2',
 			dataType: 'json',
 			async: true,
@@ -139,7 +139,7 @@ function building_opts_hooks() {
 		incTrans();
 		$.ajax({
 			type: 'GET',
-			url: kaiju_globals.base_url + 'index.php/client/repeat/action/global/bldg_upkeep/'
+			url: kaiju_globals.base_url + 'client/repeat/action/global/bldg_upkeep/'
 				+ $('#building_upkeep_params').val() + '/?1&2',
 			dataType: 'json',
 			async: true,

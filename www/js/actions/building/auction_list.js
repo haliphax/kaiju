@@ -1,7 +1,7 @@
 // load the view
 incTrans();
 $.ajax({
-	url: kaiju_globals.base_url + 'index.php/client/actionview/building/auctions/?1&2',
+	url: kaiju_globals.base_url + 'client/actionview/building/auctions/?1&2',
 	type: 'GET',
 	dataType: 'html',
 	async: true,
@@ -30,7 +30,7 @@ function auction_list()
 	$.ajax(
 	{
 		type: 'GET',
-		url: kaiju_globals.base_url + 'index.php/client/action/building/auction_list/?1&2',
+		url: kaiju_globals.base_url + 'client/action/building/auction_list/?1&2',
 		dataType: 'json',
 		async: true,
 		success: function(ret)
@@ -87,7 +87,7 @@ function auction_bid(td, aucnum)
 	$.ajax(
 	{
 		type: 'GET',
-		url: kaiju_globals.base_url + 'index.php/client/actparams/building/auction_bid/?1',
+		url: kaiju_globals.base_url + 'client/actparams/building/auction_bid/?1',
 		async: true,
 		dataType: 'json',
 		success: function(ret)
@@ -172,7 +172,7 @@ function auction_bid_cancel(aucnum)
 	incTrans();
 	$.ajax(
 	{
-		url: kaiju_globals.base_url + 'index.php/client/action/building/auction_bid_cancel/' + aucnum + '/?1',
+		url: kaiju_globals.base_url + 'client/action/building/auction_bid_cancel/' + aucnum + '/?1',
 		dataType: 'json',
 		type: 'GET',
 		async: true,
@@ -193,7 +193,7 @@ function auction_auction_cancel(aucnum)
 	incTrans();
 	$.ajax(
 	{
-		url: kaiju_globals.base_url + 'index.php/client/action/building/auction_auction_cancel/' + aucnum + '/?1',
+		url: kaiju_globals.base_url + 'client/action/building/auction_auction_cancel/' + aucnum + '/?1',
 		dataType: 'json',
 		type: 'GET',
 		async: true,
@@ -213,7 +213,7 @@ function auction_auction_bids(aucnum)
 	incTrans();
 	$.ajax(
 	{
-		url: kaiju_globals.base_url + 'index.php/client/action/building/auction_auction_bids/' + aucnum + '/?1',
+		url: kaiju_globals.base_url + 'client/action/building/auction_auction_bids/' + aucnum + '/?1',
 		dataType: 'json',
 		type: 'GET',
 		async: true,
@@ -256,7 +256,7 @@ function auction_auction_accept(aucnum, bidnum)
 	incTrans();
 	$.ajax(
 	{
-		url: kaiju_globals.base_url + 'index.php/client/action/building/auction_auction_accept/' + aucnum + '/'
+		url: kaiju_globals.base_url + 'client/action/building/auction_auction_accept/' + aucnum + '/'
 			+ bidnum + '/?1',
 		dataType: 'json',
 		type: 'GET',
@@ -288,7 +288,7 @@ function auction_list_hooks()
 		incTrans();
 		$.ajax(
 		{
-			url: kaiju_globals.base_url + 'index.php/client/action/building/auction_bid/'
+			url: kaiju_globals.base_url + 'client/action/building/auction_bid/'
 				+ $('#auction_bid').data('aucnum') + '/' + items + '?1',
 			dataType: 'json',
 			type: 'GET',
@@ -310,7 +310,7 @@ function auction_list_hooks()
 		incTrans();
 		$.ajax(
 		{
-			url: kaiju_globals.base_url + 'index.php/client/action/building/auction_my_bids/?1',
+			url: kaiju_globals.base_url + 'client/action/building/auction_my_bids/?1',
 			dataType: 'json',
 			type: 'GET',
 			async: true,
@@ -367,7 +367,7 @@ function auction_list_hooks()
 		incTrans();
 		$.ajax(
 		{
-			url: kaiju_globals.base_url + 'index.php/client/action/building/auction_my_auctions/?1',
+			url: kaiju_globals.base_url + 'client/action/building/auction_my_auctions/?1',
 			dataType: 'json',
 			type: 'GET',
 			async: true,
@@ -421,7 +421,7 @@ function auction_list_hooks()
 		$.ajax(
 		{
 			type: 'GET',
-			url: kaiju_globals.base_url + 'index.php/client/actparams/building/auction_auction/?1',
+			url: kaiju_globals.base_url + 'client/actparams/building/auction_auction/?1',
 			async: true,
 			dataType: 'json',
 			success: function(ret)
@@ -474,7 +474,7 @@ function auction_list_hooks()
 		$.ajax(
 		{
 			type: 'POST',
-			url: kaiju_globals.base_url + 'index.php/client/action/building/auction_auction/' + items + '?1&2',
+			url: kaiju_globals.base_url + 'client/action/building/auction_auction/' + items + '?1&2',
 			data: { price: $('#auction_auction_price').val() },
 			dataType: 'json',
 			async: true,

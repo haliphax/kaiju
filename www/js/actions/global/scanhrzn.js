@@ -11,7 +11,7 @@ function scanhrzn()
 	$.ajax(
 	{
 		type: 'GET',
-		url: kaiju_globals.base_url + 'index.php/client/action/global/scanhrzn/?1',
+		url: kaiju_globals.base_url + 'client/action/global/scanhrzn/?1',
 		dataType: 'json',
 		async: true,
 		success: function(ret)

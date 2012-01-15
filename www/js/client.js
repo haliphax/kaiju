@@ -761,7 +761,7 @@ function getStatus(force, forcemap)
 					var newscr = document.createElement('script');
 					newscr.type = 'text/javascript';
 					newscr.async = true;
-					newscr.src = kaiju_globals.base_url + 'js/' + scriptsToLoad[a] + '.js';
+					newscr.src = kaiju_globals.base_url_path + 'js/' + scriptsToLoad[a] + '.js';
 					$('body').append(newscr);
 					loadedScripts[a] = 1;
 				}
