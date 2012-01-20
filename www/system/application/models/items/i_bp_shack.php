@@ -25,7 +25,7 @@ class i_bp_shack extends Model
 			return array("There is already a building here.");
 		$cell = $this->ci->map->getCellInfo($actor['map'], $actor['x'],
 			$actor['y']);
-		if($cell['tile'] != 2)
+		if($cell['tile'] > 2)
 			return array("This land is not suitable for construction.");
 		$s = "select structure from structure where descr = 'Shack'";
 		$q = $this->db->query($s);
