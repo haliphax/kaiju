@@ -1082,6 +1082,18 @@ SQL;
 					$this->sendEvent(
 						"You have been killed by {$actor['aname']}!",
 						$vic['actor']);
+					# inventory damage
+					$items = $this->getItems($vic['actor']);
+
+					foreach($items as $i)
+					{
+						if(rand(1, 100) > 35)
+							continue;
+						$ret = $this->ci->item->decDurability($i['instance'], $vic);
+						foreach($ret as $r)
+							$this->sendEvent($r, $vic['actor']);
+					}
+
 					$this->ci->load->model('map');
 					$this->ci->map->sendCellEvent(
 						"{$vic['aname']} was killed by {$actor['aname']}!",
