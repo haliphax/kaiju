@@ -27,11 +27,11 @@ function buildMap(cells)
 			'<div id="cell_' + cells[a].x + '_' + cells[a].y
 			+ '" class="map_cell" title="' + descr + ' [' + cells[a].x + ','
 			+ cells[a].y + ']' + (b > 0 ? ' (' + b + ')' : '')
-			+ '" style="background-image:url(' + kaiju_globals.base_url + 'images/tiles/' + im
+			+ '" style="background-image:url(' + kaiju_globals.base_url_path + 'images/tiles/' + im
 			+ ');" tile="' + t + '" bldg="' + b + '" descr="' + d + '">';
 		if(cells[a].x > 0 && cells[a].y > 0)
 			html +=
-				'<img src="' + kaiju_globals.base_url + 'images/'
+				'<img src="' + kaiju_globals.base_url_path + 'images/'
 				+ (cells[a].w != '' ? 'walls/' + cells[a].w + '.png'
 					: 'tiles/box.gif')
 				+ '" />';
@@ -106,12 +106,97 @@ function setBldg()
 	return false;
 }
 
+// edit associated building
+function editBldg()
+{
+	var $b = $('body');
+	var x, y;
+	
+	if(dragcoords.length == 2)
+	{
+		$b.data('cx', dragcoords[0]);
+		$b.data('cy', dragcoords[1]);
+	}
+
+	x = $b.data('cx');
+	y = $b.data('cy');
+	
+	$.ajax({
+		type: 'GET',
+		url: kaiju_globals.base_url + 'mapedit/get_building/' + x + '/' + y,
+		dataType: 'json',
+		async: true,
+		success: function(ret)
+		{
+			if(ret.error)
+				return alert('There is no building here.');
+			$('#building_classes').html('');			
+			for(var i in ret.classes)
+				$('#building_classes').append('<span>' + ret.classes[i].abbrev + ' <small><a href="#" onclick="return delete_class(' + ret.classes[i].bclass + ');">[del]</a></small>&nbsp;&nbsp;</span>');
+			$('#building_dialog').dialog('open');
+		},
+		error: function(ret)
+		{
+			if(ret.length > 0)
+				alert(ret);
+			else
+				alert('There was an error gathering building information.');
+		}
+	});
+	return false;
+}
+
+function add_class()
+{
+	var $b = $('body');
+	var bclass = $('#class').val();
+	var x = $b.data('cx');
+	var y = $b.data('cy');
+	$.ajax({
+		type: 'GET',
+		url: kaiju_globals.base_url + 'mapedit/add_class/' + x + '/' + y + '/' + bclass,
+		dataType: 'json',
+		async: true,
+		success: editBldg,
+		error: function(ret)
+		{
+			if(ret.length > 0)
+				alert(ret);
+			else
+				alert('There was an error adding the building class.');
+		}
+	});
+	return false;
+}
+
+function delete_class(bclass)
+{
+	var $b = $('body');
+	var x = $b.data('cx');
+	var y = $b.data('cy');
+	$.ajax({
+		type: 'GET',
+		url: kaiju_globals.base_url + 'mapedit/remove_class/' + x + '/' + y + '/' + bclass,
+		dataType: 'json',
+		async: true,
+		success: editBldg,
+		error: function(ret)
+		{
+			if(ret.length > 0)
+				alert(ret);
+			else
+				alert('There was an error deleting the building class.');
+		}
+	});
+	return false;
+}
+
 // change tile
 function setTile(t)
 {
 	var bg = '';
 	if(t > 0)
-		bg = 'url(' + kaiju_globals.base_url + 'images/tiles/' + tiles[t].img + ')';
+		bg = 'url(' + kaiju_globals.base_url_path + 'images/tiles/' + tiles[t].img + ')';
 	var sub = '';
 		
 	for(a = dragcoords[0]; a <= dragstop[0]; a++)
@@ -165,7 +250,7 @@ function modcells(sub)
 $(function()
 {
 	navint = $('#nav_int').val();
-	var html = '<a href="#" onclick="return setBldg();">Set Building</a><p />';
+	var html = '<a href="#" onclick="return setBldg();">Set Building</a><span id="edit_bldg"><br /><a href="#" onclick="return editBldg();">Edit associated building</a></span><p />';
 	for(t in tiles)
 		html +=
 			'<a href="#" onclick="return setTile(' + t + ');">' + tiles[t].descr
@@ -185,6 +270,7 @@ $(function()
 	$('.map_cell')
 		.live('click', function()
 		{
+			$('#edit_bldg').show();
 			$(this)
 				.find('img')
 				.attr('src', $(this).data('img'));
@@ -198,7 +284,7 @@ $(function()
 			e.preventDefault();
 			$(this)
 				.find('img')
-				.attr('src', kaiju_globals.base_url + 'images/tiles/box-hi.gif');
+				.attr('src', kaiju_globals.base_url_path + 'images/tiles/box-hi.gif');
 			$('#chooser').hide();
 			dragcoords = $(this).attr('id').split('_');
 			dragcoords = [dragcoords[1], dragcoords[2]];
@@ -208,11 +294,15 @@ $(function()
 		.live('mouseup', function()
 		{
 			$('#chooser').data('drag', false);
+			
 			if(dragcoords != dragstop)
+			{
+				$('#edit_bldg').hide();
 				$('#chooser')
 					.css('top', $(this).position().top)
 					.css('left', $(this).position().left)
 					.show();
+			}
 		})
 		.live('mouseover', function()
 		{
@@ -235,7 +325,7 @@ $(function()
 						for(b = dragcoords[1]; b <= newdrag[1]; b++)
 							$('#cell_' + a + '_' + b)
 								.find('img')
-								.attr('src', kaiju_globals.base_url + 'images/tiles/box-hi.gif');
+								.attr('src', kaiju_globals.base_url_path + 'images/tiles/box-hi.gif');
 				dragstop = $(this).attr('id').split('_');
 				dragstop = [dragstop[1], dragstop[2]];
 	 		}

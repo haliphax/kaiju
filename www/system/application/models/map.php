@@ -657,6 +657,13 @@ SQL;
 				$map));
 		}
 	}
+	
+	# get all building classes =================================================
+	function getAllClasses()
+	{
+		$q = $this->db->query('select sclass as bclass, abbrev from class_structure');
+		return $q->result_array();
+	}
 
 	# get building classes =====================================================
 	function getBuildingClasses($map, $building)
@@ -667,7 +674,7 @@ SQL;
 				join class_structure cs on bc.bclass = cs.sclass
 				where bc.map = ? and bc.building = ?
 SQL;
-		$q = $this->db->query($sql, array($map, $building));
+		$q = $this->db->query($s, array($map, $building));
 		return $q->result_array();
 	}
 

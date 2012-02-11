@@ -22,9 +22,8 @@ class mapedit extends Controller
 	# list maps ================================================================
 	function index()
 	{
-		$this->load->view('mapedit/maplist',
-			array('maps' => $this->mapeditor->getMapList())
-			);
+		$this->load->view('mapedit/maplist', array(
+			'maps' => $this->mapeditor->getMapList()));
 	}
 	
 	# edit a map ===============================================================
@@ -43,9 +42,10 @@ class mapedit extends Controller
 				);
 		$this->load->view('mapedit/mapedit',
 			array(
-				'map'	=> $map,
-				'tiles'	=> $tiles,
-				'size'	=> $this->minisize
+				'map'		=> $map,
+				'tiles'		=> $tiles,
+				'size'		=> $this->minisize,
+				'bclasses'	=> $this->map->getAllClasses()
 				)
 			);
 	}
@@ -75,6 +75,39 @@ class mapedit extends Controller
 		if(! $this->user->canEditMap($this->session->userdata('user'), $map))
 			die(header('Location: ' . site_url('mapedit')));
 		echo json_encode($this->mapeditor->getChunk($map, $x, $y, 10));
+	}
+	
+	# AJAX - building settings =================================================
+	function get_building($x, $y)
+	{
+		$map = $this->session->userdata('mapedit');
+		if(! $this->user->canEditMap($this->session->userdata('user'), $map))
+			die(header('Location: ' . site_url('mapedit')));
+		$cell = $this->map->getCellInfo($map, $x, $y);
+		if(! $cell['building'])
+			die(json_encode(array('error' => 1)));
+		echo json_encode(array('classes' => $this->map->getBuildingClasses($map, $cell['building'])));
+	}
+	
+	# AJAX - delete a building class ===========================================
+	function remove_class($x, $y, $bclass)
+	{
+		$map = $this->session->userdata('mapedit');
+		if(! $this->user->canEditMap($this->session->userdata('user'), $map))
+			die(header('Location: ' . site_url('mapedit')));
+		$cell = $this->map->getCellInfo($map, $x, $y);
+		return $this->map->removeBuildingClass($map, $cell['building'], $bclass);
+	}
+	
+	# AJAX - add a building class ==============================================
+	
+	function add_class($x, $y, $bclass)
+	{
+		$map = $this->session->userdata('mapedit');
+		if(! $this->user->canEditMap($this->session->userdata('user'), $map))
+			die(header('Location: ' . site_url('mapedit')));
+		$cell = $this->map->getCellInfo($map, $x, $y);
+		return $this->map->addBuildingClass($map, $cell['building'], $bclass);	
 	}
 	
 	# AJAX - modify cells ======================================================

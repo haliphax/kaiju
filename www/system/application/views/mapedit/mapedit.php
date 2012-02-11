@@ -33,7 +33,7 @@
 				</tr>
 			</table>
 			<button class="button ed_button" id="btn_minimap">Mini Map</button>
-			<button class="ui-state-error ed_button button" onclick="window.location = '<?=site_url('mapedit')?>';">Map List</button>
+			<button class="ui-state-error ed_button button" onclick="window.location='<?=site_url('mapedit')?>';">Map List</button>
 		</div>
 		<div id="spacer"></div>
 	</div>
@@ -43,5 +43,15 @@
 		<img id="minimap_img" src="<?=site_url("/maped/mini/{$map['map']}/1/1")?>" />
 	</div>
 	<div id="chooser"></div>
+	<div id="building_dialog" class="dialog" title="Edit building">
+		<p><b>Classes:</b> <span id="building_classes">None</span></p>
+		Add class:
+		<select name="class" id="class">
+		<?php foreach($bclasses as $bclass): ?>
+			<option value="<?=$bclass['bclass']?>"><?=$bclass['abbrev'];?></option>
+		<?php endforeach; ?>
+		</select>
+		<button class="button" type="button" id="btn_edit_building" onclick="return add_class();">Submit</button>
+	</div>
 </body>
 </html>

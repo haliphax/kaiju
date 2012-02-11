@@ -5,7 +5,7 @@
 <head>
 	<title>map list - map editor - kaiju!</title>
 <?php include(BASEPATH . '../includes/header.inc.php'); ?>
-	<link rel="stylesheet" type="text/css" href="<?=site_url("css")?>/maplist.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>maplist.css" />
 </head>
 <body>
 	<div id="wrapper">
