@@ -144,7 +144,8 @@ SQL;
 			$sql = <<<SQL
 				select actor from actor
 				where map = ? and x = ? and y = ? and indoors = ?
-				and stat_hp > 0
+					and stat_hp > 0
+					and actor not in (select actor from actor_npc)
 SQL;
 			$query = $this->db->query($sql, array($map, $x, $y, $i));
 			# nobody else to tell!
@@ -172,6 +173,7 @@ SQL;
 		$sql = <<<SQL
 			update actor set evts = 1
 			where map = ? and x = ? and y = ? and indoors = ?
+				and actor not in (select actor from actor_npc)
 SQL;
 		$this->db->query($sql, array($map, $x, $y, $i));
 	}

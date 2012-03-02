@@ -70,7 +70,7 @@ class give extends CI_Model
 	
 	function show(&$actor, &$victim)
 	{
-		if($victim['actor'] <= 0) return false;
+		if($victim['actor'] <= 0 || $victim['user'] <= 0) return false;
 		if(! $this->params(&$actor)) return false;
 		
 		if($this->ci->skills->canMelee($victim['actor'], $actor['actor'],

@@ -6,7 +6,7 @@ class tick extends CI_Controller
 	{
 		# don't allow web access to this controller
 		#if(array_key_exists('HTTP_HOST', $_SERVER)) die(show_404());
-		if($_SERVER['REMOTE_ADDR'] != '173.236.60.18') die(show_404());
+		#if($_SERVER['REMOTE_ADDR'] != '173.236.60.18') die(show_404());
 		parent::__construct();
 		$this->load->database();
 	}
@@ -78,6 +78,17 @@ SQL;
 			
 			$sql = 'delete from actor_item where lifespan <= 0';
 			$this->db->query($sql);
+			
+			# NPC spawning
+			$q = $this->db->query('select abbrev from npc');
+			$r = $q->result_array();
+			
+			foreach($r as $row)
+			{
+				$which = "n_{$row['abbrev']}";
+				$this->load->model("npcs/{$which}");
+				$this->$which->spawn();
+			}
 		}
 		# every hour -----------------------------------------------------------
 		else if($tick == 60)

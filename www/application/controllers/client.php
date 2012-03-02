@@ -54,7 +54,7 @@ class client extends CI_Controller
 	# destructor - output json-encoded return value ============================
 	function __destruct()
 	{
-		if(is_array($this->ret_val['msg']) && count($this->ret_val['msg'] <= 0))
+		if(is_array($this->ret_val['msg']) && ! isset($this->ret_val['msg'][0]))
 			unset($this->ret_val['msg']);
 		if(in_array($this->uri->segment(2), array('actionview')))
 			return;		
@@ -606,6 +606,8 @@ SQL;
 		$this->ret_val['faction_name'] = $who['faction_name'];
 		$this->ret_val['clan'] = $who['clan'];
 		$this->ret_val['clan_name'] = $who['clan_name'];
+		if($who['user'] <= 0)
+			$this->ret_val['npc'] = 1;
 		$this->load->model('clan');
 		$rel = $this->clan->existsRelation($this->who['clan'], $who['clan']);
 		
@@ -975,6 +977,7 @@ SQL;
 						select aname, actor, stat_hp
 						from actor where lower(aname) = ?
 							and map = ? and x = ? and y = ? and indoors = ?
+						and user > 0
 SQL;
 					$q = $this->db->query($s, array(
 						strtolower($sendto), $this->who['map'], $this->who['x'],

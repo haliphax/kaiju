@@ -349,9 +349,10 @@ function actorMenu(actor, descr)
 				
 				$('#profile_status').html(ret.status);
 				
-				actHtml +=
-					' <div class="skillbutton inline nowrap"><button class="button ui-state-default ui-corner-all" onclick=\'whisper("'
-					+ ret.aname + '")\'>Whisper</button></div>';			
+				if(! ret.npc)
+					actHtml +=
+						' <div class="skillbutton inline nowrap"><button class="button ui-state-default ui-corner-all" onclick=\'whisper("'
+						+ ret.aname + '")\'>Whisper</button></div>';			
 				$('#profile_health').html(ret.health);
 				
 				if(descr == true)
