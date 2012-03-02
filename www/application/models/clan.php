@@ -30,6 +30,8 @@ class clan extends CI_Model
 	# get clan information =====================================================
 	function getInfo($clan)
 	{
+		if(! $clan)
+			return;
 		$s = <<<SQL
 			select c.*, cs.map, cs.building, cs.shield, mc.x, mc.y,
 				count(actor) as members from clan c
@@ -363,6 +365,8 @@ SQL;
 	{
 		$myclan = $this->getInfo($clan);
 		$theirclan = $this->getInfo($rclan);
+		if(! array_key_exists($theirclan, 'faction'))
+			return false;
 		if($myclan['faction'] == $theirclan['faction'])
 			return false;
 		if(! $this->existsRelation($clan, $rclan))

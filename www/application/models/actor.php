@@ -782,7 +782,6 @@ SQL;
 		
 		$msg = array();
 		$totdmg = 0;
-		$rc = count($res) - 1;
 		$weps = $this->getWeapons($actor['actor']);
 		$this->ci->load->model('effects');
 		
@@ -854,7 +853,7 @@ SQL;
 		if(! $fail)
 		{
 			$ret = $this->spendAP(1, &$actor);
-			foreach($ret as $r) $msg[] = $r;
+			if($ret) foreach($ret as $r) $msg[] = $r;
 			$this->setStatFlag($victim);
 		}
 		
@@ -1025,7 +1024,7 @@ SQL;
 				{
 					$msg[] =
 						"You attack {$vic['aname']}'s {$target} with your {$w['iname']} for {$hit['dmg']} {$w['dmg_type']} damage.";
-					if($vic['actor'] > 0)
+					if($vic['actor'] > 0 && $vic['user'] > 0)
 						$this->sendEvent(
 							"{$actor['aname']} attacked your {$target} with their {$w['iname']} for {$hit['dmg']} {$w['dmg_type']} damage.",
 							$vic['actor']
@@ -1035,7 +1034,7 @@ SQL;
 				{
 					$msg[] =
 						"You critically strike {$vic['aname']}'s {$target} with your {$w['iname']} for {$hit['dmg']} {$w['dmg_type']} damage!";
-					if($vic['actor'] > 0)
+					if($vic['actor'] > 0 && $vic['user'] > 0)
 						$this->sendEvent(
 							"{$actor['aname']} critically struck your {$target} with their {$w['iname']} for {$hit['dmg']} {$w['dmg_type']} damage!",
 							$vic['actor']
@@ -1046,8 +1045,9 @@ SQL;
 				{
 					$msg[] =
 						"Their armor absorbed {$hit['absorbed']} damage.";
-					$this->sendEvent("Your armor absorbed {$hit['absorbed']} "
-						. "damage.", $vic['actor']);
+					if($vic['user'] > 0)
+						$this->sendEvent("Your armor absorbed {$hit['absorbed']} "
+							. "damage.", $vic['actor']);
 				}
 
 				if($w['eq_slot'] == 'MH')
@@ -1058,7 +1058,7 @@ SQL;
 				$vic['stat_hp'] -= $hit['dmg'];
 				
 				# armor durability decrement
-				if(rand(1, 100) <= 15)
+				if(rand(1, 100) <= 15 && $vic['user'] > 0)
 				{
 					$ret = $this->ci->item->decDurability($armor['instance'],
 						$vic['actor']);
@@ -1079,21 +1079,25 @@ SQL;
 				{
 					$this->addXP($actor, 5);
 					$msg[] = "You have killed {$vic['aname']}!";
-					$this->sendEvent(
-						"You have been killed by {$actor['aname']}!",
-						$vic['actor']);
-					# inventory damage
-					$items = $this->getItems($vic['actor']);
-
-					foreach($items as $i)
+					
+					if($vic['user'] > 0)
 					{
-						if(rand(1, 100) > 35)
-							continue;
-						$ret = $this->ci->item->decDurability($i['instance'], $vic);
-						foreach($ret as $r)
-							$this->sendEvent($r, $vic['actor']);
-					}
+						$this->sendEvent(
+							"You have been killed by {$actor['aname']}!",
+							$vic['actor']);
+						# inventory damage
+						$items = $this->getItems($vic['actor']);
 
+						foreach($items as $i)
+						{
+							if(rand(1, 100) > 35)
+								continue;
+							$ret = $this->ci->item->decDurability($i['instance'], $vic);
+							foreach($ret as $r)
+								$this->sendEvent($r, $vic['actor']);
+						}
+					}
+					
 					$this->ci->load->model('map');
 					$this->ci->map->sendCellEvent(
 						"{$vic['aname']} was killed by {$actor['aname']}!",

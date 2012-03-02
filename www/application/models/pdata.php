@@ -53,7 +53,7 @@ SQL;
 	}
 	
 	# increment pdata ==========================================================
-	function inc($dtype, $dkey, $inc, $owner = 0; $akey = 0)
+	function inc($dtype, $dkey, $inc, $owner = 0, $akey = 0)
 	{
 		$s = <<<SQL
 			update pdata
