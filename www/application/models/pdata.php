@@ -51,4 +51,15 @@ SQL;
 		$this->db->query($sql, array(
 			$dtype, $owner, $dkey, $akey));	
 	}
+	
+	# increment pdata ==========================================================
+	function inc($dtype, $dkey, $inc, $owner = 0; $akey = 0)
+	{
+		$s = <<<SQL
+			update pdata
+			set dval = cast(dval as signed) + ?
+			where dtype = ? and owner = ? and dkey = ? and altkey = ?
+SQL;
+		$this->db->query($s, array($inc, $dtype, $owner, $dkey, $akey))
+	}
 }

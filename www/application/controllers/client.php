@@ -54,13 +54,10 @@ class client extends CI_Controller
 	# destructor - output json-encoded return value ============================
 	function __destruct()
 	{
-		if(count($this->ret_val['msg']) &&
-				! $this->ret_val['msg'][0])
-		{
+		if(is_array($this->ret_val['msg']) && count($this->ret_val['msg'] <= 0))
 			unset($this->ret_val['msg']);
-		}
-
-		if(in_array($this->uri->segment(2), array('actionview'))) return;		
+		if(in_array($this->uri->segment(2), array('actionview')))
+			return;		
 		echo json_encode($this->ret_val);	
 	}
 
