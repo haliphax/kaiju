@@ -1920,7 +1920,7 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-02-11 15:47:02
+-- Dump completed on 2012-02-15 19:37:54
 -- MySQL dump 10.11
 --
 -- Host: localhost    Database: roadhaus_kaiju_test
@@ -2067,7 +2067,7 @@ CREATE TABLE `actor_item` (
   KEY `durmax` (`durmax`),
   KEY `fk_actor_item_actor1` (`actor`),
   KEY `fk_actor_item_item1` (`inum`)
-) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2162,7 +2162,7 @@ CREATE TABLE `event` (
   `stamp` int(11) NOT NULL,
   `descr` varchar(255) collate utf8_bin NOT NULL,
   PRIMARY KEY  (`event`)
-) ENGINE=MyISAM AUTO_INCREMENT=113 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=116 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2196,4 +2196,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-02-11 15:47:02
+-- Dump completed on 2012-02-15 19:37:54

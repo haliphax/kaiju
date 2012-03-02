@@ -544,6 +544,7 @@ function getStatus(force, forcemap)
 					$('#occupants .block').html('');
 					$('#surroundings .block').html('');
 					$('#effects').html('');
+					$('.dialog').dialog('close');
 					
 					if(ret.actd)
 					{
@@ -579,6 +580,7 @@ function getStatus(force, forcemap)
 					$('#occupants div').html('');
 					$('#surroundings .block').html('');
 					$('#actions .block').html('');
+					$('.dialog').dialog('close');
 					if(! blankme)
 						addToLog([false, "You are <b>exhausted</b>."]);
 					clearTimeout(kaijuTimer);
