@@ -16,9 +16,10 @@ function scanhrzn()
 		async: true,
 		success: function(ret)
 		{
-			ajaxResponse(ret);
 			var html = '';
 			if(ret.cells) html = buildMap(ret.cells);
+			ret.cells = null;
+			ajaxResponse(ret);
 			$('#scan_map').html(html);
 			$('#scan').dialog('option', 'width', 600).dialog('open');
 		},
