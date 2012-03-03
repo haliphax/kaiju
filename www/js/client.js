@@ -23,7 +23,6 @@ function ajaxResponse(ret)
 	}			
 
 	var blankme = false;
-	if(ret.cells) $('#map').html(buildMap(ret.cells, 1));
 	if(typeof ret.stat == 'undefined') return;
 	var stat = ret.stat;
 	var effHtml = '';
@@ -264,6 +263,8 @@ function ajaxResponse(ret)
 			loadedScripts[a] = 1;
 		}
 	}
+	
+	if(ret.cells) $('#map').html(buildMap(ret.cells, 1));
 }
 
 // action helper
