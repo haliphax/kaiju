@@ -35,7 +35,7 @@ function auction_list()
 		async: true,
 		success: function(ret)
 		{
-			if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			html = '';
 			$('.auc_remove').remove();
 			var odd = 0;
@@ -92,7 +92,7 @@ function auction_bid(td, aucnum)
 		dataType: 'json',
 		success: function(ret)
 		{
-			if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			$('#auction_bid').data('aucnum', aucnum);
 			$('#auction_bid_auction')
 				.html($(td).parent().parent().find('td:first').html());
@@ -178,7 +178,7 @@ function auction_bid_cancel(aucnum)
 		async: true,
 		success: function(ret)
 		{
-			if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			$('#my_bids_button').click();
 		},
 		error: ajaxError,
@@ -199,7 +199,7 @@ function auction_auction_cancel(aucnum)
 		async: true,
 		success: function(ret)
 		{
-			if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			$('#my_auctions_button').click();
 		},
 		error: ajaxError,
@@ -219,7 +219,7 @@ function auction_auction_bids(aucnum)
 		async: true,
 		success: function(ret)
 		{
-			if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			$('.offr_remove').remove();
 			var html = '';
 			var odd = 0;
@@ -263,7 +263,7 @@ function auction_auction_accept(aucnum, bidnum)
 		async: true,
 		success: function(ret)
 		{
-			if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			$('#offers_list').dialog('close');
 			$('#my_auctions_button').click();
 		},
@@ -295,7 +295,7 @@ function auction_list_hooks()
 			async: true,
 			success: function(ret)
 			{
-				if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+				ajaxResponse(ret);
 				$('#auction_bid').dialog('close');
 				auction_list();
 			},
@@ -316,7 +316,7 @@ function auction_list_hooks()
 			async: true,
 			success: function(ret)
 			{
-				if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+				ajaxResponse(ret);
 				html = '';
 				$('.mybids_remove').remove();
 				var odd = 0;
@@ -373,7 +373,7 @@ function auction_list_hooks()
 			async: true,
 			success: function(ret)
 			{
-				if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+				ajaxResponse(ret);
 				html = '';
 				$('.myauctions_remove').remove();
 				var odd = 0;
@@ -426,7 +426,7 @@ function auction_list_hooks()
 			dataType: 'json',
 			success: function(ret)
 			{
-				if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+				ajaxResponse(ret);
 				var html = '';
 				
 				for(r in ret.params) {
@@ -480,7 +480,7 @@ function auction_list_hooks()
 			async: true,
 			success: function(ret)
 			{
-				if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);			
+				ajaxResponse(ret);
 				$('#auction_auction').dialog('close');
 				$('#my_auctions_button').click();
 			},

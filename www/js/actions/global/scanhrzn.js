@@ -16,16 +16,13 @@ function scanhrzn()
 		async: true,
 		success: function(ret)
 		{
-			if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			var html = '';
 			if(ret.cells) html = buildMap(ret.cells);
 			$('#scan_map').html(html);
 			$('#scan').dialog('option', 'width', 600).dialog('open');
-			getStatus(true);
 		},
 		error: ajaxError,
 		complete: decTrans
 	});
-	
-	getStatus(true);
 }

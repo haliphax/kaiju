@@ -9,6 +9,7 @@ var loadedScripts = [];
 
 function ajaxResponse(ret)
 {
+	kaijuTimer = setTimeout(getStatus, kaijuTimerDelay);
 	if(ret == null)
 		return;
 	if(ret.msg)
@@ -20,6 +21,249 @@ function ajaxResponse(ret)
 		window.location = kaiju_globals.base_url + 'login';
 		return;
 	}			
+
+	var blankme = false;
+	if(ret.cells) $('#map').html(buildMap(ret.cells, 1));
+	if(typeof ret.stat == 'undefined') return;
+	var stat = ret.stat;
+	var effHtml = '';
+	var occHtml = '';
+	var surrHtml = '';
+	var actHtml = '';
+	var skillsHtml = '';
+	
+	if(stat.stat_hp)
+	{
+		if(stat.stat_hp <= 0)
+		{
+			$('#map').html('');
+			$('#occupants .block').html('');
+			$('#surroundings .block').html('');
+			$('#effects').html('');
+			$('.dialog').dialog('close');
+			
+			if(ret.actd)
+			{
+				if(actHtml) actHtml += ', ';
+				actHtml += actionHelper('dead', ret.actd);
+				$('#actions .block').html(actHtml);
+			}
+			
+			addToLog([false, "You are <b>dead</b>."]);
+			clearTimeout(kaijuTimer);
+			blankme = true;
+		}
+		
+		$('#bar_hp span.prog')
+			.html(stat.stat_hp + '/' + stat.stat_hpmax);
+		$('#bar_hp').progressbar('option', 'value',
+			stat.stat_hp / stat.stat_hpmax * 100);
+	}
+	
+	if(stat.stat_xp)
+	{
+		$('#bar_xp span.prog')
+			.html(stat.stat_xp + '/' + stat.stat_xplevel);
+		$('#bar_xp').progressbar('option', 'value',
+			stat.stat_xp / stat.stat_xplevel * 100);
+	}
+	
+	if(stat.stat_ap)
+	{
+		if(stat.stat_ap <= 0)
+		{
+			$('#map').html('');
+			$('#occupants div').html('');
+			$('#surroundings .block').html('');
+			$('#actions .block').html('');
+			$('.dialog').dialog('close');
+			if(! blankme)
+				addToLog([false, "You are <b>exhausted</b>."]);
+			clearTimeout(kaijuTimer);
+			blankme = true;
+		}
+		
+		$('#bar_ap span.prog')
+			.html(stat.stat_ap + '/' + stat.stat_apmax);
+		$('#bar_ap').progressbar('option', 'value',
+			stat.stat_ap / stat.stat_apmax * 100);
+	}
+	
+	if(stat.stat_mp)
+	{
+		$('#bar_mp span.prog')
+			.html(stat.stat_mp + '/' + stat.stat_mpmax);
+		$('#bar_mp').progressbar('option', 'value',
+			stat.stat_mp / stat.stat_mpmax * 100);
+	}
+	
+	for(a in ret.effects)
+	{
+		if(a > 0) effHtml += ', ';
+		effHtml += '<a href="#" class="nowrap" onclick="return describeEffect(\''
+			+ ret.effects[a].effect + '\',\'' + ret.effects[a].ename
+			+ '\')">' + ret.effects[a].ename
+			+ '</a>';
+	}
+	
+	if(blankme) return;
+	var dojs = false;
+	
+	if(ret.actg)
+	{
+		dojs = true;
+		if(actHtml) actHtml += ', ';
+		actHtml += actionHelper('global', ret.actg);
+	}
+	
+	if(ret.actb)
+	{
+		dojs = true;
+		if(actHtml) actHtml += ', ';
+		actHtml += actionHelper('building', ret.actb);
+	}
+	
+	if(ret.actc)
+	{
+		dojs = true;
+		if(actHtml) actHtml += ', ';
+		actHtml += actionHelper('cell', ret.actc);
+	}
+	
+	if(ret.skills)
+	{
+		dojs = true;
+		
+		for(r in ret.skills)
+		{
+			var cost = false;
+			if(ret.skills[r].cost_ap > 1
+				|| ret.skills[r].cost_mp > 1)
+				cost = true;
+			var both = false;
+			if(ret.skills[r].cost_ap > 1
+				&& ret.skills[r].cost_mp > 1)
+				both = true;
+			if(skillsHtml) skillsHtml += ', ';
+			skillsHtml += '<div class="inline nowrap"><a href="#" id="a_' + ret.skills[r].abbrev + '" onclick="';
+
+			if(ret.skills[r].js == 1) 
+			{
+				skillsHtml += ret.skills[r].abbrev + '();" ';
+
+				if(! loadedScripts[ret.skills[r].abbrev])
+				{
+					skillsHtml += 'class="a-loading" ';
+					scriptsToLoad[ret.skills[r].abbrev] = 'skills/' + ret.skills[r].abbrev;
+				}
+			}
+			else
+			{
+				if(ret.skills[r].params != 0)
+					skillsHtml += 'getSkillParams('
+						+ (ret.skills[r].rpt == 1 ? 'true' : 'false')
+						+ ',';
+				else
+					skillsHtml += 'useSkill(';
+				skillsHtml += ret.skills[r].skill + ',false,'
+					+ (ret.skills[r].params == 0 ? 'false' : 'true')
+					+ ');"';
+			}
+			
+			skillsHtml += '>' + ret.skills[r].sname + '</a>';
+			if (ret.skills[r].rpt == 1 && ret.skills[r].params != 1)
+				skillsHtml += ' <a href="#" onclick="repeatSkill(\''
+					+ ret.skills[r].skill + '\');">x5</a>';
+			skillsHtml += (cost ? ' <span class="cost">('
+					+ (ret.skills[r].cost_ap > 1
+					? ret.skills[r].cost_ap + (both ? '/' : '') : '')
+					+ (ret.skills[r].cost_mp > 1
+					? ret.skills[r].cost_mp + 'm' : '') + ')</span>'
+					: '')
+					+ '</div>';
+		}
+	}
+
+	if(ret.info)
+	{
+		$('#coord_x').html(ret.info.x);
+		$('#coord_y').html(ret.info.y);
+		$('#coord_desc').html(ret.info.descr);
+		if(ret.info.town)
+			$('#coord_desc').append('<br /><i>Town: ' + ret.info.town
+				+ '</i>');
+	}
+	else
+	{
+		$('#coord_x, #coord_y').html('0');
+		$('#coord_desc').html('Unknown');
+	}
+	
+	if(ret.occ)
+	{
+		var occ = ret.occ;
+		var first = [true, true];
+		var b = occ.length;
+		var och = ['', ''];
+		
+		for(a = 0; a < b; a++)
+		{
+			if(occ[a].actor != stat.actor)
+			{
+				if(! first[occ[a].elev])
+					och[occ[a].elev] += ', ';
+				else
+					och[occ[a].elev] = (occ[a].elev != ret.elev
+						? '<b>' + (ret.elev ? 'Below' : 'Above')
+						+ ': </b>' : '');
+				och[occ[a].elev] +=
+					'<a href="#" onclick="actorMenu(' + occ[a].actor
+					+ ',1);"' + (occ[a].ally ? 'class="allyname"'
+					: (occ[a].enemy ? 'class="enemyname"' :
+					(occ[a].faction != ret.stat.faction
+					? 'class="badguy"' : 'class="goodguy"')))
+					+ '>' + occ[a].aname + '</a>';
+				first[occ[a].elev] = false;
+			}
+		}
+		
+		var other = Math.abs(ret.elev - 1);
+		occHtml = och[ret.elev] + (och[other] != '' ? '<p />' : '')
+			+ och[other];
+	}
+	
+	if(ret.corpses)
+		if(ret.corpses == 1)
+			surrHtml +=
+				'There is a <b>corpse</b> here.&nbsp;';
+		else if(ret.corpses > 1)
+			surrHtml += 'There are <b>' + ret.corpses
+				+ ' corpses</b> on the ground.&nbsp;';
+	if(ret.surr) surrHtml += ret.surr;
+	if(! effHtml) effHtml = '<i>None</i>';
+	$('#effects').html('<b>Effects:</b>&nbsp;' + effHtml);
+	$('#occupants .block').html(occHtml);
+	$('#occupants').accordion('resize')
+	$('#surroundings .block').html(surrHtml);
+	$('#surroundings').accordion('resize');
+	$('#actions .block').html(actHtml);
+	$('#actions').accordion('resize');
+	$('#skills .block').html(skillsHtml);
+	$('#skills').accordion('resize');
+	
+	if(dojs)
+	{
+		for(a in scriptsToLoad)
+		{
+			if(loadedScripts[a]) continue;
+			var newscr = document.createElement('script');
+			newscr.type = 'text/javascript';
+			newscr.async = true;
+			newscr.src = kaiju_globals.base_url_path + 'js/' + scriptsToLoad[a] + '.js';
+			$('body').append(newscr);
+			loadedScripts[a] = 1;
+		}
+	}
 }
 
 // action helper
@@ -134,7 +378,6 @@ function chatSubmit(whisper)
 		success: function(ret)
 		{
 			ajaxResponse(ret);
-			getStatus(true);
 		},
 		error: ajaxError,
 		complete: decTrans
@@ -441,7 +684,6 @@ function attack(actor)
 		{
 			ajaxResponse(ret);
 			actorMenu(actor);
-			getStatus(true);
 		},
 		error: ajaxError,
 		complete: decTrans
@@ -469,7 +711,6 @@ function invAction(action, items)
 		{
 			ajaxResponse(ret);
 			$($('#inv_multi > option')[0]).attr('selected', true);
-			getStatus(true);
 			
 			try {
 				if(action == 'item' && items.indexOf('/') > -1)
@@ -500,7 +741,6 @@ function moveto(x, y)
 		{
 			ajaxResponse(ret);
 			$('#profile').dialog('close');
-			getStatus(true, true);
 		},
 		error: ajaxError,
 		complete: decTrans
@@ -526,252 +766,6 @@ function getStatus(force, forcemap)
 		success: function(ret)
 		{
 			ajaxResponse(ret);
-			var blankme = false;
-			if(ret.msg)
-				for(a in ret.msg)
-					addToLog(ret.msg[a]);
-			if(ret.cells) $('#map').html(buildMap(ret.cells, 1));
-			kaijuTimer = setTimeout(getStatus, kaijuTimerDelay);
-			if(typeof ret.stat == 'undefined') return;
-			var stat = ret.stat;
-			var effHtml = '';
-			var occHtml = '';
-			var surrHtml = '';
-			var actHtml = '';
-			var skillsHtml = '';
-			
-			if(stat.stat_hp)
-			{
-				if(stat.stat_hp <= 0)
-				{
-					$('#map').html('');
-					$('#occupants .block').html('');
-					$('#surroundings .block').html('');
-					$('#effects').html('');
-					$('.dialog').dialog('close');
-					
-					if(ret.actd)
-					{
-						if(actHtml) actHtml += ', ';
-						actHtml += actionHelper('dead', ret.actd);
-						$('#actions .block').html(actHtml);
-					}
-					
-					addToLog([false, "You are <b>dead</b>."]);
-					clearTimeout(kaijuTimer);
-					blankme = true;
-				}
-				
-				$('#bar_hp span.prog')
-					.html(stat.stat_hp + '/' + stat.stat_hpmax);
-				$('#bar_hp').progressbar('option', 'value',
-					stat.stat_hp / stat.stat_hpmax * 100);
-			}
-			
-			if(stat.stat_xp)
-			{
-				$('#bar_xp span.prog')
-					.html(stat.stat_xp + '/' + stat.stat_xplevel);
-				$('#bar_xp').progressbar('option', 'value',
-					stat.stat_xp / stat.stat_xplevel * 100);
-			}
-			
-			if(stat.stat_ap)
-			{
-				if(stat.stat_ap <= 0)
-				{
-					$('#map').html('');
-					$('#occupants div').html('');
-					$('#surroundings .block').html('');
-					$('#actions .block').html('');
-					$('.dialog').dialog('close');
-					if(! blankme)
-						addToLog([false, "You are <b>exhausted</b>."]);
-					clearTimeout(kaijuTimer);
-					blankme = true;
-				}
-				
-				$('#bar_ap span.prog')
-					.html(stat.stat_ap + '/' + stat.stat_apmax);
-				$('#bar_ap').progressbar('option', 'value',
-					stat.stat_ap / stat.stat_apmax * 100);
-			}
-			
-			if(stat.stat_mp)
-			{
-				$('#bar_mp span.prog')
-					.html(stat.stat_mp + '/' + stat.stat_mpmax);
-				$('#bar_mp').progressbar('option', 'value',
-					stat.stat_mp / stat.stat_mpmax * 100);
-			}
-			
-			for(a in ret.effects)
-			{
-				if(a > 0) effHtml += ', ';
-				effHtml += '<a href="#" class="nowrap" onclick="return describeEffect(\''
-					+ ret.effects[a].effect + '\',\'' + ret.effects[a].ename
-					+ '\')">' + ret.effects[a].ename
-					+ '</a>';
-			}
-			
-			if(blankme) return;
-			var dojs = false;
-			
-			if(ret.actg)
-			{
-				dojs = true;
-				if(actHtml) actHtml += ', ';
-				actHtml += actionHelper('global', ret.actg);
-			}
-			
-			if(ret.actb)
-			{
-				dojs = true;
-				if(actHtml) actHtml += ', ';
-				actHtml += actionHelper('building', ret.actb);
-			}
-			
-			if(ret.actc)
-			{
-				dojs = true;
-				if(actHtml) actHtml += ', ';
-				actHtml += actionHelper('cell', ret.actc);
-			}
-			
-			if(ret.skills)
-			{
-				dojs = true;
-				
-				for(r in ret.skills)
-				{
-					var cost = false;
-					if(ret.skills[r].cost_ap > 1
-						|| ret.skills[r].cost_mp > 1)
-						cost = true;
-					var both = false;
-					if(ret.skills[r].cost_ap > 1
-						&& ret.skills[r].cost_mp > 1)
-						both = true;
-					if(skillsHtml) skillsHtml += ', ';
-					skillsHtml += '<div class="inline nowrap"><a href="#" id="a_' + ret.skills[r].abbrev + '" onclick="';
-
-					if(ret.skills[r].js == 1) 
-					{
-						skillsHtml += ret.skills[r].abbrev + '();" ';
-
-						if(! loadedScripts[ret.skills[r].abbrev])
-						{
-							skillsHtml += 'class="a-loading" ';
-							scriptsToLoad[ret.skills[r].abbrev] = 'skills/' + ret.skills[r].abbrev;
-						}
-					}
-					else
-					{
-						if(ret.skills[r].params != 0)
-							skillsHtml += 'getSkillParams('
-								+ (ret.skills[r].rpt == 1 ? 'true' : 'false')
-								+ ',';
-						else
-							skillsHtml += 'useSkill(';
-						skillsHtml += ret.skills[r].skill + ',false,'
-							+ (ret.skills[r].params == 0 ? 'false' : 'true')
-							+ ');"';
-					}
-					
-					skillsHtml += '>' + ret.skills[r].sname + '</a>';
-					if (ret.skills[r].rpt == 1 && ret.skills[r].params != 1)
-						skillsHtml += ' <a href="#" onclick="repeatSkill(\''
-							+ ret.skills[r].skill + '\');">x5</a>';
-					skillsHtml += (cost ? ' <span class="cost">('
-							+ (ret.skills[r].cost_ap > 1
-							? ret.skills[r].cost_ap + (both ? '/' : '') : '')
-							+ (ret.skills[r].cost_mp > 1
-							? ret.skills[r].cost_mp + 'm' : '') + ')</span>'
-							: '')
-							+ '</div>';
-				}
-			}
-	
-			if(ret.info)
-			{
-				$('#coord_x').html(ret.info.x);
-				$('#coord_y').html(ret.info.y);
-				$('#coord_desc').html(ret.info.descr);
-				if(ret.info.town)
-					$('#coord_desc').append('<br /><i>Town: ' + ret.info.town
-						+ '</i>');
-			}
-			else
-			{
-				$('#coord_x, #coord_y').html('0');
-				$('#coord_desc').html('Unknown');
-			}
-			
-			if(ret.occ)
-			{
-				var occ = ret.occ;
-				var first = [true, true];
-				var b = occ.length;
-				var och = ['', ''];
-				
-				for(a = 0; a < b; a++)
-				{
-					if(occ[a].actor != stat.actor)
-					{
-						if(! first[occ[a].elev])
-							och[occ[a].elev] += ', ';
-						else
-							och[occ[a].elev] = (occ[a].elev != ret.elev
-								? '<b>' + (ret.elev ? 'Below' : 'Above')
-								+ ': </b>' : '');
-						och[occ[a].elev] +=
-							'<a href="#" onclick="actorMenu(' + occ[a].actor
-							+ ',1);"' + (occ[a].ally ? 'class="allyname"'
-							: (occ[a].enemy ? 'class="enemyname"' :
-							(occ[a].faction != ret.stat.faction
-							? 'class="badguy"' : 'class="goodguy"')))
-							+ '>' + occ[a].aname + '</a>';
-						first[occ[a].elev] = false;
-					}
-				}
-				
-				var other = Math.abs(ret.elev - 1);
-				occHtml = och[ret.elev] + (och[other] != '' ? '<p />' : '')
-					+ och[other];
-			}
-			
-			if(ret.corpses)
-				if(ret.corpses == 1)
-					surrHtml +=
-						'There is a <b>corpse</b> here.&nbsp;';
-				else if(ret.corpses > 1)
-					surrHtml += 'There are <b>' + ret.corpses
-						+ ' corpses</b> on the ground.&nbsp;';
-			if(ret.surr) surrHtml += ret.surr;
-			if(! effHtml) effHtml = '<i>None</i>';
-			$('#effects').html('<b>Effects:</b>&nbsp;' + effHtml);
-			$('#occupants .block').html(occHtml);
-			$('#occupants').accordion('resize')
-			$('#surroundings .block').html(surrHtml);
-			$('#surroundings').accordion('resize');
-			$('#actions .block').html(actHtml);
-			$('#actions').accordion('resize');
-			$('#skills .block').html(skillsHtml);
-			$('#skills').accordion('resize');
-			
-			if(dojs)
-			{
-				for(a in scriptsToLoad)
-				{
-					if(loadedScripts[a]) continue;
-					var newscr = document.createElement('script');
-					newscr.type = 'text/javascript';
-					newscr.async = true;
-					newscr.src = kaiju_globals.base_url_path + 'js/' + scriptsToLoad[a] + '.js';
-					$('body').append(newscr);
-					loadedScripts[a] = 1;
-				}
-			}
 		},
 		error: ajaxError,
 		complete: function()
@@ -844,7 +838,6 @@ function useSkill(skill, actor, params)
 		success: function(ret)
 		{
 			ajaxResponse(ret);
-			getStatus(true);
 			if(actor)
 				actorMenu(actor);
 		},
@@ -1230,7 +1223,6 @@ function useAction(atype, action, actor, params)
 			if(actor && p) actorMenu(actor);
 			else if(params)
 				getActionParams($('#actparams').data('rpt'), atype, action);
-			getStatus(true);
 		},
 		error: ajaxError,
 		complete: decTrans
@@ -1248,7 +1240,6 @@ function repeatAction(atype, action)
 		success: function(ret)
 		{
 			ajaxResponse(ret);
-			getStatus(true);
 		},
 		error: ajaxError,
 		complete: decTrans
@@ -1266,7 +1257,6 @@ function repeatSkill(skill)
 		success: function(ret)
 		{
 			ajaxResponse(ret);
-			getStatus(true);
 		},
 		error: ajaxError,
 		complete: decTrans
@@ -1318,7 +1308,6 @@ $(function()
 			{
 				ajaxResponse(ret);
 				$('#skillparams').data('last', param);
-				getStatus(true);
 				getSkillParams($('#skillparams').data('rpt'), skill);
 			},
 			error: ajaxError,
@@ -1341,7 +1330,6 @@ $(function()
 				ajaxResponse(ret);
 				$('#skillparams').data('last', param);
 				getSkillParams(true, skill);
-				getStatus(true);
 			},
 			error: ajaxError,
 			complete: decTrans

@@ -45,7 +45,7 @@ function clan_create_hooks()
 			async: true,
 			success: function(ret)
 			{
-				if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+				ajaxResponse(ret);
 				$('#clan_create_dialog').dialog('close');
 			},
 			error: ajaxError,

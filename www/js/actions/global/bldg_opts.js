@@ -105,9 +105,8 @@ function building_opts_hooks() {
 			async: true,
 			success: function(ret)
 			{
-				if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+				ajaxResponse(ret);
 				$('#building_opts').dialog('close');
-				getStatus(true);
 			},
 			error: ajaxError,
 			complete: decTrans
@@ -125,9 +124,8 @@ function building_opts_hooks() {
 			async: true,
 			success: function(ret)
 			{
-				if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+				ajaxResponse(ret);
 				building_upkeep_params();
-				getStatus(true);
 			},
 			error: ajaxError,
 			complete: decTrans
@@ -145,9 +143,8 @@ function building_opts_hooks() {
 			async: true,
 			success: function(ret)
 			{
-				if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+				ajaxResponse(ret);
 				building_upkeep_params();
-				getStatus(true);
 			},
 			error: ajaxError,
 			complete: decTrans

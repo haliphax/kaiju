@@ -354,6 +354,7 @@ class client extends CI_Controller
 		$ret = $this->actor->move($this->who, $map, $x, $y);
 		$this->map->setRadiusEvtM($map, $x, $y);
 		foreach($ret as $r) $this->ret_val['msg'][] = $this->_logText($r);
+		$this->status(1, 1);
 	}
 	
 	# drop item(s) =============================================================
@@ -370,6 +371,7 @@ class client extends CI_Controller
 		else
 			$msg = 'Item(s) dropped.';
 		$this->ret_val['msg'][] = $this->_logText($msg);
+		$this->status(true);
 	}
 	
 	# drop stack(s) of items ===================================================
@@ -404,6 +406,7 @@ class client extends CI_Controller
 		}
 		
 		$this->ret_val['msg'][] = $this->_logText('Stack(s) dropped.');
+		$this->status(1);
 	}
 	
 	# check inventory ==========================================================
@@ -455,6 +458,7 @@ SQL;
 			
 			foreach($ret as $r)
 				$this->ret_val['msg'][] = $this->_logText($r);
+			$this->status(1);
 		}
 	}
 	
@@ -760,6 +764,7 @@ SQL;
 				"You are too encumbered to attack.");
 		$ret = $this->actor->attack($victim, &$this->who);
 		foreach($ret as $m) $this->ret_val['msg'][] = $this->_logText($m);
+		$this->status(1);
 	}
 	
 	# equip items ==============================================================
@@ -778,6 +783,8 @@ SQL;
 			foreach($ret as $r)
 				$this->ret_val['msg'][] = $this->_logText($r);
 		}
+		
+		$this->status(1);
 	}
 	
 	# remove items =============================================================
@@ -794,6 +801,8 @@ SQL;
 			foreach($ret as $r)
 				$this->ret_val['msg'][] = $this->_logText($r);
 		}
+		
+		$this->status(1);
 	}
 	
 	# use a skill ==============================================================
@@ -824,6 +833,7 @@ SQL;
 		$ret = $this->actor->useSkill($skill, &$this->who, $params);
 		foreach($ret as $r)
 			$this->ret_val['msg'][] = $this->_logText($r);
+		$this->status(1);
 	}
 	
 	# use an action ============================================================
@@ -855,6 +865,7 @@ SQL;
 			&$retval, $params);
 		foreach($retval as $k => $v) $this->ret_val[$k] = $v;
 		foreach($res as $r) $this->ret_val['msg'][] = $this->_logText($r);
+		$this->status(1);
 	}
 	
 	# repeat x5 ================================================================
@@ -893,6 +904,8 @@ SQL;
 					$this->session->userdata('actor'));
 			}
 		}
+		
+		$this->status(1);
 	}
 	
 	# load the view for an action ==============================================
@@ -1036,6 +1049,7 @@ SQL;
 		$ret = $this->actor->removeEffect('hiding', &$this->who);
 		foreach($ret as $r)
 			$this->ret_val['msg'][] = $this->_logText($r);
+		$this->status(1);
 	}
 	
 	# get a skill's parameters =================================================
