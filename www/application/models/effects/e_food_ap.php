@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_food_ap extends CI_Model
+class e_food_ap extends NoCacheModel
 {
 	private $ci;
 	

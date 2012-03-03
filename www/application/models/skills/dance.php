@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class dance extends CI_Model
+class dance extends NoCacheModel
 {
 	private $ci;
 	

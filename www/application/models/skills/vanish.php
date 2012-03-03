@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class vanish extends CI_Model
+class vanish extends NoCacheModel
 {
 	private $ci;
 	private $cost;

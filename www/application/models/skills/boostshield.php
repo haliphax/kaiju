@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class boostshield extends CI_Model
+class boostshield extends NoCacheModel
 {
 	private $ci;
 	private $cost;

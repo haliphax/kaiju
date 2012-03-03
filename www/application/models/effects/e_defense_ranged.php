@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_defense_ranged extends CI_Model
+class e_defense_ranged extends NoCacheModel
 {
 	private $ci;
 	

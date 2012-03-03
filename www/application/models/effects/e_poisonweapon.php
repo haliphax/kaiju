@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_poisonweapon extends CI_Model
+class e_poisonweapon extends NoCacheModel
 {
 	private $ci;
 	

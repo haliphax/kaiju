@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class poisonstrike extends CI_Model
+class poisonstrike extends NoCacheModel
 {
 	private $ci;
 	private $cost;

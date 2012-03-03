@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class scavenge extends CI_Model
+class scavenge extends NoCacheModel
 {
 	private $ci;
 	private $cost;

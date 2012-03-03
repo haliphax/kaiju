@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_insp_dance_fallingleaf extends CI_Model
+class e_insp_dance_fallingleaf extends NoCacheModel
 {
 	private $ci;
 	

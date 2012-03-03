@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_kujiin_sha extends CI_Model
+class e_kujiin_sha extends NoCacheModel
 {
 	private $ci;
 	

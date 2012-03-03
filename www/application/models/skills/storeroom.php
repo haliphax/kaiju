@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class storeroom extends CI_Model
+class storeroom extends NoCacheModel
 {
 	function storeroom()
 	{

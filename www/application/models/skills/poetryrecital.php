@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class poetryrecital extends CI_Model
+class poetryrecital extends NoCacheModel
 {
 	private $ci;
 	private $cost;

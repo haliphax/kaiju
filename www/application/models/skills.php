@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class skills extends CI_Model
+class skills extends NoCacheModel
 {
 	private $ci;
 	public $nomp = array("You do not have enough mystical energy.");

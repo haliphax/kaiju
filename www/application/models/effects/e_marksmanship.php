@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_marksmanship extends CI_Model
+class e_marksmanship extends NoCacheModel
 {
 	private $ci;
 	

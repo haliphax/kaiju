@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class healingtouch extends CI_Model
+class healingtouch extends NoCacheModel
 {
 	private $ci;
 	private $cost;

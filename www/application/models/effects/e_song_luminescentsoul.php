@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_song_luminescentsoul extends CI_Model
+class e_song_luminescentsoul extends NoCacheModel
 {
 	private $ci;
 	

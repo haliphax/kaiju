@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kendo_men extends CI_Model
+class kendo_men extends NoCacheModel
 {
 	private $ci;
 	private $cost;

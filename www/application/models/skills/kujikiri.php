@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kujikiri extends CI_Model
+class kujikiri extends NoCacheModel
 {
 	private $ci;
 	private $cost;

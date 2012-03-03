@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class rez_graveyard extends CI_Model
+class rez_graveyard extends NoCacheModel
 {
 	private $ci;
 	

@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_meditation extends CI_Model
+class e_meditation extends NoCacheModel
 {
 	private $ci;
 	

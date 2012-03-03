@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class craft_antidote extends CI_Model
+class craft_antidote extends NoCacheModel
 {
 	private $ci;
 	private $cost;

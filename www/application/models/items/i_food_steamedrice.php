@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_food_steamedrice extends CI_Model
+class i_food_steamedrice extends NoCacheModel
 {
 	private $ci;
 

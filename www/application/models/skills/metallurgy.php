@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class metallurgy extends CI_Model
+class metallurgy extends NoCacheModel
 {
 	private $ci;
 	

@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class teaceremony extends CI_Model
+class teaceremony extends NoCacheModel
 {
 	private $ci;
 	private $cost;

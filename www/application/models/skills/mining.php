@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class mining extends CI_Model
+class mining extends NoCacheModel
 {
 	private $ci;
 	private $cost;

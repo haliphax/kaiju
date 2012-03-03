@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_ancestralrage extends CI_Model
+class e_ancestralrage extends NoCacheModel
 {
 	private $ci;
 	

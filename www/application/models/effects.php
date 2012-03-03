@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class effects extends CI_Model
+class effects extends NoCacheModel
 {
 	private $ci;
 	

@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class actor extends CI_Model
+class actor extends NoCacheModel
 {
 	private $ci;
 	

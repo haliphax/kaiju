@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class sh_reclaim extends CI_Model
+class sh_reclaim extends NoCacheModel
 {
 	private $ci;
 	private $cost;

@@ -2,7 +2,7 @@
 
 # persistent data ==============================================================
 
-class pdata extends CI_Model
+class pdata extends NoCacheModel
 {
 	function pdata()
 	{

@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class aimedstrike extends CI_Model
+class aimedstrike extends NoCacheModel
 {
 	private $ci;
 	private $cost;

@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_bp_shack extends CI_Model
+class i_bp_shack extends NoCacheModel
 {
 	private $ci;
 	

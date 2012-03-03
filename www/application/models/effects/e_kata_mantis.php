@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_kata_mantis extends CI_Model
+class e_kata_mantis extends NoCacheModel
 {
 	private $ci;
 	

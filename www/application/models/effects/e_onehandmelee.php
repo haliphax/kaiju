@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_onehandmelee extends CI_Model
+class e_onehandmelee extends NoCacheModel
 {
 	private $ci;
 	

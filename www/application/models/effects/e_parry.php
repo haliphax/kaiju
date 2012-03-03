@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_parry extends CI_Model
+class e_parry extends NoCacheModel
 {
 	private $ci;
 	

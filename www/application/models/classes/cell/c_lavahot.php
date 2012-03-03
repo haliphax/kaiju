@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class c_lavahot extends CI_Model
+class c_lavahot extends NoCacheModel
 {
 	private $ci;
 	

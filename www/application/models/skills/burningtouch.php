@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class burningtouch extends CI_Model
+class burningtouch extends NoCacheModel
 {
 	private $ci;
 	private $cost;

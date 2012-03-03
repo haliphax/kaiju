@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kujiin_rin extends CI_Model
+class kujiin_rin extends NoCacheModel
 {
 	private $ci;
 	private $cost;

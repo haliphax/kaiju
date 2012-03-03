@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class auction_my_auctions extends CI_Model
+class auction_my_auctions extends NoCacheModel
 {
 	private $ci;
 	

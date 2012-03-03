@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_familychokuto extends CI_Model
+class i_familychokuto extends NoCacheModel
 {
 	private $ci;
 	

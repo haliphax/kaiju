@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kata_tiger extends CI_Model
+class kata_tiger extends NoCacheModel
 {
 	private $ci;
 	private $cost;

@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_hiding extends CI_Model
+class e_hiding extends NoCacheModel
 {
 	private $ci;
 	

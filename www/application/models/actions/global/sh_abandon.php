@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class sh_abandon extends CI_Model
+class sh_abandon extends NoCacheModel
 {
 	private $ci;
 	

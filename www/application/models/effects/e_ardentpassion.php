@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_ardentpassion extends CI_Model
+class e_ardentpassion extends NoCacheModel
 {
 	private $ci;
 	

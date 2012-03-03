@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class illuminate extends CI_Model
+class illuminate extends NoCacheModel
 {
 	private $ci;
 	private $cost;

@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class user extends CI_Model
+class user extends NoCacheModel
 {
 	private $ci;
 

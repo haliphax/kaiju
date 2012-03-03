@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class sk_throw extends CI_Model
+class sk_throw extends NoCacheModel
 {
 	private $ci;
 	private $cost;

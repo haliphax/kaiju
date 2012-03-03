@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class dance_mtnpath extends CI_Model
+class dance_mtnpath extends NoCacheModel
 {
 	private $ci;
 	

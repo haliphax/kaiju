@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class majutsu extends CI_Model
+class majutsu extends NoCacheModel
 {
 	private $ci;
 	

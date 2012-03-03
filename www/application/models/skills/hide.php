@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class hide extends CI_Model
+class hide extends NoCacheModel
 {
 	private $ci;
 	private $cost;

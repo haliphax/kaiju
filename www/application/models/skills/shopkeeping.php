@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class shopkeeping extends CI_Model
+class shopkeeping extends NoCacheModel
 {
 	private $ci;
 	private $cost;

@@ -2,7 +2,7 @@
 
 # map editor model =============================================================
 
-class mapeditor extends CI_Model
+class mapeditor extends NoCacheModel
 {
 	function __construct()
 	{

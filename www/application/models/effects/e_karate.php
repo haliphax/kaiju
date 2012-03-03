@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_karate extends CI_Model
+class e_karate extends NoCacheModel
 {
 	private $ci;
 	

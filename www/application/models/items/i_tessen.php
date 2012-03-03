@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_tessen extends CI_Model
+class i_tessen extends NoCacheModel
 {
 	private $ci;
 	private $e;

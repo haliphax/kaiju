@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class carpentry extends CI_Model
+class carpentry extends NoCacheModel
 {
 	private $ci;
 	

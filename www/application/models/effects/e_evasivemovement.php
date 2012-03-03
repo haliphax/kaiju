@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_evasivemovement extends CI_Model
+class e_evasivemovement extends NoCacheModel
 {
 	private $ci;
 	

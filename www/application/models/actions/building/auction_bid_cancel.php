@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class auction_bid_cancel extends CI_Model
+class auction_bid_cancel extends NoCacheModel
 {
 	private $ci;
 	

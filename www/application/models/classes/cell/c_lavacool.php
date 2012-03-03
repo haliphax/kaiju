@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class c_lavacool extends CI_Model
+class c_lavacool extends NoCacheModel
 {
 	function c_lavacool()
 	{

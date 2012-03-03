@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_vigilance extends CI_Model
+class e_vigilance extends NoCacheModel
 {
 	private $ci;
 	

@@ -2,7 +2,7 @@
 
 # common data model ============================================================
 
-class common extends CI_Model
+class common extends NoCacheModel
 {
 	public $cellinfo;	# models/map->getCellInfo cached results
 	

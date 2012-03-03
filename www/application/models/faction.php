@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class faction extends CI_Model
+class faction extends NoCacheModel
 {
 	function faction()
 	{

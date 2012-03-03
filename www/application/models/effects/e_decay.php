@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_decay extends CI_Model
+class e_decay extends NoCacheModel
 {
 	private $ci;
 	

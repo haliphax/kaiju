@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class mysticism extends CI_Model
+class mysticism extends NoCacheModel
 {
 	private $ci;
 	

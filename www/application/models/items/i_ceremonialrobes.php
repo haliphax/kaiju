@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_ceremonialrobes extends CI_Model
+class i_ceremonialrobes extends NoCacheModel
 {
 	private $ci;
 	

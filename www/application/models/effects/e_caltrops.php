@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_caltrops extends CI_Model
+class e_caltrops extends NoCacheModel
 {
 	private $ci;
 	

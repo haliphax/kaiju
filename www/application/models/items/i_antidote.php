@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_antidote extends CI_Model
+class i_antidote extends NoCacheModel
 {
 	private $ci;
 	

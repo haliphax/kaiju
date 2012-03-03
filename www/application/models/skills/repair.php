@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class repair extends CI_Model
+class repair extends NoCacheModel
 {
 	private $ci;
 	

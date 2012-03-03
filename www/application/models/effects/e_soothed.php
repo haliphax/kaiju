@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_soothed extends CI_Model
+class e_soothed extends NoCacheModel
 {
 	private $ci;
 	

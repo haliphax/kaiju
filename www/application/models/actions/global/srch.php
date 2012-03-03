@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class srch extends CI_Model
+class srch extends NoCacheModel
 {
 	private $ci;
 	private $cost;

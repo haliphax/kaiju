@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kujiin_kyo extends CI_Model
+class kujiin_kyo extends NoCacheModel
 {
 	private $ci;
 	private $cost;

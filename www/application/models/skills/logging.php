@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class logging extends CI_Model
+class logging extends NoCacheModel
 {
 	private $ci;
 	private $cost;

@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class cooking extends CI_Model
+class cooking extends NoCacheModel
 {
 	private $ci;
 	

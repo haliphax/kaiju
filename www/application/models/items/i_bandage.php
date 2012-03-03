@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_bandage extends CI_Model
+class i_bandage extends NoCacheModel
 {
 	private $ci;
 	
