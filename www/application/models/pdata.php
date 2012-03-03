@@ -60,6 +60,6 @@ SQL;
 			set dval = cast(dval as signed) + ?
 			where dtype = ? and owner = ? and dkey = ? and altkey = ?
 SQL;
-		$this->db->query($s, array($inc, $dtype, $owner, $dkey, $akey))
+		$this->db->query($s, array($inc, $dtype, $owner, $dkey, $akey));
 	}
 }

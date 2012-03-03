@@ -7,6 +7,21 @@ var fetching = false;
 var scriptsToLoad = [];
 var loadedScripts = [];
 
+function ajaxResponse(ret)
+{
+	if(ret == null)
+		return;
+	if(ret.msg)
+		for(var i in ret.msg)
+			addToLog(ret.msg[i]);
+
+	if(ret.maint)
+	{
+		window.location = kaiju_globals.base_url + 'login';
+		return;
+	}			
+}
+
 // action helper
 function actionHelper(atype, acts)
 {
@@ -118,9 +133,7 @@ function chatSubmit(whisper)
 		async: true,		
 		success: function(ret)
 		{
-			if(ret.msg)
-				for(r in ret.msg)
-					addToLog(ret.msg[r]);				
+			ajaxResponse(ret);
 			getStatus(true);
 		},
 		error: ajaxError,
@@ -219,7 +232,7 @@ function actorMenu(actor, descr)
 		
 		success: function(ret)
 		{
-			if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			$('#profile').data('actor', actor);
 			actHtml = '';
 			var fac = 'none';
@@ -364,6 +377,7 @@ function actorMenu(actor, descr)
 						
 						success: function(rret)
 						{
+							ajaxResponse(rret);
 							var str = '<b>Equipped:</b> ';
 							
 							for(r in rret.descr)
@@ -425,9 +439,7 @@ function attack(actor)
 		
 		success: function(ret)
 		{
-			if(ret.msg)
-				for(r in ret.msg)
-					addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			actorMenu(actor);
 			getStatus(true);
 		},
@@ -455,9 +467,7 @@ function invAction(action, items)
 		
 		success: function(ret)
 		{
-			if(ret.msg)
-				for(r in ret.msg)
-					addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			$($('#inv_multi > option')[0]).attr('selected', true);
 			getStatus(true);
 			
@@ -488,9 +498,7 @@ function moveto(x, y)
 		
 		success: function(ret)
 		{
-			if(ret.msg)
-				for(r in ret.msg)
-					addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			$('#profile').dialog('close');
 			getStatus(true, true);
 		},
@@ -517,12 +525,7 @@ function getStatus(force, forcemap)
 		
 		success: function(ret)
 		{
-			if(ret.maint)
-			{
-				window.location = kaiju_globals.base_url + 'login';
-				return;
-			}
-			
+			ajaxResponse(ret);
 			var blankme = false;
 			if(ret.msg)
 				for(a in ret.msg)
@@ -840,9 +843,7 @@ function useSkill(skill, actor, params)
 		async: true,
 		success: function(ret)
 		{
-			if(ret.msg)
-				for(r in ret.msg)
-					addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			getStatus(true);
 			if(actor)
 				actorMenu(actor);
@@ -864,6 +865,7 @@ function getInventory()
 		
 		success: function(ret)
 		{
+			ajaxResponse(ret);
 			var checkAmmo = [];
 			$('.inv_remove').remove();
 			var html = '';
@@ -943,6 +945,8 @@ function getInventory()
 				
 				success: function(rret)
 				{
+					ajaxResponse(rret);
+					
 					for(a in rret.ammo)
 					{
 						var html = $('#ammo_' + rret.ammo[a].instance).html();
@@ -977,9 +981,7 @@ function changeAmmo(weapon)
 		
 		success: function(ret)
 		{
-			if(ret.msg)
-				for(r in ret.msg)
-					addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			if(ret.success)
 				$('#inventory').profile();
 		},
@@ -999,6 +1001,7 @@ function describeEffect(effect)
 		
 		success: function(ret)
 		{
+			ajaxResponse(ret);
 			$('#effect_desc').html(ret.eff.descr);
 			$('#effect_desc')
 				.dialog('option', 'title', ret.eff.ename)
@@ -1020,6 +1023,7 @@ function describeItem(item)
 		
 		success: function(ret)
 		{
+			ajaxResponse(ret);
 			// item description
 			$('#item_desc_main').html(
 				(ret.descr.img != '' ?
@@ -1113,6 +1117,7 @@ function getSkillParams(rpt, skill)
 		async: true,		
 		success: function(ret)
 		{
+			ajaxResponse(ret);
 			var html = '';
 			for(r in ret.params)
 				html += '<option value="' + ret.params[r][0] + '"'
@@ -1146,6 +1151,7 @@ function getActionParams(rpt, atype, action)
 		async: true,
 		success: function(ret)
 		{
+			ajaxResponse(ret);
 			var html = '';
 			for(r in ret.params)
 				html += '<option value="' + ret.params[r][0] + '"'
@@ -1220,7 +1226,7 @@ function useAction(atype, action, actor, params)
 		dataType: 'json',
 		success: function(ret)
 		{
-			if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			if(actor && p) actorMenu(actor);
 			else if(params)
 				getActionParams($('#actparams').data('rpt'), atype, action);
@@ -1241,7 +1247,7 @@ function repeatAction(atype, action)
 		dataType: 'json',
 		success: function(ret)
 		{
-			if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			getStatus(true);
 		},
 		error: ajaxError,
@@ -1259,7 +1265,7 @@ function repeatSkill(skill)
 		dataType: 'json',
 		success: function(ret)
 		{
-			if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
+			ajaxResponse(ret);
 			getStatus(true);
 		},
 		error: ajaxError,
@@ -1310,10 +1316,8 @@ $(function()
 			async: true,			
 			success: function(ret)
 			{
+				ajaxResponse(ret);
 				$('#skillparams').data('last', param);
-				if(ret.msg)
-					for(r in ret.msg)
-						addToLog(ret.msg[r]);
 				getStatus(true);
 				getSkillParams($('#skillparams').data('rpt'), skill);
 			},
@@ -1334,8 +1338,8 @@ $(function()
 			async: true,
 			success: function(ret)
 			{
+				ajaxResponse(ret);
 				$('#skillparams').data('last', param);
-				if(ret.msg) for(r in ret.msg) addToLog(ret.msg[r]);
 				getSkillParams(true, skill);
 				getStatus(true);
 			},
