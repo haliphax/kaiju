@@ -63,6 +63,8 @@ class client extends CI_Controller
 	# check character's status =================================================
 	function status($force = false, $forcemap = false)
 	{
+		if($force || $forcemap)
+			$this->who = $this->actor->getInfo($this->who['actor']);
 		$this->load->model('actor');
 		$this->actor->clearFlags($this->who['actor']);
 		# char has no AP
@@ -336,7 +338,6 @@ class client extends CI_Controller
 	# move character to x, y, map ==============================================
 	function move($x, $y)
 	{
-		#$this->load->model('actor');
 		$this->actor->setLast($this->who['actor']);
 		if($this->who['stat_ap'] <= 0 || $this->who['stat_hp'] <= 0
 			|| ($this->who['x'] == $x && $this->who['y'] == $y)) return;
