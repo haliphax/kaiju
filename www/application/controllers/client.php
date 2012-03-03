@@ -45,7 +45,6 @@ class client extends CI_Controller
 			$this->session->set_userdata('last_action', $mt);
 		}
 		
-		$this->ret_val = array('msg' => array('debug', round(memory_get_usage() / 1024), 2) . 'k'));
 		$msgs = $this->actor->getEvents($this->who['actor']);
 		foreach($msgs as $m)
 	 		$this->ret_val['msg'][] = $this->_logText($m['descr'], $m['stamp']);
@@ -54,8 +53,6 @@ class client extends CI_Controller
 	# destructor - output json-encoded return value ============================
 	function __destruct()
 	{
-		$this->ret_val['msg'][] = array('debug', $_SERVER['PATH_INFO'] . ' => '
-			. round(memory_get_usage() / 1024, 2) . 'k');
 		if(is_array($this->ret_val['msg']) && ! isset($this->ret_val['msg'][0]))
 			unset($this->ret_val['msg']);
 		if(in_array($this->uri->segment(2), array('actionview')))
