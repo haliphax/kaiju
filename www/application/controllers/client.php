@@ -834,7 +834,8 @@ SQL;
 		$ret = $this->actor->useSkill($skill, &$this->who, $params);
 		foreach($ret as $r)
 			$this->ret_val['msg'][] = $this->_logText($r);
-		$this->status(1);
+		if(! preg_match('#/repeat/#i', $_SERVER['PATH_INFO']))
+			$this->status(1);
 	}
 	
 	# use an action ============================================================
@@ -866,7 +867,8 @@ SQL;
 			&$retval, $params);
 		foreach($retval as $k => $v) $this->ret_val[$k] = $v;
 		foreach($res as $r) $this->ret_val['msg'][] = $this->_logText($r);
-		$this->status(1);
+		if(! preg_match('#/repeat/#i', $_SERVER['PATH_INFO']))
+			$this->status(1);
 	}
 	
 	# repeat x5 ================================================================
