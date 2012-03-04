@@ -415,11 +415,12 @@ function buildMap(cells, main)
 			else if(a == 17) ptrid = 's';
 			else if(a == 18) ptrid = 'se';
 		
-		html +=
-			'<div class="map_cell" title="'
-			+ cells[a].descr + '" style="';
-		html += 'background-image:url(\'' + kaiju_globals.base_url_path + 'images/tiles/' + cells[a].img
-			+ '\');">';
+		html += '<div class="map_cell" title="' + cells[a].descr + '"';
+		if(cells[a].img)
+			html += ' style="background-image:url(\''
+				+ kaiju_globals.base_url_path + 'images/tiles/' + cells[a].img
+				+ '\');"';
+		html += '>';
 		if(cells[a].x != 0)
 			html +=
 				'<div class="map_cell"' +
