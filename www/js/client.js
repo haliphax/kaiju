@@ -929,32 +929,35 @@ function getInventory()
 				$('#inventory').dialog('open');
 			
 			// get ammo options
-			incTrans();
-			$.ajax({
-				type: 'GET',
-				url: kaiju_globals.base_url + 'client/ammo/' + checkAmmo.join(',') + '/?1',
-				dataType: 'json',
-				async: true,
-				
-				success: function(rret)
-				{
-					ajaxResponse(rret);
+			if(checkAmmo.length > 0)
+			{
+				incTrans();
+				$.ajax({
+					type: 'GET',
+					url: kaiju_globals.base_url + 'client/ammo/' + checkAmmo.join(',') + '/?1',
+					dataType: 'json',
+					async: true,
 					
-					for(a in rret.ammo)
+					success: function(rret)
 					{
-						var html = $('#ammo_' + rret.ammo[a].instance).html();
-						var cur = $('#ammo_' + rret.ammo[a].instance).val();
-						for(b = 0, bx = rret.ammo[a].opts.length; b < bx; b++)
-							if(rret.ammo[a].opts[b].inum != cur)
-								html += '<option value="'
-										+ rret.ammo[a].opts[b].inum + '">'
-										+ rret.ammo[a].opts[b].iname
-										+ '</option>';
-						$('#ammo_' + rret.ammo[a].instance).html(html);
-					}
-				},
-				complete: decTrans
-			});
+						ajaxResponse(rret);
+						
+						for(a in rret.ammo)
+						{
+							var html = $('#ammo_' + rret.ammo[a].instance).html();
+							var cur = $('#ammo_' + rret.ammo[a].instance).val();
+							for(b = 0, bx = rret.ammo[a].opts.length; b < bx; b++)
+								if(rret.ammo[a].opts[b].inum != cur)
+									html += '<option value="'
+											+ rret.ammo[a].opts[b].inum + '">'
+											+ rret.ammo[a].opts[b].iname
+											+ '</option>';
+							$('#ammo_' + rret.ammo[a].instance).html(html);
+						}
+					},
+					complete: decTrans
+				});
+			}
 		},
 		error: ajaxError,
 		complete: decTrans
