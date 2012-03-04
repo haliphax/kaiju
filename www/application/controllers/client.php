@@ -56,8 +56,9 @@ class client extends CI_Controller
 		if(is_array($this->ret_val['msg']) && ! isset($this->ret_val['msg'][0]))
 			unset($this->ret_val['msg']);
 		if(in_array($this->uri->segment(2), array('actionview')))
-			return;		
-		echo json_encode($this->ret_val);
+			die();		
+		if($this->ret_val)
+			echo json_encode($this->ret_val);
 	}
 
 	# check character's status =================================================

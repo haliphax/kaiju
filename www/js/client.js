@@ -9,7 +9,9 @@ var loadedScripts = [];
 
 function ajaxResponse(ret)
 {
+	clearTimeout(kaijuTimer);
 	kaijuTimer = setTimeout(getStatus, kaijuTimerDelay);
+	
 	if(ret == null)
 		return;
 	if(ret.msg)
