@@ -204,32 +204,6 @@ INSERT INTO `action_structure_class` VALUES (3,3),(6,3);
 UNLOCK TABLES;
 
 --
--- Table structure for table `actor_skill2`
---
-
-DROP TABLE IF EXISTS `actor_skill2`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `actor_skill2` (
-  `actor` int(11) NOT NULL,
-  `skill` int(3) NOT NULL,
-  PRIMARY KEY  (`actor`,`skill`),
-  KEY `fk_actor_skill_actor1` (`actor`),
-  KEY `fk_actor_skill_skill1` (`skill`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `actor_skill2`
---
-
-LOCK TABLES `actor_skill2` WRITE;
-/*!40000 ALTER TABLE `actor_skill2` DISABLE KEYS */;
-INSERT INTO `actor_skill2` VALUES (1,3),(1,18),(1,20),(1,21),(1,24),(1,25),(1,26),(1,27),(1,29),(1,30),(1,73),(1,74),(1,75),(1,76),(1,77);
-/*!40000 ALTER TABLE `actor_skill2` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `auction_bid`
 --
 
@@ -1513,6 +1487,58 @@ LOCK TABLES `news` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `npc`
+--
+
+DROP TABLE IF EXISTS `npc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `npc` (
+  `npc` int(11) NOT NULL auto_increment,
+  `abbrev` varchar(32) collate utf8_bin NOT NULL,
+  PRIMARY KEY  (`npc`),
+  UNIQUE KEY `abbrev` (`abbrev`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `npc`
+--
+
+LOCK TABLES `npc` WRITE;
+/*!40000 ALTER TABLE `npc` DISABLE KEYS */;
+INSERT INTO `npc` VALUES (1,'oni');
+/*!40000 ALTER TABLE `npc` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `npc_spawn`
+--
+
+DROP TABLE IF EXISTS `npc_spawn`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `npc_spawn` (
+  `npc` int(11) NOT NULL default '0',
+  `map` int(3) NOT NULL default '0',
+  `x` int(3) NOT NULL default '0',
+  `y` int(3) NOT NULL default '0',
+  `indoors` int(1) NOT NULL default '0',
+  PRIMARY KEY  (`npc`,`map`,`x`,`y`,`indoors`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `npc_spawn`
+--
+
+LOCK TABLES `npc_spawn` WRITE;
+/*!40000 ALTER TABLE `npc_spawn` DISABLE KEYS */;
+INSERT INTO `npc_spawn` VALUES (1,3,8,13,0),(1,3,19,20,0);
+/*!40000 ALTER TABLE `npc_spawn` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `password_reset`
 --
 
@@ -1920,7 +1946,7 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-02-15 19:37:54
+-- Dump completed on 2012-03-03 22:47:48
 -- MySQL dump 10.11
 --
 -- Host: localhost    Database: roadhaus_kaiju_test
@@ -2043,7 +2069,7 @@ CREATE TABLE `actor` (
   KEY `fk_actor_map_cell1` (`x`,`y`,`map`),
   KEY `fk_actor_user1` (`user`),
   KEY `faction` (`faction`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2084,6 +2110,20 @@ CREATE TABLE `actor_effect` (
   KEY `fk_actor_effect_actor1` (`actor`),
   KEY `fk_actor_effect_effect1` (`effect`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `actor_npc`
+--
+
+DROP TABLE IF EXISTS `actor_npc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `actor_npc` (
+  `actor` int(11) NOT NULL,
+  `npc` int(11) NOT NULL,
+  PRIMARY KEY  (`actor`,`npc`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2162,7 +2202,7 @@ CREATE TABLE `event` (
   `stamp` int(11) NOT NULL,
   `descr` varchar(255) collate utf8_bin NOT NULL,
   PRIMARY KEY  (`event`)
-) ENGINE=MyISAM AUTO_INCREMENT=116 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=205 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2196,4 +2236,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-02-15 19:37:54
+-- Dump completed on 2012-03-03 22:47:48
