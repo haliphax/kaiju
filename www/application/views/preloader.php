@@ -6,20 +6,23 @@
 	<title>preload - kaiju!</title>
 	<?php include(BASEPATH . '../includes/header.inc.php'); ?>
 	<script type="text/javascript">
-	var imgObjs = new Array();
+	var loadedImgs = 0;
 	
 	function preLoadImages()
 	{
 		$('#loadingmsg').dialog('open');
 		var imgs = <?=$imgs?>;
 		
-		for(a = 0; a < imgs.length; a++)
+		for(var a in imgs)
 		{
-			imgObjs.push(new Image());
-			imgObjs[a].src = '/images/' + imgs[a];
-		}
-		
-		window.location = '<?=site_url('game')?>';
+			var i = new Image();
+			i.src = '<?php echo base_url(); ?>images/' + imgs[a];			
+			i.onload = function()
+			{
+				if(++loadedImgs >= imgs.length)
+					window.location = '<?=site_url('game')?>';
+			};
+		}		
 	}
 	</script>
 </head>
