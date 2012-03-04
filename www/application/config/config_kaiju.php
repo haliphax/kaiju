@@ -1,6 +1,6 @@
 <?php  if(! defined('BASEPATH')) exit('No direct script access allowed');
 
 $config['salt'] = 'wo9Z;od1&F3ch0(QucL:2k';
-$config['maintfile'] = '/home/roadhaus/vhosts/kaiju-dev.roadha.us/maint';
+$config['maintfile'] = APPPATH . '/../../maint';
 $config['version'] = '0.85';
 $config['codename'] = 'kouhai';
