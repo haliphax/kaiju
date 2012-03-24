@@ -40,17 +40,17 @@ class Fb extends CI_Controller
 					$user = $this->facebook->getUser();
 					
 					if(! $user)
-						header('Location: ' . site_url('fb/create'));
+						$this->output->set_header('Location: ' . site_url('fb/create'));
 					else
 					{
 						$this->session->set_userdata('user', $user);
-						header('Location: ' . site_url('game'));
+						$this->output->set_header('Location: ' . site_url('game'));
 					}
 				}
 			}
 		}
 		else
-			header('Location: ' . site_url('login'));
+			$this->output->set_header('Location: ' . site_url('login'));
 	}
 
 	function create($confirm = 0)
@@ -61,9 +61,9 @@ class Fb extends CI_Controller
 		if($confirm == 1)
 		{
 			if($this->facebook->registerNewUser())
-				header('Location: ' .site_url('characters'));
+				$this->output->set_header('Location: ' .site_url('characters'));
 			else
-				header('Location: ' .site_url('fb'));
+				$this->output->set_header('Location: ' .site_url('fb'));
 			return;
 		}
 
@@ -100,6 +100,6 @@ class Fb extends CI_Controller
 		}
 
 		$this->facebook->linkUser($uid);
-		header('Location: ' . site_url('characters'));
+		$this->output->set_header('Location: ' . site_url('characters'));
 	}
 }

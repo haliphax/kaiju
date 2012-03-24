@@ -11,10 +11,10 @@ class mapedit extends CI_Controller
 		parent::__construct();
 		$this->load->library('session');		
 		if(! $this->session->userdata('user'))
-			die(header('Location: ' . site_url('login')));
+			return ($this->output->set_header('Location: ' . site_url('login')));
 		$this->load->model('user');
 		if(! $this->user->isMod($this->session->userdata('user')))
-			die(header('Location: ' . site_url('game')));
+			return ($this->output->set_header('Location: ' . site_url('game')));
 		$this->load->model('map');
 		$this->load->model('mapeditor');
 	}
@@ -30,7 +30,7 @@ class mapedit extends CI_Controller
 	function edit($map)
 	{
 		if(! $this->user->canEditMap($this->session->userdata('user'), $map))
-			die(header('Location: ' . site_url('mapedit')));
+			return ($this->output->set_header('Location: ' . site_url('mapedit')));
 		$this->session->set_userdata('mapedit', $map);
 		$map = $this->map->getInfo($map);
 		$t = $this->mapeditor->getTiles();
@@ -55,7 +55,7 @@ class mapedit extends CI_Controller
 	{
 		$map = $this->session->userdata('mapedit');
 		if(! $this->user->canEditMap($this->session->userdata('user'), $map))
-			die(header('Location: ' . site_url('mapedit')));
+			return ($this->output->set_header('Location: ' . site_url('mapedit')));
 		$this->map->minisize = $this->minisize;
 		$im = $this->map->getGif($map);
 		$id = new ImagickDraw();
@@ -73,7 +73,7 @@ class mapedit extends CI_Controller
 	{
 		$map = $this->session->userdata('mapedit');
 		if(! $this->user->canEditMap($this->session->userdata('user'), $map))
-			die(header('Location: ' . site_url('mapedit')));
+			return ($this->output->set_header('Location: ' . site_url('mapedit')));
 		echo json_encode($this->mapeditor->getChunk($map, $x, $y, 10));
 	}
 	
@@ -82,7 +82,7 @@ class mapedit extends CI_Controller
 	{
 		$map = $this->session->userdata('mapedit');
 		if(! $this->user->canEditMap($this->session->userdata('user'), $map))
-			die(header('Location: ' . site_url('mapedit')));
+			return ($this->output->set_header('Location: ' . site_url('mapedit')));
 		$cell = $this->map->getCellInfo($map, $x, $y);
 		if(! $cell['building'])
 			die(json_encode(array('error' => 1)));
@@ -94,7 +94,7 @@ class mapedit extends CI_Controller
 	{
 		$map = $this->session->userdata('mapedit');
 		if(! $this->user->canEditMap($this->session->userdata('user'), $map))
-			die(header('Location: ' . site_url('mapedit')));
+			return ($this->output->set_header('Location: ' . site_url('mapedit')));
 		$cell = $this->map->getCellInfo($map, $x, $y);
 		return $this->map->removeBuildingClass($map, $cell['building'], $bclass);
 	}
@@ -105,7 +105,7 @@ class mapedit extends CI_Controller
 	{
 		$map = $this->session->userdata('mapedit');
 		if(! $this->user->canEditMap($this->session->userdata('user'), $map))
-			die(header('Location: ' . site_url('mapedit')));
+			return ($this->output->set_header('Location: ' . site_url('mapedit')));
 		$cell = $this->map->getCellInfo($map, $x, $y);
 		return $this->map->addBuildingClass($map, $cell['building'], $bclass);	
 	}
@@ -115,7 +115,7 @@ class mapedit extends CI_Controller
 	{
 		$map = $this->session->userdata('mapedit');
 		if(! $this->user->canEditMap($this->session->userdata('user'), $map))
-			die(header('Location: ' . site_url('mapedit')));
+			return ($this->output->set_header('Location: ' . site_url('mapedit')));
 		$cells = split(',', $this->input->post('cells'));
 	
 		foreach($cells as $c)

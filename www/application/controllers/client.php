@@ -64,9 +64,9 @@ class client extends CI_Controller
 	# check character's status =================================================
 	function status($force = false, $forcemap = false)
 	{
+		$this->load->model('actor');
 		if($force || $forcemap)
 			$this->who = $this->actor->getInfo($this->who['actor']);
-		$this->load->model('actor');
 		$this->actor->clearFlags($this->who['actor']);
 		# char has no AP
 		if($this->who['stat_ap'] <= 0)

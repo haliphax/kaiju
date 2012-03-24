@@ -21,7 +21,7 @@ class clans extends CI_Controller
 			|| $this->session->userdata('user') === false
 			|| $this->session->userdata('actor') === false)
 		{
-			header('Location: ' . site_url('login'));
+			$this->output->set_header('Location: ' . site_url('login'));
 			die();
 		}
 		
@@ -313,12 +313,12 @@ SQL;
 	{
 		if(! $this->who['clan'])
 		{
-			header("Location: " . site_url("clans"));
+			$this->output->set_header("Location: " . site_url("clans"));
 			return;
 		}
 		
 		$this->actor->leaveClan($this->who['actor']);
-		header("Location: " . site_url("clans"));
+		$this->output->set_header("Location: " . site_url("clans"));
 	}
 	
 	function list_relations()

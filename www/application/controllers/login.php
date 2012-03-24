@@ -5,13 +5,13 @@ class Login extends CI_Controller
 	private $die = 0;
 	protected $news = '';
 	
-	function Login()
+	function __construct()
 	{
 		parent::__construct();
 
 		if($this->session->userdata('fb_user'))
 		{
-			header('Location: ' . site_url('game'));
+			$this->output->set_header('Location: ' . site_url('game'));
 			exit();
 		}
 
@@ -47,13 +47,12 @@ class Login extends CI_Controller
 			$this->die = 1;
 		}
 		
-		$this->session->unset_userdata('user');
-		$this->session->unset_userdata('actor');
 		$this->load->model('user');
 	}
 
 	function index()
 	{
+		$this->session->sess_destroy();
 		if($this->die == 1) return;
 		$this->load->view('login', array('error' => '',
 			'news' => $this->news));
@@ -74,12 +73,13 @@ class Login extends CI_Controller
 		{
 			$this->user->setLast($uid);
 			$this->session->set_userdata('user', $uid);
-			header('Location: ' . site_url('characters'));
+			$this->output->set_header('Location: ' . site_url('characters'));
 		}
 	}
 
 	function reset($token)
 	{
+		$this->session->sess_destroy();
 		$newpass = $this->input->post('password');
 		$confirm = $this->input->post('confirm');
 		
@@ -116,6 +116,7 @@ class Login extends CI_Controller
 
 	function forgot()
 	{
+		$this->session->sess_destroy();
 		$user = $this->input->post('username');
 		$email = $this->input->post('email');
 

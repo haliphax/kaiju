@@ -14,7 +14,7 @@ class Game extends CI_Controller
 			|| ($_SERVER['SERVER_NAME'] == 'kaiju.oddnetwork.org' && $this->session->userdata('fb_user')))
 		{
 			$this->session->unset_userdata('fb_user');
-			header('Location: ' . site_url('login'));
+			$this->output->set_header('Location: ' . site_url('login'));
 			die();
 		}
 		
@@ -22,12 +22,12 @@ class Game extends CI_Controller
 
 		if($this->session->userdata('user') === false)
 		{
-			header('Location: ' . site_url('login'));
+			$this->output->set_header('Location: ' . site_url('login'));
 			return;
 		}
 		else if($this->session->userdata('actor') === false)
 		{
-			header('Location: ' . site_url('characters'));
+			$this->output->set_header('Location: ' . site_url('characters'));
 			return;
 		}
 		

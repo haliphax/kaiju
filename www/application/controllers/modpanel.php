@@ -8,9 +8,9 @@ class modpanel extends CI_Controller
 		$this->load->library('session');
 		$this->load->model('user');
 		if(! $this->session->userdata('user'))
-			die(header('Location: ' . site_url('login')));
+			return ($this->output->set_header('Location: ' . site_url('login')));
 		if(! $this->user->isMod($this->session->userdata('user')))
-			die(header('Location: ' . site_url('game')));
+			return ($this->output->set_header('Location: ' . site_url('game')));
 	}
 	
 	function index()

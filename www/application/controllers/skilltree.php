@@ -13,7 +13,7 @@ class skilltree extends CI_Controller
 		
 		if(! $this->session->userdata('actor'))
 		{
-			header('Location: ' . site_url('login'));
+			$this->output->set_header('Location: ' . site_url('login'));
 			die();
 		}
 		
@@ -48,7 +48,7 @@ class skilltree extends CI_Controller
 	# purchase a skill =========================================================
 	function purchase($abbrev, $aclass, $skill)
 	{
-		header("Location: " . site_url("skilltree/#class-{$abbrev}"));
+		$this->output->set_header("Location: " . site_url("skilltree/#class-{$abbrev}"));
 		$this->skills->purchase($aclass, $skill, $this->who);
 	}
 }

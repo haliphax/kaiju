@@ -165,7 +165,7 @@ SQL;
 	function biggif($map)
 	{
 		$this->load->model('map');
-		header("Content-Type: image/gif");
+		$this->output->set_header("Content-Type: image/gif");
 		echo $this->map->getGif($map, 1, 1, false, 5);
 	}
 

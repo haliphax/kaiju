@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'roadhaus_kaiju';
-$db['default']['password'] = 'm4i1b0x';
-$db['default']['database'] = 'roadhaus_kaiju_test';
+$db['default']['username'] = 'kaiju';
+$db['default']['password'] = 'rGtA6sUdFaZPFQNe';
+$db['default']['database'] = 'kaiju_dev';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

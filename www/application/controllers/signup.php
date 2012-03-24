@@ -8,7 +8,7 @@ class Signup extends CI_Controller
 
 		if(file_exists($this->config->item('maintfile')))
 		{
-			header('Location: ' . site_url('login'));
+			$this->output->set_header('Location: ' . site_url('login'));
 			die();
 		}
 	}
@@ -71,7 +71,7 @@ class Signup extends CI_Controller
 
 			$this->user->setLast($uid);
 			$this->session->set_userdata('user', $id);
-			header('Location: ' . site_url('characters'));			
+			$this->output->set_header('Location: ' . site_url('characters'));			
 		}
 	}
 }

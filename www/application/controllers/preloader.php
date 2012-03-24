@@ -32,6 +32,6 @@ class Preloader extends CI_Controller
 				));
 		}
 		else
-			header('Location: ' . site_url('game'));
+			$this->output->set_header('Location: ' . site_url('game'));
 	}
 }

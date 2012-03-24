@@ -9,7 +9,7 @@ class Account extends CI_Controller
 		
 		if(file_exists($this->config->item('maintfile')))
 		{
-			header('Location: ' . site_url('login'));
+			$this->output->set_header('Location: ' . site_url('login'));
 			die();
 		}
 		
@@ -17,7 +17,7 @@ class Account extends CI_Controller
 
 		if($this->session->userdata('fb_user'))
 		{
-			header('Location: ' . site_url('game'));
+			$this->output->set_header('Location: ' . site_url('game'));
 			exit();
 		}
 
@@ -29,7 +29,7 @@ class Account extends CI_Controller
 	{
 		if($this->session->userdata('user') === false)
 		{
-			header('Location: ' . site_url('login'));
+			$this->output->set_header('Location: ' . site_url('login'));
 			return;
 		}
 		

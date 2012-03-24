@@ -18,20 +18,8 @@ class give extends NoCacheModel
 	function fire(&$actor, &$retval, $args)
 	{
 		$tar = $this->ci->actor->getInfo($args[0]);
-		
-		if($tar['map'] != $actor['map'] || $tar['x'] != $actor['x']
-			|| $tar['y'] != $actor['y'] || $tar['indoors'] != $actor['indoors'])
-		{
-			return array("They are not here.");
-		}
-		
-		$this->ci->load->model('action');
-		
-		if(! $this->ci->action->canMelee($tar['actor'], $actor['actor'],
-			'melee'))
-		{
-			return array("You cannot reach them from here.");
-		}
+		if(! $this->show($actor, $tar))
+			return;
 		
 		$i = $args[1];
 		$ins = $this->ci->actor->getInstanceOf($i, $actor['actor'], 1, true);
@@ -70,8 +58,9 @@ class give extends NoCacheModel
 	
 	function show(&$actor, &$victim)
 	{
-		if($victim['actor'] <= 0 || $victim['user'] <= 0) return false;
+		if($victim['actor'] <= 0) return false;
 		if(! $this->params(&$actor)) return false;
+		if($this->ci->actor->hasEffect('noinventory', $victim['actor'])) return false;
 		
 		if($this->ci->skills->canMelee($victim['actor'], $actor['actor'],
 			'melee'))

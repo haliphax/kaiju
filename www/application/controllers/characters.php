@@ -9,7 +9,7 @@ class Characters extends CI_Controller
 		
 		if(file_exists($this->config->item('maintfile')))
 		{
-			header('Location: ' . site_url('login'));
+			$this->output->set_header('Location: ' . site_url('login'));
 			die();
 		}
 		
@@ -23,7 +23,7 @@ class Characters extends CI_Controller
 	{
 		if($this->session->userdata('user') === false)
 		{
-			header('Location: ' . site_url('login'));
+			$this->output->set_header('Location: ' . site_url('login'));
 			return;
 		}
 
@@ -73,12 +73,12 @@ class Characters extends CI_Controller
 	{
 		if($this->actor->getUser($actor) != $this->session->userdata('user'))
 		{
-			header('Location: ' . site_url('characters'));
+			$this->output->set_header('Location: ' . site_url('characters'));
 			return;
 		}
 		
 		$this->session->set_userdata('actor', $actor);
-		header('Location: ' . site_url('preloader'));
+		$this->output->set_header('Location: ' . site_url('preloader'));
 	}
 	
 	# create a new character
@@ -89,7 +89,7 @@ class Characters extends CI_Controller
 		if($user['slots'] <=
 			$this->user->getNumActors($this->session->userdata('user')))
 		{
-			header('Location: ' . site_url('characters'));
+			$this->output->set_header('Location: ' . site_url('characters'));
 			return;
 		}
 		
@@ -143,7 +143,7 @@ SQL;
 								values (?, 1)
 SQL;
 							$this->db->query($sql, array($actor));
-							header("Location: " . site_url("characters/connect/$actor"));
+							$this->output->set_header("Location: " . site_url("characters/connect/$actor"));
 							return;
 						}
 					}
