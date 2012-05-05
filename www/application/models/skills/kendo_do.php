@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kendo_do extends NoCacheModel
+class kendo_do extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function kendo_do()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

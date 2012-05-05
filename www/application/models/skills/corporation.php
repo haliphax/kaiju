@@ -1,8 +1,8 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class corporation extends NoCacheModel
+class corporation extends CI_Model
 {
-	function corporation()
+	function __construct()
 	{
 		parent::__construct();
 	}

@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_aggression extends NoCacheModel
+class e_aggression extends CI_Model
 {
 	private $ci;
 	
-	function e_aggression()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

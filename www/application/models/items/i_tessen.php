@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_tessen extends NoCacheModel
+class i_tessen extends CI_Model
 {
 	private $ci;
 	private $e;
 	
-	function i_tessen()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->database();

@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class cooking extends NoCacheModel
+class cooking extends CI_Model
 {
 	private $ci;
 	
 	# constructor
-	function cooking()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

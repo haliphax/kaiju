@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_food_ap extends NoCacheModel
+class e_food_ap extends CI_Model
 {
 	private $ci;
 	
-	function e_food_ap()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

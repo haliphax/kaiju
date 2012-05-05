@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class meditation extends NoCacheModel
+class meditation extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function meditation()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

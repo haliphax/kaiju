@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class st_zenshrine extends NoCacheModel
+class st_zenshrine extends CI_Model
 {
 	private $ci;
 	

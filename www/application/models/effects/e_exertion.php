@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_exertion extends NoCacheModel
+class e_exertion extends CI_Model
 {
 	private $ci;
 	
-	function e_exertion()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

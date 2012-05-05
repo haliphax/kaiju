@@ -1,13 +1,5 @@
 <?php
 
-if(! isset($_SERVER['REMOTE_ADDR']))
-{
-	define('CMD', 1);
-	unset($argv[0]);
-	$_SERVER['QUERY_STRING'] =  $_SERVER['PATH_INFO'] = $_SERVER['REQUEST_URI']
-		= '/' . implode('/', $argv) . '/';
-}
-
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT

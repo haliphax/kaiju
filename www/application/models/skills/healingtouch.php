@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class healingtouch extends NoCacheModel
+class healingtouch extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function healingtouch()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

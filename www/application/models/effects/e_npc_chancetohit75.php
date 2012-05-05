@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_npc_chancetohit75 extends NoCacheModel
+class e_npc_chancetohit75 extends CI_Model
 {
 	private $ci;
 	
-	function e_npc_chancetohit75()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

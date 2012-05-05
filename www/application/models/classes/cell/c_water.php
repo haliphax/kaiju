@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class c_water extends NoCacheModel
+class c_water extends CI_Model
 {
 	private $ci;
 	

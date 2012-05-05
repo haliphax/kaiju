@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_poisonstrike extends NoCacheModel
+class e_poisonstrike extends CI_Model
 {
 	private $ci;
 	
-	function e_poisonstrike()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

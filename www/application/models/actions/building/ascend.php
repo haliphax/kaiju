@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class ascend extends NoCacheModel
+class ascend extends CI_Model
 {
 	private $ci;
 	

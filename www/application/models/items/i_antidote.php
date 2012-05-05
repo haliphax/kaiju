@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_antidote extends NoCacheModel
+class i_antidote extends CI_Model
 {
 	private $ci;
 	
-	function i_antidote()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

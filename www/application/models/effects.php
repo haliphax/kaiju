@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class effects extends NoCacheModel
+class effects extends CI_Model
 {
 	private $ci;
 	
-	function effects()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

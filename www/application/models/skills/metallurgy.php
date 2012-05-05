@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class metallurgy extends NoCacheModel
+class metallurgy extends CI_Model
 {
 	private $ci;
 	
 	# constructor
-	function metallurgy()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

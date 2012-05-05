@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_dance_mtnpath extends NoCacheModel
+class e_dance_mtnpath extends CI_Model
 {
 	private $ci;
 	
-	function e_dance_mtnpath()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

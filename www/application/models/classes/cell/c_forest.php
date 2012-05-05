@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class c_forest extends NoCacheModel
+class c_forest extends CI_Model
 {
 	private $ci;
 	

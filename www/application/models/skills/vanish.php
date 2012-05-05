@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class vanish extends NoCacheModel
+class vanish extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function vanish()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

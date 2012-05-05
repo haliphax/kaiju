@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_bandage extends NoCacheModel
+class i_bandage extends CI_Model
 {
 	private $ci;
 	
-	function i_bandage()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class caltrops extends NoCacheModel
+class caltrops extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function caltrops()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_twohandmelee extends NoCacheModel
+class e_twohandmelee extends CI_Model
 {
 	private $ci;
 	
-	function e_twohandmelee()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

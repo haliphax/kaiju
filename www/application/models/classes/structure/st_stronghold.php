@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class st_stronghold extends NoCacheModel
+class st_stronghold extends CI_Model
 {
 	private $ci;
 	

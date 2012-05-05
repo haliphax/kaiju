@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_kujikiri extends NoCacheModel
+class e_kujikiri extends CI_Model
 {
 	private $ci;
 	
-	function e_kujikiri()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

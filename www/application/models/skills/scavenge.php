@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class scavenge extends NoCacheModel
+class scavenge extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function scavenge()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

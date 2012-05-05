@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class map extends NoCacheModel
+class map extends CI_Model
 {
 	public $minisize = 6;
 	private $ci;

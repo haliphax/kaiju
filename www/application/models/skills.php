@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class skills extends NoCacheModel
+class skills extends CI_Model
 {
 	private $ci;
 	public $nomp = array("You do not have enough mystical energy.");
@@ -12,7 +12,7 @@ class skills extends NoCacheModel
 		array('Legs', 'Legs')
 		);
 	
-	function skills()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->database();

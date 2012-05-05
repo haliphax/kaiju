@@ -2,9 +2,9 @@
 
 # persistent data ==============================================================
 
-class pdata extends NoCacheModel
+class pdata extends CI_Model
 {
-	function pdata()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->database();

@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_counterattack extends NoCacheModel
+class e_counterattack extends CI_Model
 {
 	private $ci;
 	
-	function e_counterattack()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

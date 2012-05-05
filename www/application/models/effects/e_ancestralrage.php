@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_ancestralrage extends NoCacheModel
+class e_ancestralrage extends CI_Model
 {
 	private $ci;
 	
-	function e_ancestralrage()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

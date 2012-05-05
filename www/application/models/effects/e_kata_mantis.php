@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_kata_mantis extends NoCacheModel
+class e_kata_mantis extends CI_Model
 {
 	private $ci;
 	
-	function e_kata_mantis()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

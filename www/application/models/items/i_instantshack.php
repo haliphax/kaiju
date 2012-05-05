@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_instantshack extends NoCacheModel
+class i_instantshack extends CI_Model
 {
 	private $ci;
 	
-	function i_instantshack()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->database();

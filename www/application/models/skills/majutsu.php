@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class majutsu extends NoCacheModel
+class majutsu extends CI_Model
 {
 	private $ci;
 	
 	# constructor
-	function majutsu()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

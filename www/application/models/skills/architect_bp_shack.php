@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class architect_bp_shack extends NoCacheModel
+class architect_bp_shack extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
-	function architect_bp_shack()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

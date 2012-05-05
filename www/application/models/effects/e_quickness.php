@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_quickness extends NoCacheModel
+class e_quickness extends CI_Model
 {
 	private $ci;
 	
-	function e_quickness()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

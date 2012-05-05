@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class climb extends NoCacheModel
+class climb extends CI_Model
 {
 	private $ci;
 	private $cost;

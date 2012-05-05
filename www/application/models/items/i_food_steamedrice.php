@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_food_steamedrice extends NoCacheModel
+class i_food_steamedrice extends CI_Model
 {
 	private $ci;
 
-	function i_food_steamedrice()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->database();

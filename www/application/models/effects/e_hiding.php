@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_hiding extends NoCacheModel
+class e_hiding extends CI_Model
 {
 	private $ci;
 	
-	function e_hiding()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

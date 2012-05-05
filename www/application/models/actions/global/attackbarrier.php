@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class attackbarrier extends NoCacheModel
+class attackbarrier extends CI_Model
 {
 	private $ci;
 	

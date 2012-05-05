@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class sing extends NoCacheModel
+class sing extends CI_Model
 {
 	private $ci;
 	
 	# constructor
-	function sing()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

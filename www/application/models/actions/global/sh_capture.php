@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class sh_capture extends NoCacheModel
+class sh_capture extends CI_Model
 {
 	private $ci;
 	

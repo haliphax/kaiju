@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_ardentpassion extends NoCacheModel
+class e_ardentpassion extends CI_Model
 {
 	private $ci;
 	
-	function e_ardentpassion()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

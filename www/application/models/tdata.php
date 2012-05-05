@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class tdata extends NoCacheModel
+class tdata extends CI_Model
 {
 	private $store;
 	

@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class boostshield extends NoCacheModel
+class boostshield extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function boostshield()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

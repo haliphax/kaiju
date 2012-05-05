@@ -1,8 +1,8 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class auctioneer_imp extends NoCacheModel
+class auctioneer_imp extends CI_Model
 {
-	function auctioneer_imp()
+	function __construct()
 	{
 		parent::__construct();
 	}

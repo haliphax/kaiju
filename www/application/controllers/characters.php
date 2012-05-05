@@ -63,7 +63,7 @@ class Characters extends CI_Controller
 		{
 			$data['create'] = 1;
 		}
--		
+		
 		$data['cur'] = $this->session->userdata('actor');
 		$this->load->view('characters', $data);
 	}

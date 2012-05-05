@@ -1,8 +1,8 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class franchise extends NoCacheModel
+class franchise extends CI_Model
 {
-	function franchise()
+	function __construct()
 	{
 		parent::__construct();
 	}

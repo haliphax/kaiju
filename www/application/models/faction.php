@@ -1,8 +1,8 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class faction extends NoCacheModel
+class faction extends CI_Model
 {
-	function faction()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->database();

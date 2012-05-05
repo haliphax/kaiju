@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class shopkeeping extends NoCacheModel
+class shopkeeping extends CI_Model
 {
 	private $ci;
 	private $cost;
 
-	function shopkeeping()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

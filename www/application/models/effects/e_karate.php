@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_karate extends NoCacheModel
+class e_karate extends CI_Model
 {
 	private $ci;
 	
-	function e_karate()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

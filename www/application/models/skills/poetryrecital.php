@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class poetryrecital extends NoCacheModel
+class poetryrecital extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function poetryrecital()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_ceremonialrobes extends NoCacheModel
+class i_ceremonialrobes extends CI_Model
 {
 	private $ci;
 	
-	function i_ceremonialrobes()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

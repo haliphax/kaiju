@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class bldg_upkeep extends NoCacheModel
+class bldg_upkeep extends CI_Model
 {
 	private $ci;
 	private $binfo;

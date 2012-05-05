@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_decay extends NoCacheModel
+class e_decay extends CI_Model
 {
 	private $ci;
 	
-	function e_decay()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

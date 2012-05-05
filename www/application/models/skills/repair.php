@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class repair extends NoCacheModel
+class repair extends CI_Model
 {
 	private $ci;
 	
 	# constructor
-	function repair()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_ninjutsu extends NoCacheModel
+class e_ninjutsu extends CI_Model
 {
 	private $ci;
 	
-	function e_ninjutsu()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

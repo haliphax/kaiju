@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_archery extends NoCacheModel
+class e_archery extends CI_Model
 {
 	private $ci;
 	
-	function e_archery()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

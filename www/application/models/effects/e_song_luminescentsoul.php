@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_song_luminescentsoul extends NoCacheModel
+class e_song_luminescentsoul extends CI_Model
 {
 	private $ci;
 	
-	function e_song_luminescentsoul()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

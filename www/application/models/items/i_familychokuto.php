@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_familychokuto extends NoCacheModel
+class i_familychokuto extends CI_Model
 {
 	private $ci;
 	
-	function i_familychokuto()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

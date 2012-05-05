@@ -1,8 +1,8 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_medicine extends NoCacheModel
+class e_medicine extends CI_Model
 {
-	function e_medicine()
+	function __construct()
 	{
 		parent::__construct();
 	}

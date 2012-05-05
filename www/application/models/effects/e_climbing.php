@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_climbing extends NoCacheModel
+class e_climbing extends CI_Model
 {
 	private $ci;
 	
-	function e_climbing()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

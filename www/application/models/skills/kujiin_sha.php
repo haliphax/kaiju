@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kujiin_sha extends NoCacheModel
+class kujiin_sha extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function kujiin_sha()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class user extends NoCacheModel
+class user extends CI_Model
 {
 	private $ci;
 
-	function user()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->database();

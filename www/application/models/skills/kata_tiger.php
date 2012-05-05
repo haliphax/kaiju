@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kata_tiger extends NoCacheModel
+class kata_tiger extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function kata_tiger()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

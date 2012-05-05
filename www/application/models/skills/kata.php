@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kata extends NoCacheModel
+class kata extends CI_Model
 {
 	private $ci;
 	
 	# constructor
-	function kata()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

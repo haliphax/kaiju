@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class rez extends NoCacheModel
+class rez extends CI_Model
 {
 	private $ci;
 	private $cost;

@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class teaceremony extends NoCacheModel
+class teaceremony extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function teaceremony()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

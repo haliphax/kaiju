@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_bleeding extends NoCacheModel
+class e_bleeding extends CI_Model
 {
 	private $ci;
 	
-	function e_bleeding()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

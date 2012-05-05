@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class c_mountains extends NoCacheModel
+class c_mountains extends CI_Model
 {
 	private $ci;
 	

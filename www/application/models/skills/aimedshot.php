@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class aimedshot extends NoCacheModel
+class aimedshot extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function aimedshot()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

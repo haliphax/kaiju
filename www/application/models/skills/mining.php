@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class mining extends NoCacheModel
+class mining extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function mining()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

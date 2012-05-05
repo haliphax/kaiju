@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_healinghands extends NoCacheModel
+class e_healinghands extends CI_Model
 {
 	private $ci;
 	
-	function e_healinghands()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

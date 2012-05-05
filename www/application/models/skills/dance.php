@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class dance extends NoCacheModel
+class dance extends CI_Model
 {
 	private $ci;
 	
 	# constructor
-	function dance()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

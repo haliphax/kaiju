@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class i_food_rawfish extends NoCacheModel
+class i_food_rawfish extends CI_Model
 {
 	private $ci;
 	
-	function i_food_rawfish()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->database();

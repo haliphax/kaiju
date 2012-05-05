@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class clan_create extends NoCacheModel
+class clan_create extends CI_Model
 {
 	private $ci;
 	

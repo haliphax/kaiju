@@ -1,8 +1,8 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class packmule extends NoCacheModel
+class packmule extends CI_Model
 {
-	function packmule()
+	function __construct()
 	{
 		parent::__construct();
 	}

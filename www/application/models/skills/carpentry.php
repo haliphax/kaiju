@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class carpentry extends NoCacheModel
+class carpentry extends CI_Model
 {
 	private $ci;
 	
 	# constructor
-	function carpentry()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

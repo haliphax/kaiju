@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class clan extends NoCacheModel
+class clan extends CI_Model
 {
 	private $ci;
 
 	# constructor ==============================================================
-	function clan()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->database();

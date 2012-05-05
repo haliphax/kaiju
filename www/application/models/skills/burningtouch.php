@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class burningtouch extends NoCacheModel
+class burningtouch extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function burningtouch()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

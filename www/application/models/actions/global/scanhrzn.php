@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class scanhrzn extends NoCacheModel
+class scanhrzn extends CI_Model
 {
 	private $ci;
 	private $cost;

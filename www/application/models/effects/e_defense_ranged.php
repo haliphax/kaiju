@@ -1,10 +1,10 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_defense_ranged extends NoCacheModel
+class e_defense_ranged extends CI_Model
 {
 	private $ci;
 	
-	function e_defense_ranged()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

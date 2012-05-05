@@ -1,11 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class mysticism extends NoCacheModel
+class mysticism extends CI_Model
 {
 	private $ci;
 	
 	# constructor
-	function mysticism()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

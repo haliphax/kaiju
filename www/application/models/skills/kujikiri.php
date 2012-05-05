@@ -1,12 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kujikiri extends NoCacheModel
+class kujikiri extends CI_Model
 {
 	private $ci;
 	private $cost;
 	
 	# constructor
-	function kujikiri()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();

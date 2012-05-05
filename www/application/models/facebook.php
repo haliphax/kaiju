@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class Facebook extends NoCacheModel
+class Facebook extends CI_Model
 {
 	function Facebook()
 	{
