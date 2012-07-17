@@ -5,8 +5,8 @@ class tick extends CI_Controller
 	function tick()
 	{
 		# don't allow web access to this controller
-		#if(array_key_exists('HTTP_HOST', $_SERVER)) die(show_404());
-		#if($_SERVER['REMOTE_ADDR'] != '173.236.60.18') die(show_404());
+		if(! defined('CMD'))
+			die(show_404());
 		parent::__construct();
 		$this->load->database();
 	}

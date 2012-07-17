@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class client extends CI_Controller
+class Client extends CI_Controller
 {
 	private $ret_val;
 	private $who;
@@ -18,7 +18,7 @@ class client extends CI_Controller
 			$this->ret_val = array('maint' => 1);
 			die();
 		}
-		
+
 		$this->load->library('session');
 		if($this->session->userdata('user') === false)
 			return $this->ret_val['msg'] = array($this->_logText(
