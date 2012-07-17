@@ -1,17 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kata_tiger extends CI_Model
+class kata_tiger extends SkillModel
 {
-	private $ci;
-	private $cost;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 		$this->cost = $this->ci->skills->getCost('kata_tiger');
 	}
 
@@ -22,7 +17,6 @@ class kata_tiger extends CI_Model
 			return false;
 		if($actor['stat_mp'] < $this->cost['cost_mp'])
 			return $this->ci->skills->nomp;
-		$this->ci->load->model('skills/kata');
 		$this->ci->kata->kata_remove($actor['actor']);
 		$msg = array();
 		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);

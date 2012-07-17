@@ -1,17 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class mining extends CI_Model
+class mining extends SkillModel
 {
-	private $ci;
-	private $cost;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 		$this->ci->load->model('item');
 		$this->cost = $this->ci->skills->getCost('mining');
 	}

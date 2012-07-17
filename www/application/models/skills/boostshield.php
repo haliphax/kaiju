@@ -1,17 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class boostshield extends CI_Model
+class boostshield extends SkillModel
 {
-	private $ci;
-	private $cost;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 		$this->ci->load->model('clan');
 		$this->cost = $this->ci->skills->getCost('boostshield');
 	}
@@ -24,7 +19,6 @@ class boostshield extends CI_Model
 		
 		if($this->ci->clan->incStrongholdShield($actor['clan'], 5))
 		{
-			$this->ci->load->model('actor');
 			$msg[] =
 				"Focusing your energy outward, you increase the shield's power.";
 			if($v + 5 >= 100)

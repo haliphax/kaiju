@@ -1,16 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kendo extends CI_Model
+class kendo extends SkillModel
 {
-	private $ci;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 	}
 
 	# use skill
@@ -22,7 +18,6 @@ class kendo extends CI_Model
 		$victim = $this->ci->actor->getInfo($args[0]);	
 		if(! $this->show($actor, $victim)) return;
 		$which = "kendo_{$st}";
-		$this->ci->load->model('skills/' . $which);
 		$ret = call_user_func(array($this->ci->$which, 'fire'),
 			&$victim, &$actor);
 		$msg = array();

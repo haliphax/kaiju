@@ -1,17 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kujikiri extends CI_Model
+class kujikiri extends SkillModel
 {
-	private $ci;
-	private $cost;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 		$this->cost = $this->ci->skills->getCost('kujikiri');
 	}
 
@@ -32,7 +27,6 @@ class kujikiri extends CI_Model
 		
 		$r = $this->ci->skills->getInfo($kujiin);
 		$which = $r['abbrev'];
-		$this->ci->load->model('skills/' . $which);
 		return call_user_func(array($this->ci->$which, 'fire'), $actor);
 	}
 	

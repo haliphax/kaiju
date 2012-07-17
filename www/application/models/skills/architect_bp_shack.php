@@ -1,15 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class architect_bp_shack extends CI_Model
+class architect_bp_shack extends SkillModel
 {
-	private $ci;
-	private $cost;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('skills');
 		$this->cost = $this->ci->skills->getCost('architect_bp_shack');
 	}
 	

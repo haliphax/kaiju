@@ -1,17 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class sk_throw extends CI_Model
+class sk_throw extends SkillModel
 {
-	private $ci;
-	private $cost;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 		$this->cost = $this->ci->skills->getCost('sk_throw');
 	}
 

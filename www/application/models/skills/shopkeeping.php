@@ -1,15 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class shopkeeping extends CI_Model
+class shopkeeping extends SkillModel
 {
-	private $ci;
-	private $cost;
 
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('skills');
 		$this->ci->load->model('map');
 		$this->cost = $this->ci->skills->getCost('shopkeeping');
 	}

@@ -1,16 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kata extends CI_Model
+class kata extends SkillModel
 {
-	private $ci;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 	}
 
 	# use skill
@@ -26,7 +22,6 @@ class kata extends CI_Model
 		
 		$r = $this->ci->skills->getInfo($kata);
 		$which = $r['abbrev'];
-		$this->ci->load->model('skills/' . $which);
 		return call_user_func(array($this->ci->$which, 'fire'), $actor);
 	}
 	

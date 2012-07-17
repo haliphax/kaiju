@@ -1,16 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class architect extends CI_Model
+class architect extends SkillModel
 {
-	private $ci;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 	}
 
 	# use skill

@@ -1,16 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class repair extends CI_Model
+class repair extends SkillModel
 {
-	private $ci;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 	}
 
 	# use skill

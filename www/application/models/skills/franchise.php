@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class franchise extends CI_Model
+class franchise extends SkillModel
 {
 	function __construct()
 	{

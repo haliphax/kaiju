@@ -1,14 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class song_luminescentsoul extends CI_Model
+class song_luminescentsoul extends SkillModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('skills');
 	}
 	
 	function purchase(&$actor)

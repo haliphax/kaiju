@@ -1,17 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class aimedshot extends CI_Model
+class aimedshot extends SkillModel
 {
-	private $ci;
-	private $cost;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 		$this->cost = $this->ci->skills->getCost('aimedshot');
 	}
 

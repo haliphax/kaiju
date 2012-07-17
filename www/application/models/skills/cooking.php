@@ -1,16 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class cooking extends CI_Model
+class cooking extends SkillModel
 {
-	private $ci;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 		$this->ci->load->model('item');
 	}
 

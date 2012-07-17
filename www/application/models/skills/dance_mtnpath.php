@@ -1,14 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class dance_mtnpath extends CI_Model
+class dance_mtnpath extends SkillModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('skills');
 	}
 	
 	function purchase(&$actor)

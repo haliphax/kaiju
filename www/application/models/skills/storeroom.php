@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class storeroom extends CI_Model
+class storeroom extends SkillModel
 {
 	function __construct()
 	{

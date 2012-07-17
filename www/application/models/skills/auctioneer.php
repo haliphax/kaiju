@@ -1,6 +1,6 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class auctioneer extends CI_Model
+class auctioneer extends SkillModel
 {
 	function __construct()
 	{

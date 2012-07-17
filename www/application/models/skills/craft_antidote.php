@@ -1,15 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class craft_antidote extends CI_Model
+class craft_antidote extends SkillModel
 {
-	private $ci;
-	private $cost;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('skills');
 		$this->cost = $this->ci->skills->getCost('craft_antidote');
 	}
 	

@@ -1,17 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class kujiin_kyo extends CI_Model
+class kujiin_kyo extends SkillModel
 {
-	private $ci;
-	private $cost;
 	
 	# constructor
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
-		$this->ci->load->model('skills');
 		$this->cost = $this->ci->skills->getCost('kujiin_kyo');
 	}
 
@@ -22,7 +17,6 @@ class kujiin_kyo extends CI_Model
 			return false;
 		if($actor['stat_mp'] < $this->cost['cost_mp'])
 			return $this->ci->skills->nomp;
-		$this->ci->load->model('skills/kujikiri');
 		$this->ci->kujikiri->kujikiri_remove($actor['actor']);
 		$msg = array(
 			"You fold your hands into form, providing additional accuracy.");
