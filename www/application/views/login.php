@@ -3,7 +3,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title>login - kaiju!</title><!--<?=BASEPATH?>-->
+	<title>login - kaiju!</title>
 <?php include(BASEPATH . '../includes/header.inc.php'); ?>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>css/login.css" />
 	<script type="text/javascript" src="<?=base_url()?>js/login.js"></script>
@@ -44,11 +44,11 @@
 								<button id="btn_login" type="submit" class="button ui-state-default ui-corner-all" tabindex="3">Login</button>
 							</td>
 						</tr>
-						<tr>
+						<!--<tr>
 							<td colspan="2" class="center">
 								<br />Don't have an account? <a href="<?=site_url('signup')?>">Sign up for one!</a>
 							</td>
-						</tr>
+						</tr>-->
 					</tbody></table>
 				</form>
 <?php endif; ?>

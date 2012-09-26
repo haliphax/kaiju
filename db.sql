@@ -1,8 +1,8 @@
--- MySQL dump 10.11
+-- MySQL dump 10.13  Distrib 5.5.24, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: roadhaus_kaiju_test
+-- Host: localhost    Database: kaiju_dev
 -- ------------------------------------------------------
--- Server version	5.0.92-community
+-- Server version	5.5.24-0ubuntu0.12.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,15 +23,15 @@ DROP TABLE IF EXISTS `action`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `action` (
-  `action` int(3) NOT NULL auto_increment,
-  `abbrev` varchar(32) collate utf8_bin NOT NULL,
+  `action` int(3) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(32) COLLATE utf8_bin NOT NULL,
   `params` bit(1) NOT NULL,
   `js` bit(1) NOT NULL,
   `repeatable` bit(1) NOT NULL,
-  `descr` varchar(64) collate utf8_bin NOT NULL,
+  `descr` varchar(64) COLLATE utf8_bin NOT NULL,
   `cost` int(2) NOT NULL,
-  `atype` enum('actor','building','cell','dead','global','structure') collate utf8_bin NOT NULL default 'global',
-  PRIMARY KEY  (`action`),
+  `atype` enum('actor','building','cell','dead','global','structure') COLLATE utf8_bin NOT NULL DEFAULT 'global',
+  PRIMARY KEY (`action`),
   UNIQUE KEY `abbrev` (`abbrev`),
   KEY `params` (`params`,`js`,`cost`),
   KEY `atype` (`atype`),
@@ -61,8 +61,8 @@ CREATE TABLE `action_building` (
   `map` int(3) NOT NULL,
   `building` int(3) NOT NULL,
   `action` int(3) NOT NULL,
-  `indoors` tinyint(1) NOT NULL default '-1',
-  PRIMARY KEY  (`map`,`building`,`action`,`indoors`),
+  `indoors` tinyint(1) NOT NULL DEFAULT '-1',
+  PRIMARY KEY (`map`,`building`,`action`,`indoors`),
   KEY `fk_action_building_building1` (`building`,`map`),
   KEY `map` (`indoors`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -87,7 +87,7 @@ DROP TABLE IF EXISTS `action_building_class`;
 CREATE TABLE `action_building_class` (
   `bclass` int(3) NOT NULL,
   `action` int(3) NOT NULL,
-  PRIMARY KEY  (`bclass`,`action`)
+  PRIMARY KEY (`bclass`,`action`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -113,8 +113,8 @@ CREATE TABLE `action_cell` (
   `map` int(2) NOT NULL,
   `x` int(3) NOT NULL,
   `y` int(3) NOT NULL,
-  `indoors` tinyint(1) NOT NULL default '-1',
-  PRIMARY KEY  (`action`,`map`,`x`,`y`,`indoors`),
+  `indoors` tinyint(1) NOT NULL DEFAULT '-1',
+  PRIMARY KEY (`action`,`map`,`x`,`y`,`indoors`),
   KEY `fk_action_cell_map_cell1` (`x`,`y`,`map`),
   KEY `map` (`indoors`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -139,7 +139,7 @@ DROP TABLE IF EXISTS `action_cell_class`;
 CREATE TABLE `action_cell_class` (
   `cclass` int(3) NOT NULL,
   `action` int(3) NOT NULL,
-  PRIMARY KEY  (`cclass`,`action`)
+  PRIMARY KEY (`cclass`,`action`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -162,9 +162,9 @@ DROP TABLE IF EXISTS `action_structure`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `action_structure` (
   `structure` int(3) NOT NULL,
-  `action` int(3) NOT NULL auto_increment,
-  `indoors` tinyint(1) NOT NULL default '-1',
-  PRIMARY KEY  (`structure`,`action`,`indoors`),
+  `action` int(3) NOT NULL AUTO_INCREMENT,
+  `indoors` tinyint(1) NOT NULL DEFAULT '-1',
+  PRIMARY KEY (`structure`,`action`,`indoors`),
   KEY `fk_action_structure_structure1` (`structure`),
   KEY `structure` (`indoors`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -189,7 +189,7 @@ DROP TABLE IF EXISTS `action_structure_class`;
 CREATE TABLE `action_structure_class` (
   `sclass` int(3) NOT NULL,
   `action` int(3) NOT NULL,
-  PRIMARY KEY  (`sclass`,`action`)
+  PRIMARY KEY (`sclass`,`action`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -204,6 +204,215 @@ INSERT INTO `action_structure_class` VALUES (3,3),(6,3);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `actor`
+--
+
+DROP TABLE IF EXISTS `actor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `actor` (
+  `user` int(11) NOT NULL,
+  `actor` int(11) NOT NULL AUTO_INCREMENT,
+  `faction` int(1) NOT NULL,
+  `map` int(2) NOT NULL DEFAULT '2',
+  `x` int(3) NOT NULL DEFAULT '12',
+  `y` int(3) NOT NULL DEFAULT '12',
+  `aname` varchar(24) COLLATE utf8_bin NOT NULL,
+  `indoors` tinyint(1) NOT NULL DEFAULT '0',
+  `stat_hp` int(3) NOT NULL DEFAULT '30',
+  `stat_hpmax` int(3) NOT NULL DEFAULT '30',
+  `stat_mp` int(3) NOT NULL DEFAULT '0',
+  `stat_mpmax` int(3) NOT NULL DEFAULT '0',
+  `stat_xp` int(9) NOT NULL DEFAULT '750',
+  `stat_xplevel` int(9) NOT NULL DEFAULT '1000',
+  `stat_xpspent` int(5) unsigned NOT NULL DEFAULT '0',
+  `stat_ap` int(3) NOT NULL DEFAULT '150',
+  `stat_apmax` int(3) NOT NULL DEFAULT '150',
+  `evts` bit(1) NOT NULL,
+  `evtm` bit(1) NOT NULL,
+  `last` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`actor`,`user`),
+  KEY `indoors` (`indoors`),
+  KEY `evt` (`evts`),
+  KEY `stat_xp` (`stat_xp`,`stat_xplevel`),
+  KEY `stat_xpspent` (`stat_xpspent`),
+  KEY `fk_actor_map_cell1` (`x`,`y`,`map`),
+  KEY `fk_actor_user1` (`user`),
+  KEY `faction` (`faction`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actor`
+--
+
+LOCK TABLES `actor` WRITE;
+/*!40000 ALTER TABLE `actor` DISABLE KEYS */;
+INSERT INTO `actor` VALUES (1,1,2,2,8,17,'haliphax',0,18,30,30,30,1000,1000,1250,6877,150,'','\0',1346358933),(3,6,1,2,23,10,'Hitaki Tamamoto',1,29,30,0,0,750,1000,0,150,150,'','',1333134070),(1,3,2,2,8,17,'otherphax',0,30,30,0,0,407,1000,425,151,150,'','',1343584462),(-1,4,0,-2,8,13,'A Vile Oni',0,30,30,0,0,761,1000,0,150,150,'','',0),(-1,5,0,-2,19,20,'A Vile Oni',0,30,30,0,0,754,1000,0,150,150,'','',0),(4,7,2,2,8,13,'Xerian Silas',0,30,30,0,0,750,1000,0,150,150,'','',1339448250);
+/*!40000 ALTER TABLE `actor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `actor_class`
+--
+
+DROP TABLE IF EXISTS `actor_class`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `actor_class` (
+  `actor` int(11) NOT NULL,
+  `aclass` int(3) NOT NULL,
+  PRIMARY KEY (`actor`,`aclass`),
+  KEY `fk_actor_class_actor` (`actor`),
+  KEY `fk_actor_class_class_actor1` (`aclass`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actor_class`
+--
+
+LOCK TABLES `actor_class` WRITE;
+/*!40000 ALTER TABLE `actor_class` DISABLE KEYS */;
+INSERT INTO `actor_class` VALUES (1,1),(1,4),(1,6),(2,1),(3,1),(6,1),(7,1);
+/*!40000 ALTER TABLE `actor_class` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `actor_effect`
+--
+
+DROP TABLE IF EXISTS `actor_effect`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `actor_effect` (
+  `actor` int(11) NOT NULL,
+  `effect` int(3) NOT NULL,
+  PRIMARY KEY (`actor`,`effect`),
+  KEY `fk_actor_effect_actor1` (`actor`),
+  KEY `fk_actor_effect_effect1` (`effect`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actor_effect`
+--
+
+LOCK TABLES `actor_effect` WRITE;
+/*!40000 ALTER TABLE `actor_effect` DISABLE KEYS */;
+INSERT INTO `actor_effect` VALUES (0,17),(1,10),(1,11),(1,12),(1,15),(1,49),(2,11),(2,12),(3,11),(3,12),(3,13),(4,50),(4,51),(4,52),(5,50),(5,51),(5,52),(6,9);
+/*!40000 ALTER TABLE `actor_effect` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `actor_item`
+--
+
+DROP TABLE IF EXISTS `actor_item`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `actor_item` (
+  `instance` int(11) NOT NULL AUTO_INCREMENT,
+  `actor` int(11) NOT NULL,
+  `inum` int(4) NOT NULL,
+  `eq_slot` enum('MH','OH','Head','Torso','Legs','Arms') COLLATE utf8_bin DEFAULT NULL,
+  `lifespan` int(3) DEFAULT NULL,
+  `durability` int(3) DEFAULT NULL,
+  `durmax` int(3) DEFAULT NULL,
+  PRIMARY KEY (`instance`),
+  KEY `eq_slot` (`eq_slot`),
+  KEY `lifespan` (`lifespan`,`durability`),
+  KEY `durmax` (`durmax`),
+  KEY `fk_actor_item_actor1` (`actor`),
+  KEY `fk_actor_item_item1` (`inum`)
+) ENGINE=MyISAM AUTO_INCREMENT=106 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actor_item`
+--
+
+LOCK TABLES `actor_item` WRITE;
+/*!40000 ALTER TABLE `actor_item` DISABLE KEYS */;
+INSERT INTO `actor_item` VALUES (4,2,2,'MH',NULL,4,0),(93,7,10,'Arms',NULL,20,0),(92,7,5,NULL,NULL,NULL,0),(91,7,5,NULL,NULL,NULL,0),(83,6,8,'MH',NULL,14,0),(88,1,15,NULL,NULL,NULL,0),(21,1,20,NULL,NULL,19,0),(82,6,4,NULL,NULL,20,20),(81,6,6,NULL,NULL,NULL,0),(27,3,1,'MH',NULL,NULL,NULL),(77,1,31,'MH',NULL,NULL,NULL),(76,1,31,'OH',NULL,NULL,NULL),(87,1,15,NULL,NULL,NULL,0),(43,2,24,NULL,NULL,NULL,NULL),(35,3,24,NULL,NULL,NULL,NULL),(39,3,24,NULL,NULL,NULL,NULL),(41,3,24,NULL,NULL,NULL,NULL),(78,1,4,'Head',NULL,19,20),(80,1,11,'Legs',NULL,19,0),(84,6,11,'Legs',NULL,20,0),(85,6,4,NULL,NULL,20,20),(102,1,12,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `actor_item` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `actor_item_ammo`
+--
+
+DROP TABLE IF EXISTS `actor_item_ammo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `actor_item_ammo` (
+  `instance` int(11) NOT NULL,
+  `ammo` int(4) NOT NULL,
+  PRIMARY KEY (`instance`),
+  KEY `fk_actor_item_ammo_item_ammo1` (`ammo`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actor_item_ammo`
+--
+
+LOCK TABLES `actor_item_ammo` WRITE;
+/*!40000 ALTER TABLE `actor_item_ammo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `actor_item_ammo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `actor_npc`
+--
+
+DROP TABLE IF EXISTS `actor_npc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `actor_npc` (
+  `actor` int(11) NOT NULL,
+  `npc` int(11) NOT NULL,
+  PRIMARY KEY (`actor`,`npc`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actor_npc`
+--
+
+LOCK TABLES `actor_npc` WRITE;
+/*!40000 ALTER TABLE `actor_npc` DISABLE KEYS */;
+INSERT INTO `actor_npc` VALUES (4,1),(5,1);
+/*!40000 ALTER TABLE `actor_npc` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `actor_skill`
+--
+
+DROP TABLE IF EXISTS `actor_skill`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `actor_skill` (
+  `actor` int(11) NOT NULL,
+  `skill` int(3) NOT NULL,
+  PRIMARY KEY (`actor`,`skill`),
+  KEY `fk_actor_skill_actor1` (`actor`),
+  KEY `fk_actor_skill_skill1` (`skill`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `actor_skill`
+--
+
+LOCK TABLES `actor_skill` WRITE;
+/*!40000 ALTER TABLE `actor_skill` DISABLE KEYS */;
+INSERT INTO `actor_skill` VALUES (1,3),(1,14),(1,18),(1,20),(1,21),(1,24),(1,25),(1,26),(1,27),(1,29),(1,30),(1,52),(1,73),(1,74),(1,75),(1,76),(1,77),(1,78),(3,17);
+/*!40000 ALTER TABLE `actor_skill` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `auction_bid`
 --
 
@@ -213,8 +422,8 @@ DROP TABLE IF EXISTS `auction_bid`;
 CREATE TABLE `auction_bid` (
   `auction` int(11) NOT NULL,
   `actor` int(11) NOT NULL,
-  `timeleft` int(2) NOT NULL default '24',
-  PRIMARY KEY  (`auction`,`actor`),
+  `timeleft` int(2) NOT NULL DEFAULT '24',
+  PRIMARY KEY (`auction`,`actor`),
   KEY `timeleft` (`timeleft`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -239,7 +448,7 @@ CREATE TABLE `auction_bid_item` (
   `auction` int(11) NOT NULL,
   `actor` int(11) NOT NULL,
   `instance` int(11) NOT NULL,
-  PRIMARY KEY  (`instance`,`auction`,`actor`),
+  PRIMARY KEY (`instance`,`auction`,`actor`),
   KEY `fk_auction_bid_item_actor_item1` (`instance`),
   KEY `fk_auction_bid_item_auction_bid1` (`auction`,`actor`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -262,14 +471,14 @@ DROP TABLE IF EXISTS `auction_sale`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `auction_sale` (
-  `auction` int(11) NOT NULL auto_increment,
+  `auction` int(11) NOT NULL AUTO_INCREMENT,
   `map` int(3) NOT NULL,
   `building` int(6) NOT NULL,
   `actor` int(11) NOT NULL,
-  `price` varchar(250) collate utf8_bin NOT NULL,
+  `price` varchar(250) COLLATE utf8_bin NOT NULL,
   `time_left` int(3) NOT NULL,
   `active` bit(1) NOT NULL,
-  PRIMARY KEY  (`auction`),
+  PRIMARY KEY (`auction`),
   KEY `actor` (`actor`),
   KEY `active` (`active`),
   KEY `map` (`map`),
@@ -296,7 +505,7 @@ DROP TABLE IF EXISTS `auction_sale_item`;
 CREATE TABLE `auction_sale_item` (
   `auction` int(11) NOT NULL,
   `instance` int(11) NOT NULL,
-  PRIMARY KEY  (`instance`,`auction`),
+  PRIMARY KEY (`instance`,`auction`),
   KEY `fk_auction_sale_item_actor_item1` (`instance`),
   KEY `fk_auction_sale_item_auction_sale1` (`auction`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -321,14 +530,14 @@ DROP TABLE IF EXISTS `building`;
 CREATE TABLE `building` (
   `map` int(3) NOT NULL,
   `building` int(6) NOT NULL,
-  `owner` int(11) default NULL,
-  `structure` int(3) default NULL,
-  `elevation` tinyint(1) default NULL,
-  `hp` int(3) default '120',
-  `descr` varchar(64) collate utf8_bin default NULL,
-  `surr` varchar(512) collate utf8_bin default NULL,
-  `surr_i` varchar(512) collate utf8_bin default NULL,
-  PRIMARY KEY  (`building`,`map`),
+  `owner` int(11) DEFAULT NULL,
+  `structure` int(3) DEFAULT NULL,
+  `elevation` tinyint(1) DEFAULT NULL,
+  `hp` int(3) DEFAULT '120',
+  `descr` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `surr` varchar(512) COLLATE utf8_bin DEFAULT NULL,
+  `surr_i` varchar(512) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`building`,`map`),
   KEY `fk_building_structure1` (`structure`),
   KEY `owner` (`owner`),
   KEY `hp` (`hp`)
@@ -355,9 +564,9 @@ DROP TABLE IF EXISTS `building_class`;
 CREATE TABLE `building_class` (
   `map` int(3) NOT NULL,
   `building` int(3) NOT NULL,
-  `indoors` tinyint(1) NOT NULL default '-1',
+  `indoors` tinyint(1) NOT NULL DEFAULT '-1',
   `bclass` int(3) NOT NULL,
-  PRIMARY KEY  (`indoors`,`building`,`map`,`bclass`),
+  PRIMARY KEY (`indoors`,`building`,`map`,`bclass`),
   KEY `fk_building_class_building1` (`building`,`map`),
   KEY `fk_building_class_bclass` (`bclass`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -383,9 +592,9 @@ DROP TABLE IF EXISTS `building_progress`;
 CREATE TABLE `building_progress` (
   `map` int(3) NOT NULL,
   `building` int(3) NOT NULL,
-  `amt` int(11) NOT NULL default '0',
+  `amt` int(11) NOT NULL DEFAULT '0',
   `inum` int(4) NOT NULL,
-  PRIMARY KEY  (`building`,`map`,`inum`),
+  PRIMARY KEY (`building`,`map`,`inum`),
   KEY `fk_building_construction_progress_building1` (`building`,`map`),
   KEY `fk_building_construction_progress_item1` (`inum`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -412,7 +621,7 @@ CREATE TABLE `building_search` (
   `building` int(3) NOT NULL,
   `inum` int(4) NOT NULL,
   `odds` int(2) NOT NULL,
-  PRIMARY KEY  (`building`,`map`,`inum`),
+  PRIMARY KEY (`building`,`map`,`inum`),
   KEY `odds` (`odds`),
   KEY `fk_building_search_building1` (`building`,`map`),
   KEY `fk_building_search_item1` (`inum`)
@@ -438,10 +647,10 @@ DROP TABLE IF EXISTS `building_trigger`;
 CREATE TABLE `building_trigger` (
   `map` int(3) NOT NULL,
   `building` int(6) NOT NULL,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
   `enter` bit(1) NOT NULL,
   `exit` bit(1) NOT NULL,
-  PRIMARY KEY  (`map`,`building`),
+  PRIMARY KEY (`map`,`building`),
   KEY `enter` (`enter`),
   KEY `exit` (`exit`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -457,6 +666,33 @@ LOCK TABLES `building_trigger` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `ci_sessions`
+--
+
+DROP TABLE IF EXISTS `ci_sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ci_sessions` (
+  `session_id` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '0',
+  `ip_address` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT '0',
+  `user_agent` varchar(50) COLLATE utf8_bin NOT NULL,
+  `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
+  `user_data` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`session_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ci_sessions`
+--
+
+LOCK TABLES `ci_sessions` WRITE;
+/*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
+INSERT INTO `ci_sessions` VALUES ('ba76dd384d9e456aa65b870c37ea7e75','173.31.95.134','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/53',1336241932,''),('5dd9e301c3695d80afb0fcb4a786d614','173.31.95.134','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/53',1336241935,''),('6a3916ea6a51ebc06edf72107b7d3243','173.31.95.134','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/53',1336241920,''),('7eb985d7a9405b1df12e69a872ee1be9','173.31.95.134','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/53',1336241923,'');
+/*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `clan`
 --
 
@@ -464,14 +700,14 @@ DROP TABLE IF EXISTS `clan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `clan` (
-  `clan` int(11) NOT NULL auto_increment,
+  `clan` int(11) NOT NULL AUTO_INCREMENT,
   `faction` tinyint(1) NOT NULL,
-  `descr` varchar(32) collate utf8_bin NOT NULL,
-  `policy` enum('open','closed') collate utf8_bin NOT NULL default 'open',
-  PRIMARY KEY  (`clan`),
+  `descr` varchar(32) COLLATE utf8_bin NOT NULL,
+  `policy` enum('open','closed') COLLATE utf8_bin NOT NULL DEFAULT 'open',
+  PRIMARY KEY (`clan`),
   KEY `faction` (`faction`),
   KEY `policy` (`policy`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -480,6 +716,7 @@ CREATE TABLE `clan` (
 
 LOCK TABLES `clan` WRITE;
 /*!40000 ALTER TABLE `clan` DISABLE KEYS */;
+INSERT INTO `clan` VALUES (1,2,'Test Clan','open');
 /*!40000 ALTER TABLE `clan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -493,8 +730,8 @@ DROP TABLE IF EXISTS `clan_actor`;
 CREATE TABLE `clan_actor` (
   `clan` int(11) NOT NULL,
   `actor` int(11) NOT NULL,
-  `rank` int(1) NOT NULL default '1',
-  PRIMARY KEY  (`clan`,`actor`),
+  `rank` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`clan`,`actor`),
   KEY `rank` (`rank`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -505,6 +742,7 @@ CREATE TABLE `clan_actor` (
 
 LOCK TABLES `clan_actor` WRITE;
 /*!40000 ALTER TABLE `clan_actor` DISABLE KEYS */;
+INSERT INTO `clan_actor` VALUES (1,1,0);
 /*!40000 ALTER TABLE `clan_actor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -519,8 +757,8 @@ CREATE TABLE `clan_application` (
   `clan` int(11) NOT NULL,
   `actor` int(11) NOT NULL,
   `stamp` int(11) NOT NULL,
-  `msg` varchar(500) collate utf8_bin default NULL,
-  PRIMARY KEY  (`clan`,`actor`),
+  `msg` varchar(500) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`clan`,`actor`),
   KEY `stamp` (`stamp`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -546,7 +784,7 @@ CREATE TABLE `clan_capture` (
   `rclan` int(11) NOT NULL,
   `stamp` int(11) NOT NULL,
   `reclaimed` bit(1) NOT NULL,
-  PRIMARY KEY  (`clan`,`rclan`,`stamp`),
+  PRIMARY KEY (`clan`,`rclan`,`stamp`),
   KEY `reclaimed` (`reclaimed`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -571,8 +809,8 @@ CREATE TABLE `clan_invitation` (
   `clan` int(11) NOT NULL,
   `actor` int(11) NOT NULL,
   `stamp` int(11) NOT NULL,
-  `msg` varchar(500) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`clan`,`actor`),
+  `msg` varchar(500) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`clan`,`actor`),
   KEY `stamp` (`stamp`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -596,8 +834,8 @@ DROP TABLE IF EXISTS `clan_relation`;
 CREATE TABLE `clan_relation` (
   `clan` int(11) NOT NULL,
   `rclan` int(11) NOT NULL,
-  `standing` enum('Ally','Enemy') collate utf8_bin NOT NULL default 'Ally',
-  PRIMARY KEY  (`clan`,`rclan`),
+  `standing` enum('Ally','Enemy') COLLATE utf8_bin NOT NULL DEFAULT 'Ally',
+  PRIMARY KEY (`clan`,`rclan`),
   KEY `standing` (`standing`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -622,8 +860,8 @@ CREATE TABLE `clan_stronghold` (
   `clan` int(11) NOT NULL,
   `map` int(3) NOT NULL,
   `building` int(6) NOT NULL,
-  `shield` int(3) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`clan`),
+  `shield` int(3) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`clan`),
   KEY `map` (`map`,`building`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -646,9 +884,9 @@ DROP TABLE IF EXISTS `class_action`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class_action` (
   `aclass` int(3) NOT NULL,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
-  `descr` varchar(64) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`aclass`),
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
+  `descr` varchar(64) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`aclass`),
   UNIQUE KEY `abbrev` (`abbrev`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -670,10 +908,10 @@ DROP TABLE IF EXISTS `class_actor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class_actor` (
-  `aclass` int(3) NOT NULL auto_increment,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
-  `descr` varchar(64) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`aclass`)
+  `aclass` int(3) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
+  `descr` varchar(64) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`aclass`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -695,11 +933,11 @@ DROP TABLE IF EXISTS `class_cell`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class_cell` (
-  `cclass` int(3) NOT NULL auto_increment,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
+  `cclass` int(3) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
   `gen` bit(1) NOT NULL,
-  `surr` varchar(64) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`cclass`),
+  `surr` varchar(64) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`cclass`),
   KEY `gen` (`gen`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -725,7 +963,7 @@ CREATE TABLE `class_cell_trigger` (
   `cclass` int(3) NOT NULL,
   `arrive` bit(1) NOT NULL,
   `leave` bit(1) NOT NULL,
-  PRIMARY KEY  (`cclass`),
+  PRIMARY KEY (`cclass`),
   KEY `arrive` (`arrive`,`leave`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -748,10 +986,10 @@ DROP TABLE IF EXISTS `class_effect`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class_effect` (
-  `eclass` int(3) NOT NULL auto_increment,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
-  `descr` varchar(64) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`eclass`)
+  `eclass` int(3) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
+  `descr` varchar(64) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`eclass`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -784,7 +1022,7 @@ CREATE TABLE `class_effect_trigger` (
   `move` bit(1) NOT NULL,
   `struck` bit(1) NOT NULL,
   `tick` tinyint(1) NOT NULL,
-  PRIMARY KEY  (`eclass`),
+  PRIMARY KEY (`eclass`),
   KEY `attack` (`attack`,`chancetohit`,`heal`,`healed`,`hit`,`miss`,`move`,`struck`,`tick`),
   KEY `defend` (`defend`),
   KEY `fk_effect_trigger_effect1` (`eclass`)
@@ -808,10 +1046,10 @@ DROP TABLE IF EXISTS `class_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class_item` (
-  `iclass` int(3) NOT NULL auto_increment,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
-  `descr` varchar(64) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`iclass`)
+  `iclass` int(3) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
+  `descr` varchar(64) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`iclass`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -834,11 +1072,11 @@ DROP TABLE IF EXISTS `class_item_trigger`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class_item_trigger` (
   `iclass` int(3) NOT NULL,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
   `use` bit(1) NOT NULL,
   `equip` bit(1) NOT NULL,
   `remove` bit(1) NOT NULL,
-  PRIMARY KEY  (`iclass`),
+  PRIMARY KEY (`iclass`),
   KEY `use` (`use`,`equip`,`remove`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -861,9 +1099,9 @@ DROP TABLE IF EXISTS `class_skill`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class_skill` (
   `sclass` int(3) NOT NULL,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
-  `descr` varchar(64) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`sclass`),
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
+  `descr` varchar(64) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`sclass`),
   UNIQUE KEY `abbrev` (`abbrev`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -885,11 +1123,11 @@ DROP TABLE IF EXISTS `class_structure`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class_structure` (
-  `sclass` int(3) NOT NULL auto_increment,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
+  `sclass` int(3) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
   `gen` bit(1) NOT NULL,
-  `surr` varchar(64) collate utf8_bin default NULL,
-  PRIMARY KEY  (`sclass`),
+  `surr` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`sclass`),
   UNIQUE KEY `abbrev` (`abbrev`),
   KEY `gen` (`gen`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -918,7 +1156,7 @@ CREATE TABLE `class_structure_trigger` (
   `exit` bit(1) NOT NULL,
   `arrive` bit(1) NOT NULL,
   `leave` bit(1) NOT NULL,
-  PRIMARY KEY  (`sclass`),
+  PRIMARY KEY (`sclass`),
   KEY `enter` (`enter`,`exit`,`arrive`,`leave`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -941,24 +1179,24 @@ DROP TABLE IF EXISTS `effect`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `effect` (
-  `effect` int(3) NOT NULL auto_increment,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
-  `ename` varchar(32) collate utf8_bin NOT NULL,
+  `effect` int(3) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
+  `ename` varchar(32) COLLATE utf8_bin NOT NULL,
   `persist` bit(1) NOT NULL,
   `hide` bit(1) NOT NULL,
   `perm` bit(1) NOT NULL,
-  `priority` int(1) NOT NULL default '0',
+  `priority` int(1) NOT NULL DEFAULT '0',
   `on` bit(1) NOT NULL,
   `off` bit(1) NOT NULL,
-  `descr` text collate utf8_bin,
-  PRIMARY KEY  (`effect`),
+  `descr` text COLLATE utf8_bin,
+  PRIMARY KEY (`effect`),
   KEY `hide` (`hide`),
   KEY `abbrev` (`abbrev`),
   KEY `perm` (`perm`),
   KEY `priority` (`priority`),
   KEY `on` (`on`),
   KEY `off` (`off`)
-) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -967,7 +1205,7 @@ CREATE TABLE `effect` (
 
 LOCK TABLES `effect` WRITE;
 /*!40000 ALTER TABLE `effect` DISABLE KEYS */;
-INSERT INTO `effect` VALUES (1,'hiding','Hiding','\0','\0','\0',0,'','','While Hiding, your presence will be concealed from others. People searching the map cell you are hiding in may find you in their pursuit of valuable goods.'),(3,'poison','Poison','\0','\0','\0',0,'','','While under the effects of Poison, each action you perform will drain you of 1HP. Poison can be removed with the Antidote item or through various skills.'),(4,'poisonstrike','Poison Strike','\0','','\0',0,'','',NULL),(5,'poisondeadly','Deadly poison','\0','\0','\0',0,'','','While under the effects of Deadly poison, each action you perform will drain you of 1HP. In addition, you will be drained of 1HP every 5 minutes while afflicted.'),(6,'healinghands','Healing Hands','','\0','\0',0,'','','Your skill at healing is increased; both when using items and skills.'),(7,'parry','Parry','','','',0,'\0','\0','When attacked, you have a small chance to parry your opponent\'s blow, mitigating all damage.'),(8,'block','Block','','','',0,'\0','\0','When attacked, you have a small chance to block your opponent\'s blow, reducing its damage.'),(9,'ancestralrage','Ancestral Rage','','\0','\0',0,'','','The fury of your fallen ancestors will fuel your actions in battle, giving you a chance to renew your assault when one of your attacks misses your opponent.'),(10,'onehandmelee','1H Melee Weapons','','','',9,'\0','\0','Increases your chance to hit with one-handed melee weapons.'),(11,'twohandmelee','2H Melee Weapons','','','',9,'\0','\0','Increases your chance to hit with two-handed melee weapons.'),(12,'combat','Combat Training','','','',9,'\0','\0','Increases your base chance to hit with normal attacks.'),(13,'marksmanship','Marksmanship','','','',9,'\0','\0','Increases your chance to hit with ranged weapons.'),(14,'climbing','Climbing','\0','\0','\0',0,'','','While you are above your opponent, your chance to hit is increased (while theirs is decreased). A character who is climbing and a character who is not cannot engage in melee-ranged combat. Climbing will allow you to move through certain tiles without the usual impairment (i.e., Dense forests).'),(15,'exertion','Exertion','\0','\0','\0',0,'','','Physical toil will tire you out. When a certain level of Exertion is reached, some actions may be hampered (or prevented). Your Exertion level declines over time&mdash;though it will <b>increase</b> while in the water.'),(16,'decay','Decay','\0','','\0',0,'\0','\0',NULL),(17,'decayed','Decayed','\0','','\0',0,'','',NULL),(18,'food_ap','Well fed (AP)','\0','\0','\0',0,'','','You will regenerate an additional AP with each regeneration tick. Any Well fed effect will prevent you from eating more food.'),(19,'karate','Karate','','','',99,'\0','\0','Increases your chance to hit with Fists, as well as the damage inflicted when attacking with Fists.'),(20,'kata_tiger','Kata: Tiger','\0','\0','\0',98,'','','Your Fists deal Slashing damage.'),(21,'kata_mantis','Kata: Mantis','\0','\0','\0',98,'','','Your Fists deal Piercing damage.'),(22,'kata_crane','Kata: Crane','\0','\0','\0',98,'','','You will Kick for +1 damage rather than use Fists.'),(39,'dance_mtnpath','Dance of the Mountain Path','\0','\0','\0',0,'','\0','Nearby allies\' armor values are bolstered while inspired by this dance.'),(24,'meditation','Meditation','\0','\0','\0',0,'','','Under the effects of Meditation, you have a random chance to regenerate an additional MP every 5 minutes.'),(25,'ninjutsu','Ninjutsu','','','',99,'\0','\0','Increases your chance to score a critical hit with one-handed melee weapons.'),(26,'poisonweapon','Poisoned weapon','\0','\0','\0',0,'','','Coating your weapon in a powerful poison, you may inflict it on your victim with a successful strike.'),(27,'caltrops','Caltrops','\0','','\0',0,'\0','\0',NULL),(28,'kujikiri','Kuji-kiri','','','',99,'\0','\0','Unlocks the Ninja\'s Kuji-in forms and grants an additional chance-to-hit when using fists.'),(29,'kujiin_rin','Kuji-in: Rin','\0','\0','\0',99,'','','You inflict additional damage when using your fists.'),(30,'kujiin_kyo','Kuji-in: Kyo','\0','\0','\0',99,'','','Provides additional accuracy when attacking with fists.'),(31,'kujiin_sha','Kuji-in: Sha','\0','\0','\0',99,'','','You will heal yourself when striking successfully with your fists.'),(32,'kendo','Kendo','','','',99,'\0','\0','Increases your chance to score a critical hit with 2H melee weapons.'),(33,'bleeding','Bleeding','\0','\0','\0',0,'','','You will lose health over time, as well as when you perform certain actions.'),(34,'counterattack','Counter-attack','','','',99,'\0','\0','Grants a small chance to take advantage of attacks of opportunity when you are being attacked by an opponent (even while offline).'),(35,'archery','Archery','','','',99,'\0','\0','Increases your chance to score a critical hit when using bows.'),(36,'vigilance','Vigilance','','','',0,'\0','\0','When moving about, you will have a small chance to automatically detect hidden characters at your location.'),(37,'quickness','Quickness','','','',0,'\0','\0','When attacking, you have a small chance of being refunded 1AP.'),(38,'soothed','Soothed','\0','\0','\0',0,'','','You will regain additional mana points per tick in this state. Any display of violence will remove the effect.'),(40,'insp_dance_mtnpath','Inspired (DotMP)','\0','\0','\0',0,'','','Inspired by some friendly Geisha\'s Dance of the Mountain Path, you feel stalwart and alert, increasing your defense.'),(41,'preparation','Preparation','','','',0,'\0','\0','Your breadth of experience makes you better prepared for any situation, leading to less damage taken from standard attacks.'),(42,'ardentpassion','Ardent Passion','','','',99,'\0','\0','Your performance is driven by a fury from within. While your Dance of the Mountain Path is active, you have an increased chance to hit with attacks.'),(43,'dance_fallingleaf','Dance of the Falling Leaf','\0','\0','\0',0,'','\0','Nearby allies may dodge damaging blows like a leaf riding the wind while inspired by this dance.'),(44,'insp_dance_fallingleaf','Inspired (DotFL)','\0','\0','\0',98,'','','Inspired by some friendly Geisha\'s Dance of the Falling Leaf, you feel relaxed and aloof, granting you a chance to avoid damaging blows.'),(45,'evasivemovement','Evasive Movement','','','',98,'\0','\0','Your unflinching devotion to your craft has imbued your movements with an almost ghostly evasive quality, making you harder to strike in combat.'),(46,'aggression','Aggression','','','',98,'\0','\0','Your movements, though fluid, are forceful and aggressive. While your Dance of the Falling Leaf is active, you will inflict additional damage with your attacks.'),(47,'medicine','Medicine','','','',98,'\0','\0','Your knowledge of various plants and healing methods increases your healing effectiveness.'),(48,'song_luminescentsoul','Song of the Luminescent Soul','\0','\0','\0',0,'','\0','This song pierces the very darkness, possibly revealing hidden enemies.'),(49,'defense_ranged','Improved defense: Ranged','','\0','',0,'\0','\0','You have increased defense against ranged weaponry.');
+INSERT INTO `effect` VALUES (1,'hiding','Hiding','\0','\0','\0',0,'','','While Hiding, your presence will be concealed from others. People searching the map cell you are hiding in may find you in their pursuit of valuable goods.'),(3,'poison','Poison','\0','\0','\0',0,'','','While under the effects of Poison, each action you perform will drain you of 1HP. Poison can be removed with the Antidote item or through various skills.'),(4,'poisonstrike','Poison Strike','\0','','\0',0,'','',NULL),(5,'poisondeadly','Deadly poison','\0','\0','\0',0,'','','While under the effects of Deadly poison, each action you perform will drain you of 1HP. In addition, you will be drained of 1HP every 5 minutes while afflicted.'),(6,'healinghands','Healing Hands','','\0','\0',0,'','','Your skill at healing is increased; both when using items and skills.'),(7,'parry','Parry','','','',0,'\0','\0','When attacked, you have a small chance to parry your opponent\'s blow, mitigating all damage.'),(8,'block','Block','','','',0,'\0','\0','When attacked, you have a small chance to block your opponent\'s blow, reducing its damage.'),(9,'ancestralrage','Ancestral Rage','','\0','\0',0,'','','The fury of your fallen ancestors will fuel your actions in battle, giving you a chance to renew your assault when one of your attacks misses your opponent.'),(10,'onehandmelee','1H Melee Weapons','','','',9,'\0','\0','Increases your chance to hit with one-handed melee weapons.'),(11,'twohandmelee','2H Melee Weapons','','','',9,'\0','\0','Increases your chance to hit with two-handed melee weapons.'),(12,'combat','Combat Training','','','',9,'\0','\0','Increases your base chance to hit with normal attacks.'),(13,'marksmanship','Marksmanship','','','',9,'\0','\0','Increases your chance to hit with ranged weapons.'),(14,'climbing','Climbing','\0','\0','\0',0,'','','While you are above your opponent, your chance to hit is increased (while theirs is decreased). A character who is climbing and a character who is not cannot engage in melee-ranged combat. Climbing will allow you to move through certain tiles without the usual impairment (i.e., Dense forests).'),(15,'exertion','Exertion','\0','\0','\0',0,'','','Physical toil will tire you out. When a certain level of Exertion is reached, some actions may be hampered (or prevented). Your Exertion level declines over time&mdash;though it will <b>increase</b> while in the water.'),(16,'decay','Decay','\0','','\0',0,'\0','\0',NULL),(17,'decayed','Decayed','\0','','\0',0,'','',NULL),(18,'food_ap','Well fed (AP)','\0','\0','\0',0,'','','You will regenerate an additional AP with each regeneration tick. Any Well fed effect will prevent you from eating more food.'),(19,'karate','Karate','','','',99,'\0','\0','Increases your chance to hit with Fists, as well as the damage inflicted when attacking with Fists.'),(20,'kata_tiger','Kata: Tiger','\0','\0','\0',98,'','','Your Fists deal Slashing damage.'),(21,'kata_mantis','Kata: Mantis','\0','\0','\0',98,'','','Your Fists deal Piercing damage.'),(22,'kata_crane','Kata: Crane','\0','\0','\0',98,'','','You will Kick for +1 damage rather than use Fists.'),(39,'dance_mtnpath','Dance of the Mountain Path','\0','\0','\0',0,'','\0','Nearby allies\' armor values are bolstered while inspired by this dance.'),(24,'meditation','Meditation','\0','\0','\0',0,'','','Under the effects of Meditation, you have a random chance to regenerate an additional MP every 5 minutes.'),(25,'ninjutsu','Ninjutsu','','','',99,'\0','\0','Increases your chance to score a critical hit with one-handed melee weapons.'),(26,'poisonweapon','Poisoned weapon','\0','\0','\0',0,'','','Coating your weapon in a powerful poison, you may inflict it on your victim with a successful strike.'),(27,'caltrops','Caltrops','\0','','\0',0,'\0','\0',NULL),(28,'kujikiri','Kuji-kiri','','','',99,'\0','\0','Unlocks the Ninja\'s Kuji-in forms and grants an additional chance-to-hit when using fists.'),(29,'kujiin_rin','Kuji-in: Rin','\0','\0','\0',99,'','','You inflict additional damage when using your fists.'),(30,'kujiin_kyo','Kuji-in: Kyo','\0','\0','\0',99,'','','Provides additional accuracy when attacking with fists.'),(31,'kujiin_sha','Kuji-in: Sha','\0','\0','\0',99,'','','You will heal yourself when striking successfully with your fists.'),(32,'kendo','Kendo','','','',99,'\0','\0','Increases your chance to score a critical hit with 2H melee weapons.'),(33,'bleeding','Bleeding','\0','\0','\0',0,'','','You will lose health over time, as well as when you perform certain actions.'),(34,'counterattack','Counter-attack','','','',99,'\0','\0','Grants a small chance to take advantage of attacks of opportunity when you are being attacked by an opponent (even while offline).'),(35,'archery','Archery','','','',99,'\0','\0','Increases your chance to score a critical hit when using bows.'),(36,'vigilance','Vigilance','','','',0,'\0','\0','When moving about, you will have a small chance to automatically detect hidden characters at your location.'),(37,'quickness','Quickness','','','',0,'\0','\0','When attacking, you have a small chance of being refunded 1AP.'),(38,'soothed','Soothed','\0','\0','\0',0,'','','You will regain additional mana points per tick in this state. Any display of violence will remove the effect.'),(40,'insp_dance_mtnpath','Inspired (DotMP)','\0','\0','\0',0,'','','Inspired by some friendly Geisha\'s Dance of the Mountain Path, you feel stalwart and alert, increasing your defense.'),(41,'preparation','Preparation','','','',0,'\0','\0','Your breadth of experience makes you better prepared for any situation, leading to less damage taken from standard attacks.'),(42,'ardentpassion','Ardent Passion','','','',99,'\0','\0','Your performance is driven by a fury from within. While your Dance of the Mountain Path is active, you have an increased chance to hit with attacks.'),(43,'dance_fallingleaf','Dance of the Falling Leaf','\0','\0','\0',0,'','\0','Nearby allies may dodge damaging blows like a leaf riding the wind while inspired by this dance.'),(44,'insp_dance_fallingleaf','Inspired (DotFL)','\0','\0','\0',98,'','','Inspired by some friendly Geisha\'s Dance of the Falling Leaf, you feel relaxed and aloof, granting you a chance to avoid damaging blows.'),(45,'evasivemovement','Evasive Movement','','','',98,'\0','\0','Your unflinching devotion to your craft has imbued your movements with an almost ghostly evasive quality, making you harder to strike in combat.'),(46,'aggression','Aggression','','','',98,'\0','\0','Your movements, though fluid, are forceful and aggressive. While your Dance of the Falling Leaf is active, you will inflict additional damage with your attacks.'),(47,'medicine','Medicine','','','',98,'\0','\0','Your knowledge of various plants and healing methods increases your healing effectiveness.'),(48,'song_luminescentsoul','Song of the Luminescent Soul','\0','\0','\0',0,'','\0','This song pierces the very darkness, possibly revealing hidden enemies.'),(49,'defense_ranged','Improved defense: Ranged','','\0','',0,'\0','\0','You have increased defense against ranged weaponry.'),(50,'npc_counterattack','NPC: Counterattack','','\0','',0,'\0','\0',NULL),(51,'noinventory','No inventory','','','',9,'\0','\0',NULL),(52,'npc_chancetohit75','NPC: Chance to hit 75%','','\0','',9,'\0','\0',NULL);
 /*!40000 ALTER TABLE `effect` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -981,7 +1219,7 @@ DROP TABLE IF EXISTS `effect_class`;
 CREATE TABLE `effect_class` (
   `effect` int(3) NOT NULL,
   `eclass` int(3) NOT NULL,
-  PRIMARY KEY  (`effect`,`eclass`),
+  PRIMARY KEY (`effect`,`eclass`),
   KEY `fk_effect_class_class_effect1` (`eclass`),
   KEY `fk_effect_class_effect1` (`effect`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1005,7 +1243,7 @@ DROP TABLE IF EXISTS `effect_elevated`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `effect_elevated` (
   `effect` int(3) NOT NULL,
-  PRIMARY KEY  (`effect`),
+  PRIMARY KEY (`effect`),
   KEY `fk_effect_elevated_effect1` (`effect`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1029,7 +1267,7 @@ DROP TABLE IF EXISTS `effect_hide`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `effect_hide` (
   `effect` int(3) NOT NULL,
-  PRIMARY KEY  (`effect`),
+  PRIMARY KEY (`effect`),
   KEY `fk_effect_hide_effect1` (`effect`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1064,8 +1302,8 @@ CREATE TABLE `effect_trigger` (
   `move` bit(1) NOT NULL,
   `struck` bit(1) NOT NULL,
   `armor` bit(1) NOT NULL,
-  `tick` tinyint(2) default NULL,
-  PRIMARY KEY  (`effect`),
+  `tick` tinyint(2) DEFAULT NULL,
+  PRIMARY KEY (`effect`),
   KEY `attack` (`attack`,`chancetohit`,`heal`,`healed`,`hit`,`miss`,`move`,`struck`,`tick`),
   KEY `defend` (`defend`),
   KEY `fk_effect_trigger_effect1` (`effect`),
@@ -1079,8 +1317,57 @@ CREATE TABLE `effect_trigger` (
 
 LOCK TABLES `effect_trigger` WRITE;
 /*!40000 ALTER TABLE `effect_trigger` DISABLE KEYS */;
-INSERT INTO `effect_trigger` VALUES (1,'','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',20),(3,'','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(4,'\0','\0','\0','\0','\0','\0','','\0','\0','\0','\0',NULL),(5,'','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',20),(6,'\0','\0','\0','\0','','\0','\0','\0','\0','\0','\0',NULL),(7,'\0','\0','\0','\0','\0','\0','\0','\0','\0','','\0',NULL),(8,'\0','\0','\0','\0','\0','\0','\0','\0','\0','','\0',NULL),(9,'\0','\0','\0','\0','\0','\0','\0','','\0','\0','\0',5),(10,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(11,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(12,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(13,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(14,'\0','\0','\0','\0','\0','\0','\0','\0','','\0','\0',NULL),(15,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',5),(16,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',20),(18,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',20),(20,'\0','','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(19,'\0','','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(21,'\0','','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(22,'\0','','\0','\0','\0','\0','','\0','\0','\0','\0',NULL),(24,'','\0','','\0','\0','\0','\0','\0','\0','\0','\0',5),(25,'\0','','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(26,'','\0','\0','\0','\0','\0','','\0','\0','\0','\0',20),(27,'\0','\0','\0','\0','\0','\0','\0','\0','','\0','\0',NULL),(28,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(29,'\0','','\0','\0','\0','\0','','\0','\0','\0','\0',NULL),(30,'\0','','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(31,'\0','','\0','\0','\0','\0','','\0','\0','\0','\0',NULL),(32,'\0','','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(33,'','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',5),(34,'\0','\0','','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(36,'\0','\0','\0','\0','\0','\0','\0','\0','','\0','\0',NULL),(37,'\0','','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(38,'\0','','\0','\0','\0','\0','\0','\0','\0','','\0',10),(39,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',5),(40,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','',5),(41,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','',NULL),(42,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(43,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',5),(44,'\0','\0','\0','\0','\0','\0','\0','\0','\0','','\0',5),(48,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',20),(49,'\0','\0','','\0','\0','\0','\0','\0','\0','\0','\0',NULL);
+INSERT INTO `effect_trigger` VALUES (1,'','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',20),(3,'','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(4,'\0','\0','\0','\0','\0','\0','','\0','\0','\0','\0',NULL),(5,'','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',20),(6,'\0','\0','\0','\0','','\0','\0','\0','\0','\0','\0',NULL),(7,'\0','\0','\0','\0','\0','\0','\0','\0','\0','','\0',NULL),(8,'\0','\0','\0','\0','\0','\0','\0','\0','\0','','\0',NULL),(9,'\0','\0','\0','\0','\0','\0','\0','','\0','\0','\0',5),(10,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(11,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(12,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(13,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(14,'\0','\0','\0','\0','\0','\0','\0','\0','','\0','\0',NULL),(15,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',5),(16,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',20),(18,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',20),(20,'\0','','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(19,'\0','','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(21,'\0','','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(22,'\0','','\0','\0','\0','\0','','\0','\0','\0','\0',NULL),(24,'','\0','','\0','\0','\0','\0','\0','\0','\0','\0',5),(25,'\0','','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(26,'','\0','\0','\0','\0','\0','','\0','\0','\0','\0',20),(27,'\0','\0','\0','\0','\0','\0','\0','\0','','\0','\0',NULL),(28,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(29,'\0','','\0','\0','\0','\0','','\0','\0','\0','\0',NULL),(30,'\0','','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(31,'\0','','\0','\0','\0','\0','','\0','\0','\0','\0',NULL),(32,'\0','','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(33,'','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',5),(34,'\0','\0','','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(36,'\0','\0','\0','\0','\0','\0','\0','\0','','\0','\0',NULL),(37,'\0','','\0','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(38,'\0','','\0','\0','\0','\0','\0','\0','\0','','\0',10),(39,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',5),(40,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','',5),(41,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','',NULL),(42,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL),(43,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',5),(44,'\0','\0','\0','\0','\0','\0','\0','\0','\0','','\0',5),(48,'\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0',20),(49,'\0','\0','','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(50,'\0','\0','','\0','\0','\0','\0','\0','\0','\0','\0',NULL),(52,'\0','\0','\0','','\0','\0','\0','\0','\0','\0','\0',NULL);
 /*!40000 ALTER TABLE `effect_trigger` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `event`
+--
+
+DROP TABLE IF EXISTS `event`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `event` (
+  `event` int(11) NOT NULL AUTO_INCREMENT,
+  `stamp` int(11) NOT NULL,
+  `descr` varchar(255) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`event`)
+) ENGINE=MyISAM AUTO_INCREMENT=361 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `event`
+--
+
+LOCK TABLES `event` WRITE;
+/*!40000 ALTER TABLE `event` DISABLE KEYS */;
+/*!40000 ALTER TABLE `event` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `event_thread`
+--
+
+DROP TABLE IF EXISTS `event_thread`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `event_thread` (
+  `event` int(11) NOT NULL,
+  `actor` int(11) NOT NULL,
+  PRIMARY KEY (`event`,`actor`),
+  KEY `fk_event_thread_actor1` (`actor`),
+  KEY `fk_event_thread_event1` (`event`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `event_thread`
+--
+
+LOCK TABLES `event_thread` WRITE;
+/*!40000 ALTER TABLE `event_thread` DISABLE KEYS */;
+/*!40000 ALTER TABLE `event_thread` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1091,10 +1378,10 @@ DROP TABLE IF EXISTS `faction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `faction` (
-  `faction` int(1) NOT NULL auto_increment,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
-  `descr` varchar(64) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`faction`),
+  `faction` int(1) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
+  `descr` varchar(64) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`faction`),
   UNIQUE KEY `abbrev` (`abbrev`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1117,19 +1404,19 @@ DROP TABLE IF EXISTS `item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `item` (
-  `inum` int(4) NOT NULL auto_increment,
-  `iname` varchar(64) collate utf8_bin NOT NULL,
-  `abbrev` varchar(24) collate utf8_bin default NULL,
-  `txt` text collate utf8_bin NOT NULL,
-  `img` varchar(32) collate utf8_bin NOT NULL,
-  `weight` int(3) NOT NULL default '1',
-  `eq_type` enum('1H','2H','Torso','Head','Arms','Legs') collate utf8_bin default NULL,
-  `target` tinyint(1) default NULL,
+  `inum` int(4) NOT NULL AUTO_INCREMENT,
+  `iname` varchar(64) COLLATE utf8_bin NOT NULL,
+  `abbrev` varchar(24) COLLATE utf8_bin DEFAULT NULL,
+  `txt` text COLLATE utf8_bin NOT NULL,
+  `img` varchar(32) COLLATE utf8_bin NOT NULL,
+  `weight` int(3) NOT NULL DEFAULT '1',
+  `eq_type` enum('1H','2H','Torso','Head','Arms','Legs') COLLATE utf8_bin DEFAULT NULL,
+  `target` tinyint(1) DEFAULT NULL,
   `stack` bit(1) NOT NULL,
-  `lifespan` int(3) default NULL,
-  `durability` int(3) default NULL,
+  `lifespan` int(3) DEFAULT NULL,
+  `durability` int(3) DEFAULT NULL,
   `repair` bit(1) NOT NULL,
-  PRIMARY KEY  (`inum`),
+  PRIMARY KEY (`inum`),
   KEY `eq_type` (`eq_type`),
   KEY `target` (`target`),
   KEY `stack` (`stack`),
@@ -1158,8 +1445,8 @@ DROP TABLE IF EXISTS `item_ammo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `item_ammo` (
   `inum` int(4) NOT NULL,
-  `dmg` varchar(2) collate utf8_bin NOT NULL default '1',
-  PRIMARY KEY  (`inum`),
+  `dmg` varchar(2) COLLATE utf8_bin NOT NULL DEFAULT '1',
+  PRIMARY KEY (`inum`),
   KEY `dmg` (`dmg`),
   KEY `fk_item_ammo_item1` (`inum`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1184,11 +1471,11 @@ DROP TABLE IF EXISTS `item_armor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `item_armor` (
   `inum` int(4) NOT NULL,
-  `aclass` enum('Cloth','Leather','Plate') collate utf8_bin NOT NULL,
-  `slashing` int(2) NOT NULL default '0',
-  `piercing` int(2) NOT NULL default '0',
-  `blunt` int(2) NOT NULL default '0',
-  PRIMARY KEY  (`inum`),
+  `aclass` enum('Cloth','Leather','Plate') COLLATE utf8_bin NOT NULL,
+  `slashing` int(2) NOT NULL DEFAULT '0',
+  `piercing` int(2) NOT NULL DEFAULT '0',
+  `blunt` int(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`inum`),
   KEY `class` (`aclass`),
   KEY `fk_item_armor_item1` (`inum`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1214,7 +1501,7 @@ DROP TABLE IF EXISTS `item_class`;
 CREATE TABLE `item_class` (
   `inum` int(4) NOT NULL,
   `iclass` int(3) NOT NULL,
-  PRIMARY KEY  (`inum`,`iclass`),
+  PRIMARY KEY (`inum`,`iclass`),
   KEY `fk_item_class_class_item1` (`iclass`),
   KEY `fk_item_class_item1` (`inum`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1240,7 +1527,7 @@ DROP TABLE IF EXISTS `item_effect`;
 CREATE TABLE `item_effect` (
   `inum` int(4) NOT NULL,
   `effect` int(3) NOT NULL,
-  PRIMARY KEY  (`inum`,`effect`),
+  PRIMARY KEY (`inum`,`effect`),
   KEY `fk_item_effect_effect1` (`effect`),
   KEY `fk_item_effect_item1` (`inum`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1268,7 +1555,7 @@ CREATE TABLE `item_trigger` (
   `use` bit(1) NOT NULL,
   `equip` bit(1) NOT NULL,
   `remove` bit(1) NOT NULL,
-  PRIMARY KEY  (`inum`),
+  PRIMARY KEY (`inum`),
   KEY `use` (`use`,`equip`,`remove`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1294,10 +1581,10 @@ CREATE TABLE `item_weapon` (
   `inum` int(4) NOT NULL,
   `dmg_min` int(3) NOT NULL,
   `dmg_max` int(3) NOT NULL,
-  `dmg_bonus` int(3) NOT NULL default '0',
-  `distance` enum('melee','ranged','both') collate utf8_bin NOT NULL default 'melee',
-  `dmg_type` enum('slashing','piercing','blunt','poison','air','wind','water','fire') collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`inum`),
+  `dmg_bonus` int(3) NOT NULL DEFAULT '0',
+  `distance` enum('melee','ranged','both') COLLATE utf8_bin NOT NULL DEFAULT 'melee',
+  `dmg_type` enum('slashing','piercing','blunt','poison','air','wind','water','fire') COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`inum`),
   KEY `type` (`distance`),
   KEY `dmg_type` (`dmg_type`),
   KEY `fk_item_weapon_item1` (`inum`)
@@ -1322,9 +1609,9 @@ DROP TABLE IF EXISTS `map`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `map` (
-  `map` int(2) NOT NULL auto_increment,
-  `mname` varchar(64) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`map`)
+  `map` int(2) NOT NULL AUTO_INCREMENT,
+  `mname` varchar(64) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`map`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1350,10 +1637,10 @@ CREATE TABLE `map_cell` (
   `x` int(3) NOT NULL,
   `y` int(3) NOT NULL,
   `tile` int(3) NOT NULL,
-  `base_tile` int(3) NOT NULL default '1',
-  `building` int(5) default NULL,
-  `descr` varchar(180) collate utf8_bin default NULL,
-  PRIMARY KEY  (`x`,`y`,`map`),
+  `base_tile` int(3) NOT NULL DEFAULT '1',
+  `building` int(5) DEFAULT NULL,
+  `descr` varchar(180) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`x`,`y`,`map`),
   KEY `building` (`building`),
   KEY `fk_map_cell_map1` (`map`),
   KEY `fk_map_cell_tile1` (`tile`),
@@ -1382,9 +1669,9 @@ CREATE TABLE `map_cell_class` (
   `map` int(2) NOT NULL,
   `x` int(3) NOT NULL,
   `y` int(3) NOT NULL,
-  `indoors` tinyint(1) NOT NULL default '-1',
+  `indoors` tinyint(1) NOT NULL DEFAULT '-1',
   `cclass` int(3) NOT NULL,
-  PRIMARY KEY  (`indoors`,`map`,`x`,`y`,`cclass`),
+  PRIMARY KEY (`indoors`,`map`,`x`,`y`,`cclass`),
   KEY `indoors` (`indoors`),
   KEY `fk_map_cell_class_class_cell1` (`cclass`),
   KEY `fk_map_cell_class_map_cell1` (`map`,`x`,`y`)
@@ -1413,8 +1700,8 @@ CREATE TABLE `map_cell_search` (
   `y` int(3) NOT NULL,
   `indoors` tinyint(1) NOT NULL,
   `inum` int(4) NOT NULL,
-  `odds` varchar(2) collate utf8_bin NOT NULL default '1',
-  PRIMARY KEY  (`indoors`,`map`,`x`,`y`,`inum`),
+  `odds` varchar(2) COLLATE utf8_bin NOT NULL DEFAULT '1',
+  PRIMARY KEY (`indoors`,`map`,`x`,`y`,`inum`),
   KEY `odds` (`odds`),
   KEY `fk_map_cell_search_item1` (`inum`),
   KEY `fk_map_cell_search_map_cell1` (`map`,`x`,`y`)
@@ -1441,11 +1728,11 @@ CREATE TABLE `map_cell_trigger` (
   `map` int(3) NOT NULL,
   `x` int(3) NOT NULL,
   `y` int(3) NOT NULL,
-  `indoors` tinyint(1) NOT NULL default '0',
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
+  `indoors` tinyint(1) NOT NULL DEFAULT '0',
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
   `arrive` bit(1) NOT NULL,
   `leave` bit(1) NOT NULL,
-  PRIMARY KEY  (`map`,`x`,`y`,`indoors`),
+  PRIMARY KEY (`map`,`x`,`y`,`indoors`),
   KEY `arrive` (`arrive`,`leave`),
   KEY `abbrev` (`abbrev`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1468,11 +1755,11 @@ DROP TABLE IF EXISTS `news`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `news` (
-  `news` int(11) NOT NULL auto_increment,
+  `news` int(11) NOT NULL AUTO_INCREMENT,
   `posted` int(11) NOT NULL,
-  `title` varchar(140) collate utf8_bin NOT NULL,
-  `text` text collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`news`),
+  `title` varchar(140) COLLATE utf8_bin NOT NULL,
+  `text` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`news`),
   KEY `posted` (`posted`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1494,9 +1781,9 @@ DROP TABLE IF EXISTS `npc`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `npc` (
-  `npc` int(11) NOT NULL auto_increment,
-  `abbrev` varchar(32) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`npc`),
+  `npc` int(11) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(32) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`npc`),
   UNIQUE KEY `abbrev` (`abbrev`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1519,12 +1806,12 @@ DROP TABLE IF EXISTS `npc_spawn`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `npc_spawn` (
-  `npc` int(11) NOT NULL default '0',
-  `map` int(3) NOT NULL default '0',
-  `x` int(3) NOT NULL default '0',
-  `y` int(3) NOT NULL default '0',
-  `indoors` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`npc`,`map`,`x`,`y`,`indoors`)
+  `npc` int(11) NOT NULL DEFAULT '0',
+  `map` int(3) NOT NULL DEFAULT '0',
+  `x` int(3) NOT NULL DEFAULT '0',
+  `y` int(3) NOT NULL DEFAULT '0',
+  `indoors` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`npc`,`map`,`x`,`y`,`indoors`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1546,11 +1833,11 @@ DROP TABLE IF EXISTS `password_reset`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `password_reset` (
-  `token_id` int(11) NOT NULL auto_increment,
+  `token_id` int(11) NOT NULL AUTO_INCREMENT,
   `user` int(11) NOT NULL,
-  `token` varchar(32) collate utf8_bin NOT NULL,
+  `token` varchar(32) COLLATE utf8_bin NOT NULL,
   `stamp` int(11) NOT NULL,
-  PRIMARY KEY  (`token_id`),
+  PRIMARY KEY (`token_id`),
   UNIQUE KEY `user` (`user`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1566,6 +1853,33 @@ INSERT INTO `password_reset` VALUES (6,1,'4da2a1a371be40b4d8649dedb9c2080c',1319
 UNLOCK TABLES;
 
 --
+-- Table structure for table `pdata`
+--
+
+DROP TABLE IF EXISTS `pdata`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pdata` (
+  `dtype` enum('global','effect','skill') COLLATE utf8_bin NOT NULL DEFAULT 'global',
+  `owner` int(11) NOT NULL DEFAULT '0',
+  `dkey` varchar(32) COLLATE utf8_bin NOT NULL,
+  `altkey` int(11) NOT NULL DEFAULT '0',
+  `dval` varchar(256) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`dtype`,`owner`,`dkey`,`altkey`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pdata`
+--
+
+LOCK TABLES `pdata` WRITE;
+/*!40000 ALTER TABLE `pdata` DISABLE KEYS */;
+INSERT INTO `pdata` VALUES ('effect',1,'49',0,'2'),('effect',1,'exertion',0,'1');
+/*!40000 ALTER TABLE `pdata` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `skill`
 --
 
@@ -1573,19 +1887,19 @@ DROP TABLE IF EXISTS `skill`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `skill` (
-  `skill` int(3) NOT NULL auto_increment,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
-  `sname` varchar(64) collate utf8_bin NOT NULL,
-  `passive` tinyint(1) NOT NULL default '1',
-  `list` bit(1) NOT NULL default b'1',
+  `skill` int(3) NOT NULL AUTO_INCREMENT,
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
+  `sname` varchar(64) COLLATE utf8_bin NOT NULL,
+  `passive` tinyint(1) NOT NULL DEFAULT '1',
+  `list` bit(1) NOT NULL DEFAULT b'1',
   `params` bit(1) NOT NULL,
   `js` bit(1) NOT NULL,
   `repeatable` bit(1) NOT NULL,
   `purchase` bit(1) NOT NULL,
-  `cost_ap` int(2) NOT NULL default '1',
-  `cost_mp` int(2) NOT NULL default '0',
-  `descr` text collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`skill`),
+  `cost_ap` int(2) NOT NULL DEFAULT '1',
+  `cost_mp` int(2) NOT NULL DEFAULT '0',
+  `descr` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`skill`),
   UNIQUE KEY `abbrev` (`abbrev`),
   KEY `passive` (`passive`),
   KEY `cost` (`cost_ap`),
@@ -1594,7 +1908,7 @@ CREATE TABLE `skill` (
   KEY `list` (`list`),
   KEY `js` (`js`,`repeatable`),
   KEY `purchase` (`purchase`)
-) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1603,7 +1917,7 @@ CREATE TABLE `skill` (
 
 LOCK TABLES `skill` WRITE;
 /*!40000 ALTER TABLE `skill` DISABLE KEYS */;
-INSERT INTO `skill` VALUES (3,'swim','Swimming',1,'','\0','\0','\0','\0',0,0,'Permits you to move through water tiles. Additional AP costs may apply.'),(9,'poisonstrike','Poison Strike',2,'','\0','\0','\0','\0',2,0,'This is a special attack which, when it hits, inflicts a powerful poison on your victim.'),(10,'aimedstrike','Aimed Strike',2,'','','\0','\0','\0',2,0,'This is a specialized melee attack which can be aimed at a particular area of the opponent\'s body.'),(14,'climb','Climb',0,'','\0','\0','\0','\0',3,0,'With this skill, you can climb certain tiles and move through others without incurring an additional AP penalty. Climbing increases your chance to hit those on the ground while making it harder for them to hit you. Climbing and non-climbing characters cannot engage one another in melee combat.'),(15,'sk_throw','Throw',2,'','','\0','\0','\0',1,0,'This skill allows you to use thrown weapons.'),(16,'hide','Hide',0,'','\0','\0','','\0',1,0,'With this skill, you may attempt to conceal yourself from potential assailants inside buildings.'),(17,'aimedshot','Aimed Shot',2,'','','\0','\0','\0',2,0,'This is a specialized ranged attack which can be aimed at a particular area of the opponent\'s body.'),(18,'scavenge','Scavenge',0,'','\0','\0','','\0',3,0,'Grants you the ability to scavenge for resources with a higher chance of success than ordinary searching.'),(20,'r_leadbar','Craft: Lead Bar',1,'\0','\0','\0','\0','\0',2,0,''),(21,'metallurgy','Metallurgy',0,'','','\0','','',0,0,'This skill allows a character to learn Metallurgy recipes which can be used in conjunction with crafting materials to create items.'),(22,'mining','Mining',0,'','\0','\0','','\0',3,0,'With the use of a mining pick, this skill will allow you to mine mountains for ore with a higher chance of success than scavenging or searching.'),(24,'logging','Logging',0,'','\0','\0','','\0',3,0,'With the use of a wood axe, this skill will allow you to procure lumber from forests with a higher chance of success than scavenging or searching.'),(25,'carpentry','Carpentry',0,'','','\0','','',0,0,'This skill allows a character to learn Carpentry recipes which can be used in conjunction with crafting materials to create items.'),(26,'r_woodarrows','Craft: Wooden arrows',1,'\0','\0','\0','\0','\0',5,0,''),(27,'r_planks','Craft: Wood planks',1,'\0','\0','\0','\0','\0',3,0,''),(31,'kata_tiger','Tiger Kata',1,'\0','\0','\0','\0','',1,5,'When attacking with your Fists while the Tiger Kata is active, your strikes will inflict Slashing damage. Only one Kata may be active at a time.'),(29,'r_kurumaken','Craft: Kurumaken',0,'\0','\0','\0','\0','\0',5,0,''),(30,'repair','Repair',0,'','','\0','\0','\0',0,0,'When inside a building with a Forge, you may repair items which have been damaged or broken at a cost proportional to the item\'s damaged state. Their durability will be restored, though their maximum durability will drop by one point.'),(32,'kata','Kata',0,'','','\0','\0','\0',0,0,''),(33,'kata_mantis','Mantis Kata',1,'\0','\0','\0','\0','',1,5,'While the Mantis Kata is active, attacking with your fists will inflict Piercing damage. Only one Kata may be active at a time.'),(34,'kata_crane','Crane Kata',1,'\0','\0','\0','\0','',1,5,'While the Crane Kata is active, you will Kick rather than use your fists. When Kicks land, they do +1 damage. Only one Kata may be active at a time.'),(35,'healingtouch','Healing touch',2,'','\0','\0','\0','\0',1,10,'Heals yourself or another for 5HP.'),(36,'burningtouch','Burning touch',2,'','\0','\0','\0','\0',1,7,'A touch attack which inflicts damage that cannot be mitigated with armor.'),(37,'illuminate','Illuminate',0,'','\0','\0','\0','\0',1,15,'Illuminates a room, revealing all hidden characters.'),(38,'meditation','Meditation',0,'','\0','\0','\0','\0',15,0,'Allows you to enter a trance-like state, in which you have a random chance of regenerating an additional MP every 5 minutes. Performing actions or being attacked will break your concentration and end the effect.'),(39,'poisonweapon','Poison weapon',0,'','\0','\0','\0','\0',15,0,'You can coat your weapon in a powerful poison.'),(40,'caltrops','Caltrops',0,'','\0','\0','\0','\0',15,0,'Up to 3 opponents (hidden or visible) in the current cell will take damage the next time they move once you litter the floor with caltrops.'),(41,'vanish','Vanish',0,'','\0','\0','\0','\0',1,15,'Enveloping the area in mystical smoke, you may attempt to hide with a much greater chance of success than usual.'),(42,'kujikiri','Kuji-kiri',0,'','','\0','\0','',0,0,'Kuji-Kiri (九字切り, \"nine symbolic cuts\") provides the Ninja with the knowledge and application of various hand forms. Each of these forms carries their own effect(s).'),(43,'majutsu','Majutsu',1,'','\0','\0','\0','',0,0,'Majutsu (魔術, \"evil technique\"), the art of black magic, unlocks Ninja spells and grants an additional 5 max MP.'),(44,'kujiin_rin','Rin (Strength)',1,'\0','\0','\0','\0','\0',1,5,'You inflict additional damage when using your fists.'),(45,'kujiin_kyo','Kyo (Direction)',1,'\0','\0','\0','\0','\0',1,5,'Provides additional accuracy when attacking with fists.'),(46,'kujiin_sha','Sha (Healing)',1,'\0','\0','\0','\0','\0',1,5,'You will heal yourself when striking successfully with your fists.'),(47,'kendo','Kendo Strike',2,'','','\0','\0','\0',0,0,''),(48,'kendo_men','Men (Forehead)',1,'\0','\0','\0','\0','',5,0,'A well-placed strike which will inflict damage relative to a percentage of your opponent\'s total hit points.'),(49,'kendo_tsuki','Tsuki (Throat)',1,'\0','\0','\0','\0','',5,0,'This attack will inflict the Bleeding condition if successful, draining your enemy of their lifeblood.'),(50,'kendo_do','Do (Body)',1,'\0','\0','\0','\0','',5,0,'A forceful strike which deals increased damage and knocks elevated opponents to the ground.'),(51,'kendo_kote','Kote (Arms/hands)',1,'\0','\0','\0','\0','',5,0,'An ordinary attack with the chance to disarm your opponent.'),(52,'construction','Construction',0,'','','\0','','\0',5,0,'This skill can be used to contribute labor to buildings currently under construction.'),(53,'boostshield','Boost shield',0,'','\0','\0','','\0',1,5,'When outside of your clan\'s stronghold, this skill can be used to construct or improve the metaphysical barrier that protects the stronghold\'s inhabitants from harm and bars the clan\'s enemies from entering the building.'),(54,'mysticism','Mysticism',1,'\0','\0','\0','\0','',0,0,'Unlocks certain Monk spells and increases your maximum MP by 5 points.'),(55,'dance','Dance',0,'','','\0','\0','\0',0,0,''),(56,'dance_mtnpath','Dance of the Mountain Path',1,'\0','\0','\0','\0','',1,7,'Nearby allies\' armor values are bolstered while inspired by this dance.'),(57,'thrownwepsmaster','Thrown Weapons Mastery',1,'\0','\0','\0','\0','\0',0,0,'Your chance to hit and overall damage with thrown weapons is increased.'),(58,'dance_fallingleaf','Dance of the Falling Leaf',1,'\0','\0','\0','\0','',1,7,'Nearby allies may dodge damaging blows like a leaf riding the wind while inspired by this dance.'),(59,'craft_antidote','Craft Antidote',0,'','\0','\0','\0','\0',15,0,'You are able to create an antidote against poison.'),(60,'sing','Sing',0,'','','\0','\0','\0',0,0,''),(61,'song_luminescentsoul','Song of the Luminescent Soul',1,'\0','\0','\0','\0','',1,7,'This song pierces the very darkness, possibly revealing hidden enemies.'),(62,'teaceremony','Tea Ceremony',2,'','\0','\0','\0','\0',1,5,'This time-honored tradition, properly executed, will relax your ally and elicit their natural healing process.'),(63,'poetryrecital','Poetry Recital',0,'','\0','\0','\0','\0',5,7,'You may heal groups of others through the power of the spoken word, coaxing their inherent energies with timeless tales of love, heroism and virtuous conquest.'),(64,'auctioneer','Auctioneer',1,'\0','\0','\0','\0','\0',0,0,'Your shrewd business sense and negotiating skills allow you to bundle up to 10 items together per auction (instead of the usual 5).'),(65,'architect','Architect',0,'','','\0','','',0,0,'With the Architect skill, you are able to draft blueprints for various building types. (The ability to draft Shack blueprints is granted upon skill purchase.)'),(66,'architect_bp_shack','Craft Blueprints: Shack',1,'\0','\0','\0','\0','\0',25,0,''),(67,'packmule','Pack Mule',1,'\0','\0','\0','\0','\0',0,0,'You are capable of carrying more weight before becoming fatigued.'),(68,'shopkeeping','Shopkeeping',0,'','\0','','\0','\0',25,0,'This skill allows you to set up a personal shop in one of your buildings.'),(69,'auctioneer_imp','Auctioneer (Improved)',1,'','\0','\0','\0','\0',0,0,'Your business savvy permits you to post more auctions than normally allowed.'),(70,'franchise','Franchise',1,'\0','\0','\0','\0','\0',0,0,'You may have 2 shops open simultaneously.'),(71,'corporation','Corporation',1,'\0','\0','\0','\0','\0',0,0,'You may have 3 shops open simultaneously.'),(72,'storeroom','Storeroom',1,'\0','\0','\0','\0','\0',0,0,'You may list more wares in your own shops due to increased storage capacity.'),(73,'cooking','Cooking',0,'','','\0','','',1,0,'With this skill, you may combine base materials to create more powerful culinary  items.'),(74,'r_steamedrice','Recipe: Steamed Rice',1,'','\0','\0','\0','\0',5,0,'Ingredients:\r\n<ul>\r\n<li>Uncooked rice</li>\r\n</ul>'),(75,'r_sushi','Recipe: Sushi',1,'\0','\0','\0','\0','\0',5,0,''),(76,'r_copperarmor','Craft: Copper armor',1,'\0','\0','\0','\0','\0',10,0,''),(77,'r_copperbar','Craft: Copper bar',1,'\0','\0','\0','\0','\0',3,0,'');
+INSERT INTO `skill` VALUES (3,'swim','Swimming',1,'','\0','\0','\0','\0',0,0,'Permits you to move through water tiles. Additional AP costs may apply.'),(9,'poisonstrike','Poison Strike',2,'','\0','\0','\0','\0',2,0,'This is a special attack which, when it hits, inflicts a powerful poison on your victim.'),(10,'aimedstrike','Aimed Strike',2,'','','\0','\0','\0',2,0,'This is a specialized melee attack which can be aimed at a particular area of the opponent\'s body.'),(14,'climb','Climb',0,'','\0','\0','\0','\0',3,0,'With this skill, you can climb certain tiles and move through others without incurring an additional AP penalty. Climbing increases your chance to hit those on the ground while making it harder for them to hit you. Climbing and non-climbing characters cannot engage one another in melee combat.'),(15,'sk_throw','Throw',2,'','','\0','\0','\0',1,0,'This skill allows you to use thrown weapons.'),(16,'hide','Hide',0,'','\0','\0','','\0',1,0,'With this skill, you may attempt to conceal yourself from potential assailants inside buildings.'),(17,'aimedshot','Aimed Shot',2,'','','\0','\0','\0',2,0,'This is a specialized ranged attack which can be aimed at a particular area of the opponent\'s body.'),(18,'scavenge','Scavenge',0,'','\0','\0','','\0',3,0,'Grants you the ability to scavenge for resources with a higher chance of success than ordinary searching.'),(20,'r_leadbar','Craft: Lead Bar',1,'\0','\0','\0','\0','\0',2,0,''),(21,'metallurgy','Metallurgy',0,'','','\0','','',0,0,'This skill allows a character to learn Metallurgy recipes which can be used in conjunction with crafting materials to create items.'),(22,'mining','Mining',0,'','\0','\0','','\0',3,0,'With the use of a mining pick, this skill will allow you to mine mountains for ore with a higher chance of success than scavenging or searching.'),(24,'logging','Logging',0,'','\0','\0','','\0',3,0,'With the use of a wood axe, this skill will allow you to procure lumber from forests with a higher chance of success than scavenging or searching.'),(25,'carpentry','Carpentry',0,'','','\0','','',0,0,'This skill allows a character to learn Carpentry recipes which can be used in conjunction with crafting materials to create items.'),(26,'r_woodarrows','Craft: Wooden arrows',1,'\0','\0','\0','\0','\0',5,0,''),(27,'r_planks','Craft: Wood planks',1,'\0','\0','\0','\0','\0',3,0,''),(31,'kata_tiger','Tiger Kata',1,'\0','\0','\0','\0','',1,5,'When attacking with your Fists while the Tiger Kata is active, your strikes will inflict Slashing damage. Only one Kata may be active at a time.'),(29,'r_kurumaken','Craft: Kurumaken',0,'\0','\0','\0','\0','\0',5,0,''),(30,'repair','Repair',0,'','','\0','\0','\0',0,0,'When inside a building with a Forge, you may repair items which have been damaged or broken at a cost proportional to the item\'s damaged state. Their durability will be restored, though their maximum durability will drop by one point.'),(32,'kata','Kata',0,'','','\0','\0','\0',0,0,''),(33,'kata_mantis','Mantis Kata',1,'\0','\0','\0','\0','',1,5,'While the Mantis Kata is active, attacking with your fists will inflict Piercing damage. Only one Kata may be active at a time.'),(34,'kata_crane','Crane Kata',1,'\0','\0','\0','\0','',1,5,'While the Crane Kata is active, you will Kick rather than use your fists. When Kicks land, they do +1 damage. Only one Kata may be active at a time.'),(35,'healingtouch','Healing touch',2,'','\0','\0','\0','\0',1,10,'Heals yourself or another for 5HP.'),(36,'burningtouch','Burning touch',2,'','\0','\0','\0','\0',1,7,'A touch attack which inflicts damage that cannot be mitigated with armor.'),(37,'illuminate','Illuminate',0,'','\0','\0','\0','\0',1,15,'Illuminates a room, revealing all hidden characters.'),(38,'meditation','Meditation',0,'','\0','\0','\0','\0',15,0,'Allows you to enter a trance-like state, in which you have a random chance of regenerating an additional MP every 5 minutes. Performing actions or being attacked will break your concentration and end the effect.'),(39,'poisonweapon','Poison weapon',0,'','\0','\0','\0','\0',15,0,'You can coat your weapon in a powerful poison.'),(40,'caltrops','Caltrops',0,'','\0','\0','\0','\0',15,0,'Up to 3 opponents (hidden or visible) in the current cell will take damage the next time they move once you litter the floor with caltrops.'),(41,'vanish','Vanish',0,'','\0','\0','\0','\0',1,15,'Enveloping the area in mystical smoke, you may attempt to hide with a much greater chance of success than usual.'),(42,'kujikiri','Kuji-kiri',0,'','','\0','\0','',0,0,'Kuji-Kiri (九字切り, \"nine symbolic cuts\") provides the Ninja with the knowledge and application of various hand forms. Each of these forms carries their own effect(s).'),(43,'majutsu','Majutsu',1,'','\0','\0','\0','',0,0,'Majutsu (魔術, \"evil technique\"), the art of black magic, unlocks Ninja spells and grants an additional 5 max MP.'),(44,'kujiin_rin','Rin (Strength)',1,'\0','\0','\0','\0','\0',1,5,'You inflict additional damage when using your fists.'),(45,'kujiin_kyo','Kyo (Direction)',1,'\0','\0','\0','\0','\0',1,5,'Provides additional accuracy when attacking with fists.'),(46,'kujiin_sha','Sha (Healing)',1,'\0','\0','\0','\0','\0',1,5,'You will heal yourself when striking successfully with your fists.'),(47,'kendo','Kendo Strike',2,'','','\0','\0','\0',0,0,''),(48,'kendo_men','Men (Forehead)',1,'\0','\0','\0','\0','',5,0,'A well-placed strike which will inflict damage relative to a percentage of your opponent\'s total hit points.'),(49,'kendo_tsuki','Tsuki (Throat)',1,'\0','\0','\0','\0','',5,0,'This attack will inflict the Bleeding condition if successful, draining your enemy of their lifeblood.'),(50,'kendo_do','Do (Body)',1,'\0','\0','\0','\0','',5,0,'A forceful strike which deals increased damage and knocks elevated opponents to the ground.'),(51,'kendo_kote','Kote (Arms/hands)',1,'\0','\0','\0','\0','',5,0,'An ordinary attack with the chance to disarm your opponent.'),(52,'construction','Construction',0,'','','\0','','\0',5,0,'This skill can be used to contribute labor to buildings currently under construction.'),(53,'boostshield','Boost shield',0,'','\0','\0','','\0',1,5,'When outside of your clan\'s stronghold, this skill can be used to construct or improve the metaphysical barrier that protects the stronghold\'s inhabitants from harm and bars the clan\'s enemies from entering the building.'),(54,'mysticism','Mysticism',1,'\0','\0','\0','\0','',0,0,'Unlocks certain Monk spells and increases your maximum MP by 5 points.'),(55,'dance','Dance',0,'','','\0','\0','\0',0,0,''),(56,'dance_mtnpath','Dance of the Mountain Path',1,'\0','\0','\0','\0','',1,7,'Nearby allies\' armor values are bolstered while inspired by this dance.'),(57,'thrownwepsmaster','Thrown Weapons Mastery',1,'\0','\0','\0','\0','\0',0,0,'Your chance to hit and overall damage with thrown weapons is increased.'),(58,'dance_fallingleaf','Dance of the Falling Leaf',1,'\0','\0','\0','\0','',1,7,'Nearby allies may dodge damaging blows like a leaf riding the wind while inspired by this dance.'),(59,'craft_antidote','Craft Antidote',0,'','\0','\0','\0','\0',15,0,'You are able to create an antidote against poison.'),(60,'sing','Sing',0,'','','\0','\0','\0',0,0,''),(61,'song_luminescentsoul','Song of the Luminescent Soul',1,'\0','\0','\0','\0','',1,7,'This song pierces the very darkness, possibly revealing hidden enemies.'),(62,'teaceremony','Tea Ceremony',2,'','\0','\0','\0','\0',1,5,'This time-honored tradition, properly executed, will relax your ally and elicit their natural healing process.'),(63,'poetryrecital','Poetry Recital',0,'','\0','\0','\0','\0',5,7,'You may heal groups of others through the power of the spoken word, coaxing their inherent energies with timeless tales of love, heroism and virtuous conquest.'),(64,'auctioneer','Auctioneer',1,'\0','\0','\0','\0','\0',0,0,'Your shrewd business sense and negotiating skills allow you to bundle up to 10 items together per auction (instead of the usual 5).'),(65,'architect','Architect',0,'','','\0','','',0,0,'With the Architect skill, you are able to draft blueprints for various building types. (The ability to draft Shack blueprints is granted upon skill purchase.)'),(66,'architect_bp_shack','Craft Blueprints: Shack',1,'\0','\0','\0','\0','\0',25,0,''),(67,'packmule','Pack Mule',1,'\0','\0','\0','\0','\0',0,0,'You are capable of carrying more weight before becoming fatigued.'),(68,'shopkeeping','Shopkeeping',0,'','\0','','\0','\0',25,0,'This skill allows you to set up a personal shop in one of your buildings.'),(69,'auctioneer_imp','Auctioneer (Improved)',1,'','\0','\0','\0','\0',0,0,'Your business savvy permits you to post more auctions than normally allowed.'),(70,'franchise','Franchise',1,'\0','\0','\0','\0','\0',0,0,'You may have 2 shops open simultaneously.'),(71,'corporation','Corporation',1,'\0','\0','\0','\0','\0',0,0,'You may have 3 shops open simultaneously.'),(72,'storeroom','Storeroom',1,'\0','\0','\0','\0','\0',0,0,'You may list more wares in your own shops due to increased storage capacity.'),(73,'cooking','Cooking',0,'','','\0','','',1,0,'With this skill, you may combine base materials to create more powerful culinary  items.'),(74,'r_steamedrice','Recipe: Steamed Rice',1,'','\0','\0','\0','\0',5,0,'Ingredients:\r\n<ul>\r\n<li>Uncooked rice</li>\r\n</ul>'),(75,'r_sushi','Recipe: Sushi',1,'\0','\0','\0','\0','\0',5,0,''),(76,'r_copperarmor','Craft: Copper armor',1,'\0','\0','\0','\0','\0',10,0,''),(77,'r_copperbar','Craft: Copper bar',1,'\0','\0','\0','\0','\0',3,0,''),(78,'annex','Annex building(s)',0,'','','\0','\0','\0',25,0,'Combine two of your adjacent buildings into one structure. (Maximum size: 4 map cells)');
 /*!40000 ALTER TABLE `skill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1616,8 +1930,8 @@ DROP TABLE IF EXISTS `skill_class`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `skill_class` (
   `skill` int(3) NOT NULL,
-  `sclass` varchar(24) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`skill`,`sclass`),
+  `sclass` varchar(24) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`skill`,`sclass`),
   KEY `fk_skill_class_skill1` (`skill`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1642,7 +1956,7 @@ DROP TABLE IF EXISTS `skill_effect`;
 CREATE TABLE `skill_effect` (
   `effect` int(3) NOT NULL,
   `purchase` bit(1) NOT NULL,
-  PRIMARY KEY  (`effect`),
+  PRIMARY KEY (`effect`),
   KEY `purchase` (`purchase`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1665,12 +1979,12 @@ DROP TABLE IF EXISTS `skill_tree`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `skill_tree` (
-  `faction` int(1) NOT NULL default '0',
+  `faction` int(1) NOT NULL DEFAULT '0',
   `class` int(3) NOT NULL,
   `skill` int(3) NOT NULL,
   `parent` int(3) NOT NULL,
   `xp` int(11) NOT NULL,
-  PRIMARY KEY  (`faction`,`class`,`skill`),
+  PRIMARY KEY (`faction`,`class`,`skill`),
   KEY `fk_skill_tree_class_actor1` (`class`),
   KEY `fk_skill_tree_skill1` (`skill`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1682,7 +1996,7 @@ CREATE TABLE `skill_tree` (
 
 LOCK TABLES `skill_tree` WRITE;
 /*!40000 ALTER TABLE `skill_tree` DISABLE KEYS */;
-INSERT INTO `skill_tree` VALUES (0,1,-12,0,75),(0,1,-10,-12,100),(0,1,-11,-12,100),(0,1,-13,-12,100),(0,1,17,-13,150),(0,1,-7,-12,100),(0,1,-8,-12,100),(0,1,14,0,75),(0,1,3,0,75),(0,2,9,-19,350),(0,1,10,-12,100),(0,1,15,-12,100),(0,1,16,0,75),(0,1,18,0,75),(0,1,21,18,100),(0,1,22,18,100),(0,1,24,18,100),(0,1,25,18,100),(0,1,30,21,200),(0,2,-19,0,200),(0,2,31,-19,350),(0,2,33,-19,350),(0,2,34,-19,350),(0,2,54,0,200),(0,2,35,54,350),(0,2,36,54,350),(0,2,37,54,350),(0,2,38,0,200),(0,3,-25,0,200),(0,3,39,-25,300),(0,3,40,-25,300),(0,3,42,0,225),(0,3,41,43,300),(0,3,43,0,300),(0,3,44,42,300),(0,3,45,42,300),(0,3,46,42,300),(0,4,-32,0,225),(0,4,48,-32,300),(0,4,49,-32,300),(0,4,50,-32,300),(0,4,51,-32,300),(0,4,-34,0,225),(0,4,-35,0,225),(0,4,-36,0,225),(0,2,-37,0,75),(0,1,52,0,75),(0,1,53,0,150),(0,5,56,0,225),(0,5,57,0,225),(0,5,-41,56,300),(0,5,-42,56,300),(0,5,58,0,225),(0,5,-45,58,300),(0,5,-46,58,300),(0,5,-47,0,225),(0,5,59,-47,300),(0,5,61,0,225),(0,5,62,0,225),(0,5,63,62,300),(0,6,64,0,225),(0,6,65,0,225),(0,6,67,0,225),(0,6,68,0,225),(0,6,69,64,300),(0,6,70,68,275),(0,6,71,70,325),(0,6,72,68,300),(0,1,73,0,75);
+INSERT INTO `skill_tree` VALUES (0,1,-12,0,75),(0,1,-10,-12,100),(0,1,-11,-12,100),(0,1,-13,-12,100),(0,1,17,-13,150),(0,1,-7,-12,100),(0,1,-8,-12,100),(0,1,14,0,75),(0,1,3,0,75),(0,2,9,-19,350),(0,1,10,-12,100),(0,1,15,-12,100),(0,1,16,0,75),(0,1,18,0,75),(0,1,21,18,100),(0,1,22,18,100),(0,1,24,18,100),(0,1,25,18,100),(0,1,30,21,200),(0,2,-19,0,200),(0,2,31,-19,350),(0,2,33,-19,350),(0,2,34,-19,350),(0,2,54,0,200),(0,2,35,54,350),(0,2,36,54,350),(0,2,37,54,350),(0,2,38,0,200),(0,3,-25,0,200),(0,3,39,-25,300),(0,3,40,-25,300),(0,3,42,0,225),(0,3,41,43,300),(0,3,43,0,300),(0,3,44,42,300),(0,3,45,42,300),(0,3,46,42,300),(0,4,-32,0,225),(0,4,48,-32,300),(0,4,49,-32,300),(0,4,50,-32,300),(0,4,51,-32,300),(0,4,-34,0,225),(0,4,-35,0,225),(0,4,-36,0,225),(0,2,-37,0,75),(0,1,52,0,75),(0,1,53,0,150),(0,5,56,0,225),(0,5,57,0,225),(0,5,-41,56,300),(0,5,-42,56,300),(0,5,58,0,225),(0,5,-45,58,300),(0,5,-46,58,300),(0,5,-47,0,225),(0,5,59,-47,300),(0,5,61,0,225),(0,5,62,0,225),(0,5,63,62,300),(0,6,64,0,225),(0,6,65,0,225),(0,6,67,0,225),(0,6,68,0,225),(0,6,69,64,300),(0,6,70,68,275),(0,6,71,70,325),(0,6,72,68,300),(0,1,73,0,75),(0,1,78,52,100);
 /*!40000 ALTER TABLE `skill_tree` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1694,12 +2008,12 @@ DROP TABLE IF EXISTS `structure`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `structure` (
-  `structure` int(3) NOT NULL auto_increment,
+  `structure` int(3) NOT NULL AUTO_INCREMENT,
   `elevation` tinyint(1) NOT NULL,
-  `abbrev` varchar(24) collate utf8_bin NOT NULL,
-  `descr` varchar(64) collate utf8_bin default NULL,
+  `abbrev` varchar(24) COLLATE utf8_bin NOT NULL,
+  `descr` varchar(64) COLLATE utf8_bin DEFAULT NULL,
   `def_tile` int(3) NOT NULL,
-  PRIMARY KEY  (`structure`),
+  PRIMARY KEY (`structure`),
   KEY `elevation` (`elevation`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1724,8 +2038,8 @@ DROP TABLE IF EXISTS `structure_class`;
 CREATE TABLE `structure_class` (
   `structure` int(3) NOT NULL,
   `sclass` int(3) NOT NULL,
-  `indoors` tinyint(1) NOT NULL default '-1',
-  PRIMARY KEY  (`indoors`,`structure`,`sclass`),
+  `indoors` tinyint(1) NOT NULL DEFAULT '-1',
+  PRIMARY KEY (`indoors`,`structure`,`sclass`),
   KEY `fk_structure_class_class_cell1` (`sclass`),
   KEY `fk_structure_class_structure1` (`structure`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1752,7 +2066,7 @@ CREATE TABLE `structure_search` (
   `structure` int(3) NOT NULL,
   `inum` int(4) NOT NULL,
   `odds` int(2) NOT NULL,
-  PRIMARY KEY  (`inum`,`structure`),
+  PRIMARY KEY (`inum`,`structure`),
   KEY `odds` (`odds`),
   KEY `fk_structure_search_item1` (`inum`),
   KEY `fk_structure_search_structure1` (`structure`)
@@ -1781,7 +2095,7 @@ CREATE TABLE `structure_trigger` (
   `exit` bit(1) NOT NULL,
   `arrive` bit(1) NOT NULL,
   `leave` bit(1) NOT NULL,
-  PRIMARY KEY  (`structure`),
+  PRIMARY KEY (`structure`),
   KEY `enter` (`enter`,`exit`,`arrive`,`leave`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1803,13 +2117,13 @@ DROP TABLE IF EXISTS `tile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tile` (
-  `tile` int(3) NOT NULL auto_increment,
-  `img` varchar(24) collate utf8_bin NOT NULL,
-  `abbrev` varchar(24) collate utf8_bin default NULL,
-  `descr` varchar(60) collate utf8_bin NOT NULL default 'Unknown',
+  `tile` int(3) NOT NULL AUTO_INCREMENT,
+  `img` varchar(24) COLLATE utf8_bin NOT NULL,
+  `abbrev` varchar(24) COLLATE utf8_bin DEFAULT NULL,
+  `descr` varchar(60) COLLATE utf8_bin NOT NULL DEFAULT 'Unknown',
   `dense` bit(1) NOT NULL,
-  `hexcolor` char(6) collate utf8_bin NOT NULL default '996633',
-  PRIMARY KEY  (`tile`),
+  `hexcolor` char(6) COLLATE utf8_bin NOT NULL DEFAULT '996633',
+  PRIMARY KEY (`tile`),
   KEY `dense` (`dense`)
 ) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1833,9 +2147,9 @@ DROP TABLE IF EXISTS `tile_class`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tile_class` (
   `tile` int(3) NOT NULL,
-  `indoors` tinyint(1) NOT NULL default '-1',
+  `indoors` tinyint(1) NOT NULL DEFAULT '-1',
   `tclass` int(3) NOT NULL,
-  PRIMARY KEY  (`indoors`,`tile`,`tclass`),
+  PRIMARY KEY (`indoors`,`tile`,`tclass`),
   KEY `fk_tile_class_class_cell1` (`tclass`),
   KEY `fk_tile_class_tile1` (`tile`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1860,10 +2174,10 @@ DROP TABLE IF EXISTS `tile_search`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tile_search` (
   `tile` int(3) NOT NULL,
-  `indoors` tinyint(1) NOT NULL default '0',
+  `indoors` tinyint(1) NOT NULL DEFAULT '0',
   `inum` int(4) NOT NULL,
-  `odds` int(2) NOT NULL default '1',
-  PRIMARY KEY  (`indoors`,`tile`,`inum`),
+  `odds` int(2) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`indoors`,`tile`,`inum`),
   KEY `odds` (`odds`),
   KEY `indoors` (`indoors`),
   KEY `fk_tile_search_item1` (`inum`),
@@ -1892,7 +2206,7 @@ CREATE TABLE `tile_trigger` (
   `tile` int(3) NOT NULL,
   `arrive` bit(1) NOT NULL,
   `leave` bit(1) NOT NULL,
-  PRIMARY KEY  (`tile`),
+  PRIMARY KEY (`tile`),
   KEY `arrive` (`arrive`,`leave`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1917,13 +2231,13 @@ DROP TABLE IF EXISTS `town`;
 CREATE TABLE `town` (
   `town` int(2) NOT NULL,
   `map` int(2) NOT NULL,
-  `name` varchar(24) collate utf8_bin NOT NULL,
-  `descr` text collate utf8_bin NOT NULL,
+  `name` varchar(24) COLLATE utf8_bin NOT NULL,
+  `descr` text COLLATE utf8_bin NOT NULL,
   `x` int(3) NOT NULL,
   `y` int(3) NOT NULL,
   `radius` int(2) NOT NULL,
   `faction` int(1) NOT NULL,
-  PRIMARY KEY  (`town`,`map`),
+  PRIMARY KEY (`town`,`map`),
   KEY `x` (`x`,`y`,`radius`,`faction`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1936,6 +2250,88 @@ LOCK TABLES `town` WRITE;
 /*!40000 ALTER TABLE `town` DISABLE KEYS */;
 /*!40000 ALTER TABLE `town` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `user` int(11) NOT NULL AUTO_INCREMENT,
+  `uname` varchar(24) COLLATE utf8_bin DEFAULT NULL,
+  `fb` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `pass` char(32) COLLATE utf8_bin DEFAULT NULL,
+  `email` varchar(64) COLLATE utf8_bin NOT NULL,
+  `created` int(11) NOT NULL,
+  `last` int(11) NOT NULL,
+  `slots` tinyint(1) NOT NULL DEFAULT '3',
+  PRIMARY KEY (`user`),
+  UNIQUE KEY `name` (`uname`),
+  UNIQUE KEY `fb` (`fb`),
+  KEY `slots` (`slots`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'haliphax',NULL,'74af4ad39fa773e59d498c4afe440043','haliphax@gmail.com',1322783664,1346358322,3),(2,'h4liphax',NULL,'74af4ad39fa773e59d498c4afe440043','haliphax@mail.com',1322783699,1330972073,3),(3,'Azguz',NULL,'40bac0b7fd5d370953798be43a74524f','leicesterlo@yahoo.co.uk',1333133904,0,3),(4,'Mirath',NULL,'3a749fce348ba94a3b7d5b2814f4987e','whelan14@gmail.com',1339447983,0,3),(5,'docneon',NULL,'99ff8e476f775a11bd2f79c62dbae1f8','samchott@gmail.com',1339626708,0,3);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_mod`
+--
+
+DROP TABLE IF EXISTS `user_mod`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_mod` (
+  `user` int(11) NOT NULL,
+  PRIMARY KEY (`user`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_mod`
+--
+
+LOCK TABLES `user_mod` WRITE;
+/*!40000 ALTER TABLE `user_mod` DISABLE KEYS */;
+INSERT INTO `user_mod` VALUES (1);
+/*!40000 ALTER TABLE `user_mod` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_priv_mapedit`
+--
+
+DROP TABLE IF EXISTS `user_priv_mapedit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_priv_mapedit` (
+  `user` int(11) NOT NULL,
+  `map` int(2) NOT NULL,
+  PRIMARY KEY (`map`,`user`),
+  KEY `fk_user_priv_mapedit_map1` (`map`),
+  KEY `fk_user_priv_mapedit_user1` (`user`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_priv_mapedit`
+--
+
+LOCK TABLES `user_priv_mapedit` WRITE;
+/*!40000 ALTER TABLE `user_priv_mapedit` DISABLE KEYS */;
+INSERT INTO `user_priv_mapedit` VALUES (1,0);
+/*!40000 ALTER TABLE `user_priv_mapedit` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1946,12 +2342,12 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-03-03 22:47:48
--- MySQL dump 10.11
+-- Dump completed on 2012-08-30 15:47:45
+-- MySQL dump 10.13  Distrib 5.5.24, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: roadhaus_kaiju_test
+-- Host: localhost    Database: kaiju_dev
 -- ------------------------------------------------------
--- Server version	5.0.92-community
+-- Server version	5.5.24-0ubuntu0.12.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1972,12 +2368,12 @@ DROP TABLE IF EXISTS `ci_sessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ci_sessions` (
-  `session_id` varchar(40) collate utf8_bin NOT NULL default '0',
-  `ip_address` varchar(16) collate utf8_bin NOT NULL default '0',
-  `user_agent` varchar(50) collate utf8_bin NOT NULL,
-  `last_activity` int(10) unsigned NOT NULL default '0',
-  `user_data` text collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`session_id`)
+  `session_id` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '0',
+  `ip_address` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT '0',
+  `user_agent` varchar(50) COLLATE utf8_bin NOT NULL,
+  `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
+  `user_data` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`session_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1989,19 +2385,19 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `user` int(11) NOT NULL auto_increment,
-  `uname` varchar(24) collate utf8_bin default NULL,
-  `fb` varchar(255) collate utf8_bin default NULL,
-  `pass` char(32) collate utf8_bin default NULL,
-  `email` varchar(64) collate utf8_bin NOT NULL,
+  `user` int(11) NOT NULL AUTO_INCREMENT,
+  `uname` varchar(24) COLLATE utf8_bin DEFAULT NULL,
+  `fb` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `pass` char(32) COLLATE utf8_bin DEFAULT NULL,
+  `email` varchar(64) COLLATE utf8_bin NOT NULL,
   `created` int(11) NOT NULL,
   `last` int(11) NOT NULL,
-  `slots` tinyint(1) NOT NULL default '3',
-  PRIMARY KEY  (`user`),
+  `slots` tinyint(1) NOT NULL DEFAULT '3',
+  PRIMARY KEY (`user`),
   UNIQUE KEY `name` (`uname`),
   UNIQUE KEY `fb` (`fb`),
   KEY `slots` (`slots`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2013,7 +2409,7 @@ DROP TABLE IF EXISTS `user_mod`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_mod` (
   `user` int(11) NOT NULL,
-  PRIMARY KEY  (`user`)
+  PRIMARY KEY (`user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2027,7 +2423,7 @@ DROP TABLE IF EXISTS `user_priv_mapedit`;
 CREATE TABLE `user_priv_mapedit` (
   `user` int(11) NOT NULL,
   `map` int(2) NOT NULL,
-  PRIMARY KEY  (`map`,`user`),
+  PRIMARY KEY (`map`,`user`),
   KEY `fk_user_priv_mapedit_map1` (`map`),
   KEY `fk_user_priv_mapedit_user1` (`user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -2042,26 +2438,26 @@ DROP TABLE IF EXISTS `actor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `actor` (
   `user` int(11) NOT NULL,
-  `actor` int(11) NOT NULL auto_increment,
+  `actor` int(11) NOT NULL AUTO_INCREMENT,
   `faction` int(1) NOT NULL,
-  `map` int(2) NOT NULL default '2',
-  `x` int(3) NOT NULL default '12',
-  `y` int(3) NOT NULL default '12',
-  `aname` varchar(24) collate utf8_bin NOT NULL,
-  `indoors` tinyint(1) NOT NULL default '0',
-  `stat_hp` int(3) NOT NULL default '30',
-  `stat_hpmax` int(3) NOT NULL default '30',
-  `stat_mp` int(3) NOT NULL default '0',
-  `stat_mpmax` int(3) NOT NULL default '0',
-  `stat_xp` int(9) NOT NULL default '750',
-  `stat_xplevel` int(9) NOT NULL default '1000',
-  `stat_xpspent` int(5) unsigned NOT NULL default '0',
-  `stat_ap` int(3) NOT NULL default '150',
-  `stat_apmax` int(3) NOT NULL default '150',
+  `map` int(2) NOT NULL DEFAULT '2',
+  `x` int(3) NOT NULL DEFAULT '12',
+  `y` int(3) NOT NULL DEFAULT '12',
+  `aname` varchar(24) COLLATE utf8_bin NOT NULL,
+  `indoors` tinyint(1) NOT NULL DEFAULT '0',
+  `stat_hp` int(3) NOT NULL DEFAULT '30',
+  `stat_hpmax` int(3) NOT NULL DEFAULT '30',
+  `stat_mp` int(3) NOT NULL DEFAULT '0',
+  `stat_mpmax` int(3) NOT NULL DEFAULT '0',
+  `stat_xp` int(9) NOT NULL DEFAULT '750',
+  `stat_xplevel` int(9) NOT NULL DEFAULT '1000',
+  `stat_xpspent` int(5) unsigned NOT NULL DEFAULT '0',
+  `stat_ap` int(3) NOT NULL DEFAULT '150',
+  `stat_apmax` int(3) NOT NULL DEFAULT '150',
   `evts` bit(1) NOT NULL,
   `evtm` bit(1) NOT NULL,
-  `last` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`actor`,`user`),
+  `last` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`actor`,`user`),
   KEY `indoors` (`indoors`),
   KEY `evt` (`evts`),
   KEY `stat_xp` (`stat_xp`,`stat_xplevel`),
@@ -2069,7 +2465,7 @@ CREATE TABLE `actor` (
   KEY `fk_actor_map_cell1` (`x`,`y`,`map`),
   KEY `fk_actor_user1` (`user`),
   KEY `faction` (`faction`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2080,20 +2476,20 @@ DROP TABLE IF EXISTS `actor_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `actor_item` (
-  `instance` int(11) NOT NULL auto_increment,
+  `instance` int(11) NOT NULL AUTO_INCREMENT,
   `actor` int(11) NOT NULL,
   `inum` int(4) NOT NULL,
-  `eq_slot` enum('MH','OH','Head','Torso','Legs','Arms') collate utf8_bin default NULL,
-  `lifespan` int(3) default NULL,
-  `durability` int(3) default NULL,
-  `durmax` int(3) default NULL,
-  PRIMARY KEY  (`instance`),
+  `eq_slot` enum('MH','OH','Head','Torso','Legs','Arms') COLLATE utf8_bin DEFAULT NULL,
+  `lifespan` int(3) DEFAULT NULL,
+  `durability` int(3) DEFAULT NULL,
+  `durmax` int(3) DEFAULT NULL,
+  PRIMARY KEY (`instance`),
   KEY `eq_slot` (`eq_slot`),
   KEY `lifespan` (`lifespan`,`durability`),
   KEY `durmax` (`durmax`),
   KEY `fk_actor_item_actor1` (`actor`),
   KEY `fk_actor_item_item1` (`inum`)
-) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=106 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2106,7 +2502,7 @@ DROP TABLE IF EXISTS `actor_effect`;
 CREATE TABLE `actor_effect` (
   `actor` int(11) NOT NULL,
   `effect` int(3) NOT NULL,
-  PRIMARY KEY  (`actor`,`effect`),
+  PRIMARY KEY (`actor`,`effect`),
   KEY `fk_actor_effect_actor1` (`actor`),
   KEY `fk_actor_effect_effect1` (`effect`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -2122,7 +2518,7 @@ DROP TABLE IF EXISTS `actor_npc`;
 CREATE TABLE `actor_npc` (
   `actor` int(11) NOT NULL,
   `npc` int(11) NOT NULL,
-  PRIMARY KEY  (`actor`,`npc`)
+  PRIMARY KEY (`actor`,`npc`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2136,7 +2532,7 @@ DROP TABLE IF EXISTS `actor_skill`;
 CREATE TABLE `actor_skill` (
   `actor` int(11) NOT NULL,
   `skill` int(3) NOT NULL,
-  PRIMARY KEY  (`actor`,`skill`),
+  PRIMARY KEY (`actor`,`skill`),
   KEY `fk_actor_skill_actor1` (`actor`),
   KEY `fk_actor_skill_skill1` (`skill`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -2152,7 +2548,7 @@ DROP TABLE IF EXISTS `actor_class`;
 CREATE TABLE `actor_class` (
   `actor` int(11) NOT NULL,
   `aclass` int(3) NOT NULL,
-  PRIMARY KEY  (`actor`,`aclass`),
+  PRIMARY KEY (`actor`,`aclass`),
   KEY `fk_actor_class_actor` (`actor`),
   KEY `fk_actor_class_class_actor1` (`aclass`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -2168,7 +2564,7 @@ DROP TABLE IF EXISTS `actor_item_ammo`;
 CREATE TABLE `actor_item_ammo` (
   `instance` int(11) NOT NULL,
   `ammo` int(4) NOT NULL,
-  PRIMARY KEY  (`instance`),
+  PRIMARY KEY (`instance`),
   KEY `fk_actor_item_ammo_item_ammo1` (`ammo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2181,12 +2577,12 @@ DROP TABLE IF EXISTS `pdata`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pdata` (
-  `dtype` enum('global','effect','skill') collate utf8_bin NOT NULL default 'global',
-  `owner` int(11) NOT NULL default '0',
-  `dkey` varchar(32) collate utf8_bin NOT NULL,
-  `altkey` int(11) NOT NULL default '0',
-  `dval` varchar(256) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`dtype`,`owner`,`dkey`,`altkey`)
+  `dtype` enum('global','effect','skill') COLLATE utf8_bin NOT NULL DEFAULT 'global',
+  `owner` int(11) NOT NULL DEFAULT '0',
+  `dkey` varchar(32) COLLATE utf8_bin NOT NULL,
+  `altkey` int(11) NOT NULL DEFAULT '0',
+  `dval` varchar(256) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`dtype`,`owner`,`dkey`,`altkey`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2198,11 +2594,11 @@ DROP TABLE IF EXISTS `event`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `event` (
-  `event` int(11) NOT NULL auto_increment,
+  `event` int(11) NOT NULL AUTO_INCREMENT,
   `stamp` int(11) NOT NULL,
-  `descr` varchar(255) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`event`)
-) ENGINE=MyISAM AUTO_INCREMENT=205 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `descr` varchar(255) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`event`)
+) ENGINE=MyISAM AUTO_INCREMENT=361 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2215,17 +2611,15 @@ DROP TABLE IF EXISTS `event_thread`;
 CREATE TABLE `event_thread` (
   `event` int(11) NOT NULL,
   `actor` int(11) NOT NULL,
-  PRIMARY KEY  (`event`,`actor`),
+  PRIMARY KEY (`event`,`actor`),
   KEY `fk_event_thread_actor1` (`actor`),
   KEY `fk_event_thread_event1` (`event`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping routines for database 'roadhaus_kaiju_test'
+-- Dumping routines for database 'kaiju_dev'
 --
-DELIMITER ;;
-DELIMITER ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -2236,4 +2630,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-03-03 22:47:48
+-- Dump completed on 2012-08-30 15:47:45

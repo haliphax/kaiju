@@ -40,7 +40,7 @@ SQL;
 	
 	function params(&$actor)
 	{
-		if(! $this->show($actor)) return;
+		if(! $this->show(&$actor)) return;
 		$who = is_array($actor) ? $actor : $this->ci->actor->getInfo($actor);
 		$cell = $this->ci->map->getCellInfo($who['map'], $who['x'],
 			$who['y']);

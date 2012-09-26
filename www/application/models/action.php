@@ -268,7 +268,7 @@ SQL;
 	function getParameters($type, $action, $actor)
 	{
 		$this->ci->load->model("actions/{$type}/{$action}");
-		return call_user_func(array($this->ci->$action, "params"), $actor);
+		return call_user_func(array($this->ci->$action, "params"), &$actor);
 	}
 	
 #===============================================================================

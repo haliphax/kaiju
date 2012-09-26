@@ -445,7 +445,7 @@ SQL;
 			$num = func_num_args();
 			
 			if($num == 1)
-				$ret = call_user_func(array($this->$which, 'fire'), $item,
+				$ret = call_user_func(array($this->$which, 'fire'), &$item,
 					&$this->who, &$this->who);
 			else
 			{
@@ -835,7 +835,7 @@ SQL;
 		$ret = $this->actor->useSkill($skill, &$this->who, $params);
 		foreach($ret as $r)
 			$this->ret_val['msg'][] = $this->_logText($r);
-		if(! preg_match('#/repeat/#i', $_SERVER['PATH_INFO']))
+		if(! preg_match('#/repeat/#i', $_SERVER['REQUEST_URI']))
 			$this->status(1);
 	}
 	
@@ -868,7 +868,7 @@ SQL;
 			&$retval, $params);
 		foreach($retval as $k => $v) $this->ret_val[$k] = $v;
 		foreach($res as $r) $this->ret_val['msg'][] = $this->_logText($r);
-		if(! preg_match('#/repeat/#i', $_SERVER['PATH_INFO']))
+		if(! preg_match('#/repeat/#i', $_SERVER['REQUEST_URI']))
 			$this->status(1);
 	}
 	
