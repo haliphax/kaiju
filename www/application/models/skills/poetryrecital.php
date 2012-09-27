@@ -7,7 +7,6 @@ class poetryrecital extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('poetryrecital');
 	}
 
 	# use skill

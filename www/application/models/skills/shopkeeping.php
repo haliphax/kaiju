@@ -7,7 +7,6 @@ class shopkeeping extends SkillModel
 	{
 		parent::__construct();
 		$this->ci->load->model('map');
-		$this->cost = $this->ci->skills->getCost('shopkeeping');
 	}
 
 	function fire(&$actor)

@@ -7,7 +7,6 @@ class scavenge extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('scavenge');
 	}
 
 	# use skill

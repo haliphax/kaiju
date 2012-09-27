@@ -7,7 +7,6 @@ class kata_tiger extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('kata_tiger');
 	}
 
 	# use skill

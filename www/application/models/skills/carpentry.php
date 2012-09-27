@@ -7,7 +7,6 @@ class carpentry extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci->load->model('item');
 	}
 
 	function fire(&$actor, $args)

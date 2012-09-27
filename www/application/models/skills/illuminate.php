@@ -7,7 +7,6 @@ class illuminate extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('illuminate');
 	}
 
 	# use skill

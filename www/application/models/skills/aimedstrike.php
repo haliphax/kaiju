@@ -7,7 +7,6 @@ class aimedstrike extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('aimedstrike');
 	}
 
 	# use skill

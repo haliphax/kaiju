@@ -6,7 +6,6 @@ class architect_bp_shack extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('architect_bp_shack');
 	}
 	
 	function fire(&$actor)

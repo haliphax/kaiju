@@ -7,7 +7,6 @@ class burningtouch extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('burningtouch');
 	}
 
 	# use skill

@@ -7,7 +7,6 @@ class kendo_do extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('kendo_do');
 	}
 
 	# use skill

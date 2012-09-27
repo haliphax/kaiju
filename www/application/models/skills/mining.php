@@ -8,7 +8,6 @@ class mining extends SkillModel
 	{
 		parent::__construct();
 		$this->ci->load->model('item');
-		$this->cost = $this->ci->skills->getCost('mining');
 	}
 
 	# use skill

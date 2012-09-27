@@ -7,7 +7,6 @@ class healingtouch extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('healingtouch');
 	}
 
 	# use skill

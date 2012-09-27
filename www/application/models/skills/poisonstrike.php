@@ -7,7 +7,6 @@ class poisonstrike extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('poisonstrike');
 	}
 	
 	# poison strike ============================================================	

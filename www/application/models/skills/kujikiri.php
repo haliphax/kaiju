@@ -7,7 +7,6 @@ class kujikiri extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('kujikiri');
 	}
 
 	# use skill

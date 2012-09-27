@@ -6,7 +6,6 @@ class craft_antidote extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('craft_antidote');
 	}
 	
 	function fire(&$actor)

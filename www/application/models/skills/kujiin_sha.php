@@ -7,7 +7,6 @@ class kujiin_sha extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('kujiin_sha');
 	}
 
 	# use skill

@@ -8,7 +8,6 @@ class boostshield extends SkillModel
 	{
 		parent::__construct();
 		$this->ci->load->model('clan');
-		$this->cost = $this->ci->skills->getCost('boostshield');
 	}
 
 	function fire(&$actor)

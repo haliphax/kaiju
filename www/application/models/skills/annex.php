@@ -7,14 +7,13 @@ class annex extends SkillModel
 	{
 		parent::__construct();
 		$this->ci->load->model('map');
-		$this->cost = $this->ci->skills->getCost('annex');
 	}
 
 	# use skill
 	function fire(&$actor, $args)
 	{
 		if($actor['stat_ap'] < $this->cost['cost_ap'])
-			return array("You don't have the energy right now.");
+			return $this->ci->skills->noap;
 		$cell = $this->ci->map->getCellInfo(
 			$actor['map'], $actor['x'], $actor['y']);
 		if(! $cell['building'])

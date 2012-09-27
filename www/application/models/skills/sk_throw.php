@@ -7,7 +7,6 @@ class sk_throw extends SkillModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->cost = $this->ci->skills->getCost('sk_throw');
 	}
 
 	# use skill

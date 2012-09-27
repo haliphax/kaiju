@@ -12,6 +12,6 @@ class SkillModel extends CI_Model
 		$this->load->database();
 		$this->ci->load->model('actor');
 		$this->ci->load->model('skills');
-		#$this->cost = $this->ci->skills->getCost(get_class());
+		$this->cost = $this->ci->skills->getCost(get_class($this));
 	}
 }
