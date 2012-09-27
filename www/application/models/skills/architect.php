@@ -52,6 +52,6 @@ SQL;
 
 	function purchase(&$actor)
 	{
-		$this->ci->actor->addSkill('architect_bp_shack');
+		$this->ci->actor->addSkill('architect_bp_shack', $actor['actor']);
 	}
 }
