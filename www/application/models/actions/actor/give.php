@@ -13,12 +13,13 @@ class give extends CI_Model
 		$this->cost = $this->ci->action->getCost('actor', 'give');
 		$this->load->database();
 		$this->ci->load->model('actor');
+		$this->ci->load->model('skills');
 	}
 	
 	function fire(&$actor, &$retval, $args)
 	{
 		$tar = $this->ci->actor->getInfo($args[0]);
-		if(! $this->show($actor, $tar))
+		if(! $this->show(&$actor, &$tar))
 			return;
 		
 		$i = $args[1];
