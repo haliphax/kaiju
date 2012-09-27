@@ -79,6 +79,14 @@ SQL;
 			$sql = 'delete from actor_item where lifespan <= 0';
 			$this->db->query($sql);
 			
+			# clear NPC bodies
+			$s = <<<SQL
+				update actor
+				set map = 0 - map, last = UNIX_TIMESTAMP()
+				where user < 0 and map > 0 and stat_hp <= 0
+SQL;
+			$this->db->query($s);
+
 			# NPC spawning
 			$q = $this->db->query('select abbrev from npc');
 			$r = $q->result_array();
