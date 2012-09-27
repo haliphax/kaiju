@@ -26,6 +26,7 @@ class e_dance_fallingleaf extends EffectModel
 			$this->apply_effect($actor);
 	}
 	
+	function apply_effect(&$actor)	
 	{
 		$occs = $this->ci->map->getCellOccupants($actor['map'], $actor['x'],
 			$actor['y'], $actor['indoors']);
