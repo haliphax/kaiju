@@ -1,14 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_climbing extends CI_Model
+class e_climbing extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
 	}
 	
 	function on(&$actor)
@@ -23,7 +20,6 @@ class e_climbing extends CI_Model
 	
 	function move(&$new, &$actor)
 	{
-		$this->ci->load->model('actor');
 		$this->ci->load->model('map');
 		
 		if($this->ci->map->cellHasClass('climb', $new['map'], $new['x'],

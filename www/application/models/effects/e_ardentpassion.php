@@ -1,14 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_ardentpassion extends CI_Model
+class e_ardentpassion extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
 	}
 	
 	function chancetohit(&$actor, &$victim)

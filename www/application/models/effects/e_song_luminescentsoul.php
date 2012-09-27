@@ -1,15 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_song_luminescentsoul extends CI_Model
+class e_song_luminescentsoul extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
 		$this->ci->load->model('map');
-		$this->ci->load->model('actor');
 	}
 	
 	function on(&$actor)
@@ -23,7 +20,6 @@ class e_song_luminescentsoul extends CI_Model
 	
 	function tick()
 	{
-		$this->ci->load->model('effects');
 		$actors = $this->ci->effects->getActorsWith('song_luminescentsoul');
 		$last = array('map' => 0, 'x' => 0, 'y' => 0, 'i' => 2);
 		

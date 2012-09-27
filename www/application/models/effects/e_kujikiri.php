@@ -1,13 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_kujikiri extends CI_Model
+class e_kujikiri extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
 	}
 	
 	function chancetohit(&$actor)
@@ -19,7 +17,6 @@ class e_kujikiri extends CI_Model
 	# helper
 	function _attack(&$actor)
 	{
-		$this->ci->load->model('actor');
 		$this->ci->actor->incStat('ap', -1, $actor['actor']);
 	}
 }

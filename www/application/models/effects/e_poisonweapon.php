@@ -1,14 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_poisonweapon extends CI_Model
+class e_poisonweapon extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
 	}
 	
 	function on(&$actor)
@@ -27,7 +24,6 @@ class e_poisonweapon extends CI_Model
 	function hit(&$victim, &$actor, &$hit)
 	{
 		if(! $hit['hit']) return;
-		$this->ci->load->model('actor');
 		$ret = $this->ci->actor->addEffect('poison', $victim);
 		foreach($ret as $r)
 			if($r) $this->ci->actor->sendEvent($r, $victim['actor']);
@@ -54,7 +50,6 @@ class e_poisonweapon extends CI_Model
 	
 	function tick()
 	{
-		$this->ci->load->model('actor');
 		$s = <<<SQL
 			update pdata set dval = cast(dval as signed) - 1
 			where dtype = 'effect' and dkey = 'poisonweapon'

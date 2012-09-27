@@ -1,20 +1,15 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_bleeding extends CI_Model
+class e_bleeding extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
-		$this->ci->load->model('actor');
 	}
 	
 	function tick()
 	{
-		$this->ci->load->model('effects');
 		$this->ci->load->model('map');
 		$res = $this->ci->effects->getActorsWith('bleeding');
 		if(! $res) return false;

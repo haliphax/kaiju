@@ -1,14 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_counterattack extends CI_Model
+class e_counterattack extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
 	}
 
 	function defend(&$victim, &$actor, &$swing)
@@ -22,7 +19,6 @@ class e_counterattack extends CI_Model
 		}
 		
 		$this->ci->tdata->set('counteratk', 1);
-		$this->ci->load->model('actor');
 		$this->ci->actor->sendEvent(
 			"You use this opportunity to counter-attack!", $victim['actor']);
 		$res = $this->ci->actor->attack($actor['actor'], &$victim);

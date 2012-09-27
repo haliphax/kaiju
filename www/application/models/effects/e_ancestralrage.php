@@ -1,15 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_ancestralrage extends CI_Model
+class e_ancestralrage extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
-		$this->ci->load->model('actor');
 	}
 	
 	function on(&$actor)
@@ -40,7 +36,6 @@ class e_ancestralrage extends CI_Model
 	
 	function tick()
 	{
-		$this->ci->load->model('effects');
 		$this->ci->load->model('map');
 		$res = $this->ci->effects->getActorsWith('e_ancestralrage');
 		if(! $res) return false;

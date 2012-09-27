@@ -1,14 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_exertion extends CI_Model
+class e_exertion extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
 		$this->ci->load->model('pdata');
 	}
 	
@@ -35,7 +32,6 @@ class e_exertion extends CI_Model
 	
 	function tick()
 	{
-		$this->ci->load->model('effects');
 		$res = $this->ci->effects->getActorsWith('exertion');
 		if(! $res) return false;
 		$ret = array();

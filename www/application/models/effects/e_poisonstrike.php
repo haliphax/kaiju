@@ -1,14 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_poisonstrike extends CI_Model
+class e_poisonstrike extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
 	}
 	
 	function on($actor)
@@ -19,7 +16,6 @@ class e_poisonstrike extends CI_Model
 	function hit(&$victim, &$actor, &$hit)
 	{
 		if(! $hit['hit']) return false;
-		$this->ci->load->model('actor');
 		$ret = $this->ci->actor->addEffect('poison', &$victim);
 		foreach($ret as $r)
 			if($r) $this->ci->actor->sendEvent($r, $victim['actor']);

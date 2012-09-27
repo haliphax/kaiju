@@ -1,15 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_poison extends CI_Model
+class e_poison extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
-		$this->ci->load->model('actor');
 	}
 	
 	function on(&$actor)

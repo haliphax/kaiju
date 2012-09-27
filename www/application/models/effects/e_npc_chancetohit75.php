@@ -1,13 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_npc_chancetohit75 extends CI_Model
+class e_npc_chancetohit75 extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
 	}
 	
 	function chancetohit()

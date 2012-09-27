@@ -1,14 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_food_ap extends CI_Model
+class e_food_ap extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
 	}
 	
 	function disp(&$actor)
@@ -34,7 +31,6 @@ class e_food_ap extends CI_Model
 	
 	function tick()
 	{
-		$this->ci->load->model('actor');
 		$sql = <<<SQL
 			update pdata set dval = cast(dval as signed) - 1
 			where dtype = 'effect' and dkey = 'food_ap'

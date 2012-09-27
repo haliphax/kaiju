@@ -1,13 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_kujiin_rin extends CI_Model
+class e_kujiin_rin extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
 	}
 	
 	function attack(&$vic, &$actor, &$swing)

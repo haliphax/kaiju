@@ -1,15 +1,12 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_dance_fallingleaf extends CI_Model
+class e_dance_fallingleaf extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
 		$this->ci->load->model('map');
-		$this->ci->load->model('actor');
 		$this->ci->load->model('pdata');
 	}
 	
@@ -24,13 +21,11 @@ class e_dance_fallingleaf extends CI_Model
 	
 	function tick()
 	{
-		$this->ci->load->model('effects');
 		$actors = $this->ci->effects->getActorsWith('dance_fallingleaf');		
 		foreach($actors as $actor)
 			$this->apply_effect($actor);
 	}
 	
-	private function apply_effect(&$actor)
 	{
 		$occs = $this->ci->map->getCellOccupants($actor['map'], $actor['x'],
 			$actor['y'], $actor['indoors']);

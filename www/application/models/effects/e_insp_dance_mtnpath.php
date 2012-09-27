@@ -1,14 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_insp_dance_mtnpath extends CI_Model
+class e_insp_dance_mtnpath extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->ci->load->model('actor');
 	}
 	
 	function armor($actor, &$armor)

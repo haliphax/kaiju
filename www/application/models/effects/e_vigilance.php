@@ -1,19 +1,15 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_vigilance extends CI_Model
+class e_vigilance extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
 	}
 
 	function move(&$new, &$actor)
 	{
-		$this->ci->load->model('actor');
 		$this->ci->load->model('map');
 		$cell = $this->ci->map->getCellInfo($new['map'], $new['x'], $new['y']);
 		

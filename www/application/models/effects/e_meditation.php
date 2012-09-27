@@ -1,14 +1,11 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class e_meditation extends CI_Model
+class e_meditation extends EffectModel
 {
-	private $ci;
 	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
 	}
 	
 	function on(&$actor)
@@ -20,7 +17,6 @@ class e_meditation extends CI_Model
 	
 	function defend(&$vic, &$actor, &$swing)
 	{
-		$this->ci->load->model('actor');
 		$this->ci->actor->removeEffect('meditation', &$vic);
 		$this->ci->actor->sendEvent(
 			"You were attacked by {$actor['aname']}, and your concentration was broken!",
@@ -30,7 +26,6 @@ class e_meditation extends CI_Model
 	
 	function ap($ap, &$actor)
 	{
-		$this->ci->load->model('actor');
 		$this->ci->actor->removeEffect('meditation', $actor);
 		return array("Your meditative trance has been broken.");
 	}
