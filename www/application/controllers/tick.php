@@ -60,12 +60,6 @@ SQL;
 						evts = 1
 SQL;
 				$this->db->query($sql);
-				$sql =
-					'update actor set stat_ap = stat_apmax where stat_apmax = 1000';
-				$this->db->query($sql);
-				$sql = 
-					'update actor set stat_mp = stat_mpmax where stat_mpmax = 1000';
-				$this->db->query($sql);
 				
 				# perishable items counter
 				$sql = <<<SQL
