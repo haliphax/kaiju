@@ -1,7 +1,8 @@
 #!/bin/sh
-mypath="/home/haliphax/vhosts/kaiju"
-rm $mypath/db.sql
-mysqldump -ukaiju -prGtA6sUdFaZPFQNe \
+MYPATH="/home/haliphax/vhosts/kaiju"
+DBPASS=rGtA6sUdFaZPFQNe
+rm $MYPATH/db.sql
+mysqldump -ukaiju -p$DBPASS \
 	--ignore-table=roadhaus_kaiju_test.ci_sessions \
 	--ignore-table=roadhaus_kaiju_test.user \
 	--ignore-table=roadhaus_kaiju_test.user_mod \
@@ -17,10 +18,10 @@ mysqldump -ukaiju -prGtA6sUdFaZPFQNe \
 	--ignore-table=roadhaus_kaiju_test.pdata \
     --ignore-table=roadhaus_kaiju_test.event \
     --ignore-table=roadhaus_kaiju_test.event_thread kaiju_dev \
-    > $mypath/db.sql
-mysqldump -ukaiju -prGtA6sUdFaZPFQNe \
+    > $MYPATH/db.sql
+mysqldump -ukaiju -p$DBPASS \
 	-i -R -d kaiju_dev ci_sessions user user_mod user_priv_mapedit \
 		actor actor_item actor_effect actor_npc actor_skill actor_class \
 		actor_item_ammo pdata event event_thread \
-	>> $mypath/db.sql
+	>> $MYPATH/db.sql
 
