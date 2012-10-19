@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://kaiju.oddnetwork.org/';
+$config['base_url']	= 'https://kaijugame.phpfogapp.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ $config['base_url']	= 'http://kaiju.oddnetwork.org/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
