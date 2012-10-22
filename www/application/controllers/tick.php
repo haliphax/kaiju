@@ -11,7 +11,9 @@ class tick extends CI_Controller
 		{
 			$nonce = explode("|", $nonce);
 			if($nonce[1] != base64_encode(md5($this->config->item('salt') . $nonce[0])))
-				die("Bad nonce");//die(show_404());
+				die(show_404());
+			else if(abs(time() - $nonce[0]) > 60)
+				die(show_404());
 			else
 				define('CMD', 1);
 		}
