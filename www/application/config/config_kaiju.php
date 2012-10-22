@@ -2,5 +2,5 @@
 
 $config['salt'] = 'wo9Z;od1&F3ch0(QucL:2k';
 $config['maintfile'] = APPPATH . '/../../maint';
-$config['version'] = '0.85';
+$config['version'] = '0.99';
 $config['codename'] = 'kouhai';
