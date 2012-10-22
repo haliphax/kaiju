@@ -2,9 +2,15 @@
 
 class t0 extends CI_Model
 {
+	private $ci;
+
 	function __construct()
 	{
 		parent::__construct();
+		$this->ci =& get_instance();
+		$this->load->database();
+		$this->ci->load->model('actor');
+		$this->ci->load->model('map');
 	}
 
 	function fire()
@@ -40,7 +46,7 @@ SQL;
 		$r = $q->result_array();			
 		foreach($r as $row)
 			if($row['owner'])
-				$this->actor->sendEvent(
+				$this->ci->actor->sendEvent(
 					"Your building ({$row['descr']} [{$row['x']},{$row['y']}]) is near collapse.",
 					$row['owner']
 					);			
@@ -61,15 +67,14 @@ SQL;
 SQL;
 		$q = $this->db->query($s);
 		$r = $q->result_array();
-		$this->load->model('map');
 		
 		foreach($r as $row) {
 			if($row['owner'])
-				$this->actor->sendEvent(
+				$this->ci->actor->sendEvent(
 					"Your building ({$row['descr']} [{$row['x']},{$row['y']}]) has collapsed.",
 					$row['owner']
 					);
-			$this->map->sendCellEvent(
+			$this->ci->map->sendCellEvent(
 				"The building you were in has collapsed!", false,
 				$row['map'], $row['x'], $row['y'], 1
 				);
