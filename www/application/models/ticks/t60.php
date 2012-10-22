@@ -15,6 +15,7 @@ class t60 extends CI_Model
 	function fire()
 	{
 		# TODO: bid/auction cancellation -> refund timers (wait 24h)
+		echo "Auction timer\n";
 		# auction countdown/expiration			
 		$this->db->query(
 			'update auction_sale set time_left = time_left - 1');

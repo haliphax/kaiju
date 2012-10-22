@@ -10,6 +10,7 @@ class t5 extends CI_Model
 
 	function fire()
 	{
+		echo "Inspirations\n";
 		# handle inspirations
 		$sql = <<<SQL
 			delete from pdata where dtype = 'effect'
