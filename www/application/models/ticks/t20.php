@@ -2,13 +2,18 @@
 
 class t20 extends CI_Model
 {
+	private $ci;
+
 	function __construct()
 	{
 		parent::__construct();
+		$this->ci =& get_instance();
+		$this->ci->load->model('actor');
 	}
 
 	function fire()
 	{
+		echo "AP regeneration\n";
 		# AP regeneration
 		$sql = <<<SQL
 			update actor set
@@ -30,6 +35,7 @@ class t20 extends CI_Model
 SQL;
 		$this->db->query($sql);
 		
+		echo "Perishables\n";
 		# perishable items counter
 		$sql = <<<SQL
 			update actor_item set lifespan = lifespan - 1
@@ -48,16 +54,17 @@ SQL;
 		foreach($r as $row)
 		{
 			if($who['actor'] != $row['actor'])
-				$who = $this->actor->getInfo($row['actor']);
+				$who = $this->ci->actor->getInfo($row['actor']);
 			if($row['eq_slot'])
-				$this->actor->removeItems($row['inum'], $who);
-			$this->actor->sendEvent("Your {$row['iname']} perished.",
+				$this->ci->actor->removeItems($row['inum'], $who);
+			$this->ci->actor->sendEvent("Your {$row['iname']} perished.",
 				$row['actor']);
 		}
 		
 		$sql = 'delete from actor_item where lifespan <= 0';
 		$this->db->query($sql);
-		
+
+		echo "Remove NPC corpses\n";
 		# clear NPC bodies
 		$s = <<<SQL
 			update actor
@@ -65,13 +72,15 @@ SQL;
 			where user < 0 and map > 0 and stat_hp <= 0
 SQL;
 		$this->db->query($s);
-	
+
+		echo "NPC spawn";
 		# NPC spawning
 		$q = $this->db->query('select abbrev from npc');
 		$r = $q->result_array();
 		
 		foreach($r as $row)
 		{
+			echo "...{$row['abbrev']}\n";
 			$which = "n_{$row['abbrev']}";
 			$this->load->model("npcs/{$which}");
 			$this->$which->spawn();

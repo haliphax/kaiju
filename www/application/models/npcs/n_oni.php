@@ -1,46 +1,16 @@
 <?php if(! defined('BASEPATH')) exit();
 
-class n_oni extends CI_Model
+class n_oni extends NPCModel
 {
-	private $ci;
-	
 	function __construct()
 	{
 		parent::__construct();
-		$this->ci =& get_instance();
-		$this->load->database();
 		$this->ci->load->model('map');
 	}
 	
 	function spawn()
 	{
-		$s = <<<SQL
-			select actor.actor, aname, map, x, y, indoors from actor
-			join actor_npc on actor.actor = actor_npc.actor
-			join npc on actor_npc.npc = npc.npc
-			where npc.abbrev = 'oni' and map < 0
-				and last < UNIX_TIMESTAMP() - 300
-SQL;
-		$q = $this->db->query($s);
-		$r = $q->result_array();
-
-		foreach($r as $row)
-		{
-			$this->ci->map->sendCellEvent(
-				"{$row['aname']} appears from beyond the void.",
-				false, abs($row['map']), $row['x'], $row['y'], $row['indoors']);
-			$this->ci->map->setRadiusEvtM($row['map'], $row['x'], $row['y']);
-		}
-
-		$s = <<<SQL
-			update actor set map = abs(map), stat_hp = stat_hpmax
-			where map < 0 and last < UNIX_TIMESTAMP() - 300 and actor in (
-				select actor from actor_npc where npc = (
-					select npc from npc where abbrev = 'oni'
-				)
-			)
-SQL;
-		$this->db->query($s);		
+		parent::spawn("{0} appears from beyond the void.");
 	}
 	
 	function tick($tick)
