@@ -15,20 +15,27 @@ class t0 extends CI_Model
 
 	function fire()
 	{
+		echo "Clearing old event threads\n";
 		# clear out old events
 		$sql = <<<SQL
 			delete from event_thread where event not in
 			(select event from event where stamp > ?)
 SQL;
 		$this->db->query($sql, time() - (86400 * 14));
+
+		echo "Clearing read events\n";
 		# clear out read events
 		$sql = <<<SQL
 			delete from event where event not in
 			(select event from event_thread)
 SQL;
 		$this->db->query($sql);
+
+		echo "Damaging buildings\n";
 		# building damage
 		$this->db->query('update building set hp = hp - ?', rand(5,10));
+
+		echo "Notifying owners of buildings near collapse\n";
 		# send notices to owners of buildings near collapse
 		$s = <<<SQL
 			select (case when b.descr is not null then b.descr
@@ -49,7 +56,9 @@ SQL;
 				$this->ci->actor->sendEvent(
 					"Your building ({$row['descr']} [{$row['x']},{$row['y']}]) is near collapse.",
 					$row['owner']
-					);			
+				);
+
+		echo "Clearing destroyed buildings\n";
 		# clear away destroyed buildings
 		$s = <<<SQL
 			select (case when b.descr is not null then b.descr
@@ -87,6 +96,8 @@ SQL;
 			where hp <= 0
 SQL;
 		$this->db->query($s);
+
+		echo "...removing remnants\n";
 		/* remove stray building classes, progress tables, and search odds
 		 * along with the building itself */
 		$s = <<<SQL
@@ -105,6 +116,8 @@ SQL;
 			where x is null
 SQL;
 		$this->db->query($s);
+
+		echo "...moving occupants outdoors\n";
 		# move everyone outdoors who was previously indoors
 		$s = <<<SQL
 			update actor a
@@ -113,6 +126,8 @@ SQL;
 			where indoors = 1 and building is NULL
 SQL;
 		$this->db->query($s);
+
+		echo "Town boundaries\n";
 		# recalculate town boundaries
 		$s = <<<SQL
 			select t.map, town, name, count(c.building) as bldg,
@@ -138,7 +153,7 @@ SQL;
 SQL;
 				$this->db->query($s, array($row['map'], $row['town']));
 				if($this->db->affected_rows() > 0)
-					echo "The town of {$row['name']} grew.\n";
+					echo "...the town of {$row['name']} grew.\n";
 			}
 			# shrink if building coverage is <= 20% rounded down
 			else if($row['bldg'] <= floor($row['area'] * 0.2)
@@ -149,21 +164,8 @@ SQL;
 					where map = ? and town = ?
 SQL;
 				$this->db->query($s, array($row['map'], $row['town']));
-				echo "The town of {$row['name']} shrank.\n";
+				echo "...the town of {$row['name']} shrank.\n";
 			}
 		}
-		
-		# prune events
-		$since = time() - 1209600;
-		$sql = <<<SQL
-		        delete from event_thread where event not in
-		        (select event from event where stamp > ?)
-SQL;
-		$this->db->query($sql, array($since));
-		$sql = <<<SQL
-		        delete from event where event not in
-		        (select event from event_thread)
-SQL;
-		$this->db->query($sql);
 	}
 }
