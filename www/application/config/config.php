@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'https://kaijugame.phpfogapp.com/';
+$config['base_url']	= 'https://qa-kaijugame.phpfogapp.com/';
 
 /*
 |--------------------------------------------------------------------------
