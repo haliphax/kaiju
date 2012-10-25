@@ -97,7 +97,14 @@ div.spacer { height: 24px; }
 	font-weight: bold;
 }
 
-.news-header
+#tweets li
 {
-	padding: 8px;
+	padding: 4px;
+}
+
+#tweets li span
+{
+	display: block;
+	font-size: 75%;
+	color: #ccc;
 }
