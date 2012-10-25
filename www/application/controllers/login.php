@@ -3,7 +3,6 @@
 class Login extends CI_Controller
 {
 	private $die = 0;
-	protected $news = '';
 	
 	function __construct()
 	{
@@ -16,29 +15,30 @@ class Login extends CI_Controller
 		}
 
 		$this->output->set_header(
-			"Cache-Control: no-store, no-cache, must-revalidate");		
-		$this->load->database();
-		$s = 'select posted, title, text from news order by posted desc limit 3';
-		$q = $this->db->query($s);
-		
-		if($q->num_rows() > 0)
-		{
-			$result = $q->result_array();
-			$now = time();
-			$weekold = 60 * 60 * 24 * 7;
+			"Cache-Control: no-store, no-cache, must-revalidate");
+		$this->load->spark("cache/2.0.0");
+		$this->news = $this->cache->get("twitter_feed", true);
 
-			foreach($result as $r)
+		if($this->news == false)
+		{
+			$xml = simplexml_load_file("https://api.twitter.com/1/statuses/user_timeline.xml?screen_name=kaijugame");
+			$this->news = "<ul id='tweets'>";
+			$tweets = 0;
+
+			foreach($xml as $status)
 			{
-				$when = date('l, F d, Y @ H:i:s', $r['posted']);
-				$class = 'ui-state-highlight';
-				if($now - $r['posted'] < $weekold)
-					$class = 'ui-state-error';
-				if($this->news) $this->news .= "<p>&nbsp;</p>";
-				$this->news .=
-					"<div class=\"{$class} ui-corner-all news-header\"><b><u>{$r['title']}</u><br /><small>{$when}</small></b></div>{$r['text']}";
+				$this->news .= "<li>{$status->text}<span>";
+				$this->news .= date('D M j @ g:i A', strtotime($status->created_at) + (-5 * 60));
+				$this->news .= "</span></li>";
+
+				if(++$tweets == 5)
+					break;
 			}
+
+			$this->news .= "</ul>";
+			$this->cache->write($this->news, "twitter_feed", 900);
 		}
-			
+
 		if(file_exists($this->config->item('maintfile')))
 		{
 			$this->load->view('login', array('maint' => 1, 'error' =>
