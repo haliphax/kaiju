@@ -21,7 +21,12 @@ class Login extends CI_Controller
 
 		if($this->news == false)
 		{
-			$xml = simplexml_load_file("https://api.twitter.com/1/statuses/user_timeline.xml?screen_name=kaijugame");
+			$ch = curl_init($xml_url);
+			curl_setopt($ch, CURLOPT_HEADER, 0);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			$result = curl_exec($ch);
+			curl_close($ch);
+			$xml = simplexml_load_string($result);
 			$this->news = "<ul id='tweets'>";
 			$tweets = 0;
 
