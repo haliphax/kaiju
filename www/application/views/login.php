@@ -65,11 +65,11 @@
 			<h3>Media</h3>
 			<div>
 				<br />
-				<a title="Facebook" href="http://www.facebook.com/pages/kaiju/343579685443" target="_blank"><img src="<?=base_url()?>images/homepage/facebook-small.png" alt="Facebook" /></a>
-				<a title="IndieDB" href="http://www.indiedb.com/games/kaiju" target="_blank"><img src="<?=base_url()?>images/homepage/indiedb-small.png" alt="IndieDB" /></a>
-				<a title="Twitter" href="http://twitter.com/kaijugame" target="_blank"><img src="<?=base_url()?>images/homepage/twitter-small.png" alt="Twitter" /></a>
-				<a title="Photobucket" href="http://s282.photobucket.com/albums/kk267/oddboyd/kaiju" target="_blank"><img src="<?=base_url()?>images/homepage/photobucket-small.png" alt="Photobucket" /></a>
-				<a title="RSS" href="http://rss.indiedb.com/games/kaiju/news/feed/rss.xml" target="_blank"><img src="<?=base_url()?>images/homepage/rss-small.png" alt="RSS" /></a>
+				<a title="Facebook" href="http://www.facebook.com/pages/kaiju/343579685443" target="_blank"><div class="social-icon social-facebook"></div></a>
+				<a title="IndieDB" href="http://www.indiedb.com/games/kaiju" target="_blank"><div class="social-icon social-indiedb"></div></a>
+				<a title="Twitter" href="http://twitter.com/kaijugame" target="_blank"><div class="social-icon social-twitter"></div></a>
+				<a title="Photobucket" href="http://s282.photobucket.com/albums/kk267/oddboyd/kaiju" target="_blank"><div class="social-icon social-photobucket"></div></a>
+				<a title="RSS" href="http://rss.indiedb.com/games/kaiju/news/feed/rss.xml" target="_blank"><div class="social-icon social-rss"></div></a>
 			</div>		
 		</div>
 		<div id="buttons">
