@@ -39,7 +39,7 @@ div#copyright
 	border-width: 0px !important;
 }
 
-#media div
+#media > div
 {
 	padding: 4px;
 	text-align: center;
@@ -108,3 +108,16 @@ div.spacer { height: 24px; }
 	font-size: 75%;
 	color: #ccc;
 }
+
+/* social icons */
+.social-icon {
+	background: url(../images/social-spritesheet.png) no-repeat top left;
+	display: inline-block;
+	height: 46px;
+	width: 46px;
+}
+.social-facebook { background-position: 0 0; } 
+.social-indiedb { background-position: 0 -47px; } 
+.social-photobucket { background-position: 0 -94px; } 
+.social-rss { background-position: 0 -141px; } 
+.social-twitter { background-position: 0 -188px; } 

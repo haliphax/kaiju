@@ -415,24 +415,33 @@ function buildMap(cells, main)
 			else if(a == 17) ptrid = 's';
 			else if(a == 18) ptrid = 'se';
 		
-		html += '<div class="map_cell" title="' + cells[a].descr + '"';
+		html += '<div class="map_cell tile';
+		
 		if(cells[a].img)
-			html += ' style="background-image:url(\''
-				+ kaiju_globals.base_url_path + 'images/tiles/' + cells[a].img
-				+ '\');"';
-		html += '>';
+		{
+			html += ' tile-' + cells[a].img.replace(/\..+$/, '');
+		}
+		else
+		{
+			html += ' tile-blank';
+		}
+		
+		html += '" title="' + cells[a].descr + '">';
 		if(cells[a].x != 0)
 			html +=
-				'<div class="map_cell"' +
-				(ptrid ? ' onmouseover="showArrow(this)"'
-					+ ' onmouseout="hideArrow(this)"'
-					+ ' onclick="moveto(' + cells[a].x + ',' + cells[a].y + ')"'
+				'<div class="map_cell '
+				+ (cells[a].w
+					? 'walls walls-' + cells[a].w
+					: 'tile tile-box')
+				+ '"'
+				+ (ptrid
+					? ' onmouseover="showArrow(this)"'
+						+ ' onmouseout="hideArrow(this)"'
+						+ ' onclick="moveto(' + cells[a].x + ','
+						+ cells[a].y + ')"'
 					: (main && a == 12 ? ' id="current_cell"' : ''))
-				+ ' style="' + (ptrid ? 'cursor:pointer;' : '')
-				+ 'background-image:url(' + kaiju_globals.base_url_path + 'images/'
-				+ (cells[a].w ? 'walls/' + cells[a].w + '.png'
-					: 'tiles/box.gif')
-				+ ')">' + (cells[a].clan ? '<div class="sh">' : '');
+				+ ' style="' + (ptrid ? 'cursor:pointer;' : '') + '">'
+				+ (cells[a].clan ? '<div class="sh">' : '');
 		if((ptrid || a == 12) && main && cells[a].x != 0)
 			html += '<div class="mvarrow" navdir="' + ptrid + '">';
 		occ = cells[a].occ;
@@ -1176,24 +1185,30 @@ function getActionParams(rpt, atype, action)
 
 function showDoor()
 {
-	$('#current_cell').find('.mvarrow').css('background', 'url(' + kaiju_globals.base_url_path + 'images/ui/door-icon.gif)');
+	$('#current_cell').find('.mvarrow')
+		.addClass('ui-sprite')
+		.addClass('door-icon');
 }
 
 function hideDoor(el)
 {
-	$('#current_cell .mvarrow').css('background', '');
+	$('#current_cell .mvarrow')
+		.removeClass('ui-sprite')
+		.removeClass('door-icon');
 }
 		
 function showArrow(el)
 {
 	var arrow = $(el).find('.mvarrow');
 	var img = $(arrow).attr('navdir');
-	$(arrow).css('background', 'url(' + kaiju_globals.base_url_path + 'images/ui/move-' + img + '.gif)');
+	$(arrow).addClass('ui-sprite').addClass('move-' + img);
 }
 
 function hideArrow(el)
 {
-	$(el).find('.mvarrow').css('background', '');
+	var arrow = $(el).find('.mvarrow');
+	var img = $(arrow).attr('navdir');
+	$(el).find('.mvarrow').removeClass('ui-sprite').removeClass('move-' + img);
 }
 
 function useAction(atype, action, actor, params)

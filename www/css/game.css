@@ -321,3 +321,74 @@ span.surr
 {
 	color: #000000 !important;
 }
+
+/* tile sprites */
+.tile {
+	background: url(../images/tiles-spritesheet.png) no-repeat top left;
+	height: 60px;
+	width: 60px;
+}
+.tile-blank { background-image: none; }
+.tile-auction-house { background-position: 0 0; } 
+.tile-blacksmith { background-position: 0 -61px; } 
+.tile-box-hi { background-position: 0 -122px; } 
+.tile-box { background-position: 0 -183px; } 
+.tile-capital { background-position: 0 -244px; } 
+.tile-dirt { background-position: 0 -305px; } 
+.tile-forest-dense { background-position: 0 -366px; } 
+.tile-forest { background-position: 0 -427px; } 
+.tile-gate { background-position: 0 -488px; } 
+.tile-grass { background-position: 0 -549px; } 
+.tile-graveyard { background-position: 0 -610px; } 
+.tile-hills { background-position: 0 -671px; } 
+.tile-house { background-position: 0 -732px; } 
+.tile-indoors { background-position: 0 -793px; } 
+.tile-lava-cool { background-position: 0 -854px; } 
+.tile-lava-hot { background-position: 0 -915px; } 
+.tile-mountain { background-position: 0 -976px; } 
+.tile-mountains { background-position: 0 -1037px; } 
+.tile-palace { background-position: 0 -1098px; } 
+.tile-ricepaddy1 { background-position: 0 -1159px; } 
+.tile-ricepaddy2 { background-position: 0 -1220px; } 
+.tile-ruins { background-position: 0 -1281px; } 
+.tile-ryokan { background-position: 0 -1342px; } 
+.tile-sand { background-position: 0 -1403px; } 
+.tile-scaffolding { background-position: 0 -1464px; } 
+.tile-shack { background-position: 0 -1525px; } 
+.tile-shrine { background-position: 0 -1586px; } 
+.tile-swamp { background-position: 0 -1647px; } 
+.tile-temple { background-position: 0 -1708px; } 
+.tile-tower { background-position: 0 -1769px; } 
+.tile-water-anim { background-position: 0 -1830px; } 
+.tile-water { background-position: 0 -1891px; } 
+.tile-workshop { background-position: 0 -1952px; } 
+
+/* walls sprites */
+.walls { background: url(../images/walls-spritesheet.png) no-repeat top left; }
+.walls-e{ background-position: 0 0;  } 
+.walls-n{ background-position: 0 -61px;  } 
+.walls-ne{ background-position: 0 -122px;  } 
+.walls-ns{ background-position: 0 -183px;  } 
+.walls-nse{ background-position: 0 -244px;  } 
+.walls-nsw{ background-position: 0 -305px;  } 
+.walls-nswe{ background-position: 0 -366px;  } 
+.walls-nw{ background-position: 0 -427px;  } 
+.walls-nwe{ background-position: 0 -488px;  } 
+.walls-s{ background-position: 0 -549px;  } 
+.walls-se{ background-position: 0 -610px;  } 
+.walls-sw{ background-position: 0 -671px;  } 
+.walls-swe{ background-position: 0 -732px;  } 
+.walls-w{ background-position: 0 -793px;  } 
+.walls-we{ background-position: 0 -854px;  } 
+
+/* ui sprites */
+.ui-sprite { background: url(../images/ui-spritesheet.png) no-repeat top left; }
+.door-icon { background-position: 0 0; } 
+.move-e { background-position: 0 -61px; } 
+.move-n { background-position: 0 -122px; } 
+.move-ne { background-position: 0 -183px; } 
+.move-nw { background-position: 0 -244px; } 
+.move-s { background-position: 0 -305px; } 
+.move-se { background-position: 0 -366px; } 
+.move-sw { background-position: 0 -427px; } 
+.move-w { background-position: 0 -488px; } 
