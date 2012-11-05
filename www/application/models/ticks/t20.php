@@ -73,7 +73,7 @@ SQL;
 SQL;
 		$this->db->query($s);
 
-		echo "NPC spawn";
+		echo "NPC spawn\n";
 		# NPC spawning
 		$q = $this->db->query('select abbrev from npc');
 		$r = $q->result_array();
