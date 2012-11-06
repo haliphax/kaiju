@@ -19,7 +19,7 @@
 		<div id="menu">
 			<?php $this->load->view('parts/globalbuttons'); ?>
 			<div class="right">
-				<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>
+				<!--<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>-->
 			</div>
 		</div>
 		<h2 class="ui-corner-all ui-state-highlight">Account</h2>
