@@ -4,13 +4,13 @@
 <html>
 <head>
 	<title>mod panel - kaiju!</title>
-	<?php include(BASEPATH . '../includes/header.inc.php'); ?>
+	<?php $this->load->view('parts/header'); ?>
 </head>
 <body>
 	<div id="wrapper">
 	<div id="inner">
 		<div id="menu">
-			<?php include(BASEPATH . '../includes/globalbuttons.inc.php'); ?>
+			<?php $this->load->view('parts/globalbuttons'); ?>
 			<div class="right">
 				<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>&nbsp;
 			</div>
@@ -29,6 +29,6 @@
 		<div id="spacer"></div>
 	</div>
 	</div>
-	<?php include(BASEPATH . '../includes/footer.inc.php'); ?>
+	<?php $this->load->view('parts/footer'); ?>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>facebook - kaiju!</title>
-	<?php include(BASEPATH . '../includes/header.inc.php'); ?>
+	<?php $this->load->view('parts/header'); ?>
 </head>
 <body>
 	<div id="wrapper">
@@ -27,6 +27,6 @@
 		<div id="spacer"></div>
 	</div>
 	</div>
-	<?php include(BASEPATH . '../includes/footer.inc.php'); ?>
+	<?php $this->load->view('parts/footer'); ?>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>preload - kaiju!</title>
-	<?php include(BASEPATH . '../includes/header.inc.php'); ?>
+	<?php $this->load->view('parts/header'); ?>
 	<script type="text/javascript">
 	var loadedImgs = 0;
 	
@@ -33,7 +33,7 @@
 		<div id="spacer"></div>
 	</div>
 	</div>
-	<?php include(BASEPATH . '../includes/footer.inc.php'); ?>
+	<?php $this->load->view('parts/footer'); ?>
 	<div id="loadingmsg" class="dialog" title="Loading">
 		Pre-loading interface images...
 	</div>

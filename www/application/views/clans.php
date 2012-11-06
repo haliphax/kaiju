@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>clan list - kaiju!</title>
-	<?php include(BASEPATH . '../includes/header.inc.php'); ?>
+	<?php $this->load->view('parts/header'); ?>
 	<link type="text/css" rel="stylesheet" href="<?=base_url()?>css/clans.css" />
 	<script type="text/javascript" src="<?=base_url()?>js/clans.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>js/dialogs.js"></script>
@@ -13,7 +13,7 @@
 	<div id="wrapper">
 	<div id="inner">
 		<div id="menu">
-			<?php include(BASEPATH . '../includes/globalbuttons.inc.php'); ?>
+			<?php $this->load->view('parts/globalbuttons'); ?>
 			<div class="right">
 				<?php if($myclan): ?><button class="button" onclick="window.location = '<?=site_url('clans')?>';">My Clan</button>&nbsp;<?php endif; ?>
 				<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>&nbsp;
@@ -60,7 +60,7 @@
 		<div id="spacer"></div>
 	</div>
 	</div>
-	<?php include(BASEPATH . '../includes/footer.inc.php'); ?>
+	<?php $this->load->view('parts/footer'); ?>
 	<div id="application_dialog" class="dialog" title="Application">
 		<form id="clan_application">
 			<table style="width:100%" cellspacing="0" cellpadding="4">
@@ -74,6 +74,6 @@
 			</p>
 		</form>
 	</div>
-	<?php include(BASEPATH . '../includes/dialogs.inc.php'); ?>
+	<?php $this->load->view('parts/dialogs'); ?>
 </body>
 </html>
