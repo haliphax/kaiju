@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>characters - kaiju!</title>
-	<?php include(BASEPATH . '../includes/header.inc.php'); ?>
+	<?php $this->load->view('parts/header'); ?>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>css/characters.css" />
 	<script type="text/javascript" src="<?=base_url()?>js/characters.js"></script>
 </head>
@@ -12,7 +12,7 @@
 	<div id="wrapper">
 	<div id="inner">
 		<div id="menu">
-			<?php include(BASEPATH . '../includes/globalbuttons.inc.php'); ?>
+			<?php $this->load->view('parts/globalbuttons'); ?>
 			<div class="right">
 				<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>&nbsp;
 				<?php if(isset($create)): ?>
@@ -99,6 +99,6 @@
 		<div id="spacer"></div>
 	</div>
 	</div>
-	<?php include(BASEPATH . '../includes/footer.inc.php'); ?>
+	<?php $this->load->view('parts/footer'); ?>
 </body>
 </html>

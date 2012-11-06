@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>login - kaiju!</title>
-<?php include(BASEPATH . '../includes/header.inc.php'); ?>
+<?php $this->load->view('parts/header'); ?>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>css/login.css" />
 	<script type="text/javascript" src="<?=base_url()?>js/login.js"></script>
 </head>
@@ -79,6 +79,6 @@
 		<div id="spacer">&nbsp;</div>
 	</div>
 	</div>
-	<?php include(BASEPATH . '../includes/footer.inc.php'); ?>
+	<?php $this->load->view('parts/footer'); ?>
 </body>
 </html>

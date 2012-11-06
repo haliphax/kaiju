@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title><?=$aname?> - kaiju!</title>
-	<?php include(BASEPATH . '../includes/header.inc.php'); ?>
+	<?php $this->load->view('parts/header'); ?>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>css/game.css" />
 	<script type="text/javascript" src="<?=base_url()?>js/dialogs.js"></script>
 	<script type="text/javascript" src="<?=base_url()?>js/client.js"></script>
@@ -14,7 +14,7 @@
 	<div id="inner">
 		<div id="ui_body">
 			<div id="menu">
-				<?php include(BASEPATH . '../includes/globalbuttons.inc.php'); ?>
+				<?php $this->load->view('parts/globalbuttons'); ?>
 				<div class="right">
 					<button id="btn_minimap" class="button" onclick="minimap();">Map</button>&nbsp;
 					<button id="btn_inventory" class="button">Inventory</button>&nbsp;
@@ -101,7 +101,7 @@
 		<div id="spacer"></div>
 	</div>
 	</div>
-	<?php include(BASEPATH . '../includes/footer.inc.php'); ?>
+	<?php $this->load->view('parts/footer'); ?>
 	<div id="minimap" class="dialog" title="Map">
 		<img id="minimap_img" src="" />
 	</div>
@@ -184,6 +184,6 @@
 		</p>
 	</div>
 	<div id="hideme" style="display:none !important"></div>
-	<?php include(BASEPATH . '../includes/dialogs.inc.php'); ?>
+	<?php $this->load->view('parts/dialogs'); ?>
 </body>
 </html>

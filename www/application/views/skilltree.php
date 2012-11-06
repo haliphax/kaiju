@@ -28,7 +28,7 @@ function iterateSkills($abbrev, $class, $skill, &$who, $allow = 1)
 <html>
 <head>
 	<title>skill tree - kaiju!</title>
-	<?php include(BASEPATH . '../includes/header.inc.php'); ?>
+	<?php $this->load->view('parts/header'); ?>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>css/skilltree.css" />
 	<script type="text/javascript" src="<?=base_url()?>js/skilltree.js"></script>
 </head>
@@ -36,7 +36,7 @@ function iterateSkills($abbrev, $class, $skill, &$who, $allow = 1)
 	<div id="wrapper">
 	<div id="inner">
 		<div id="menu">
-			<?php include(BASEPATH . '../includes/globalbuttons.inc.php'); ?>
+			<?php $this->load->view('parts/globalbuttons'); ?>
 			<div class="right">
 				<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>
 				&nbsp;<button class="button" onclick="window.location = '<?=site_url('game')?>';">Return</button>
@@ -69,7 +69,7 @@ function iterateSkills($abbrev, $class, $skill, &$who, $allow = 1)
 		<div id="spacer"></div>
 	</div>
 	</div>
-	<?php include(BASEPATH . '../includes/footer.inc.php'); ?>
+	<?php $this->load->view('parts/footer'); ?>
 	<div id="skilldesc" class="dialog"></div>
 </body>
 </html>
