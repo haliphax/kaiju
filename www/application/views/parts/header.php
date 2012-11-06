@@ -5,6 +5,5 @@
 	<link rel="stylesheet" type="text/css" href="<?=base_url();?>css/ie.css" />
 <![endif]-->
 	<link rel="stylesheet" type="text/css" href="<?=base_url();?>jquery/jquery-ui.css" />
-	<script type="text/javascript" src="<?=base_url();?>jquery/jquery.js"></script>
-	<script type="text/javascript" src="<?=base_url();?>jquery/jquery-ui.js"></script>
+	<script type="text/javascript" src="<?=base_url();?>jquery/jq-with-ui.js"></script>
 	<script type="text/javascript" src="<?=base_url();?>js/global.js"></script>
