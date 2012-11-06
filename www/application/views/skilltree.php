@@ -38,7 +38,7 @@ function iterateSkills($abbrev, $class, $skill, &$who, $allow = 1)
 		<div id="menu">
 			<?php $this->load->view('parts/globalbuttons'); ?>
 			<div class="right">
-				<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>
+				<!--<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>-->
 				&nbsp;<button class="button" onclick="window.location = '<?=site_url('game')?>';">Return</button>
 			</div>
 		</div>

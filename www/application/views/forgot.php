@@ -11,7 +11,7 @@
 	<div id="inner">
 		<div id="menu">
 			<div class="right">
-				<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>
+				<!--<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>-->
 			</div>
 		</div>
 		<h2 class="ui-corner-all ui-state-highlight">Forgotten Password</h2>
