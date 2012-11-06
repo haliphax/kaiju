@@ -16,7 +16,7 @@
 			<?php $this->load->view('parts/globalbuttons'); ?>
 			<div class="right">
 				<?php if($myclan): ?><button class="button" onclick="window.location = '<?=site_url('clans')?>';">My Clan</button>&nbsp;<?php endif; ?>
-				<!--<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>-->&nbsp;
+				<!--<button class="button" onclick="window.open('http://kaiju.roadha.us/forum', 'kaijuforum');">Forum</button>&nbsp;-->
 				<button class="button" onclick="window.location = '<?=site_url('game')?>';">Return</button>
 			</div>
 		</div>

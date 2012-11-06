@@ -65,7 +65,7 @@
 						</form>
 						<ul id="log_text">
 							<li>kaiju! v<?=$this->config->item('version')?> - "<?=$this->config->item('codename')?>"</li>
-							<li>Remember to visit the <a target="_blank" href="/forum">forum</a>!</li>
+							<!--<li>Remember to visit the <a target="_blank" href="/forum">forum</a>!</li>-->
 						</ul>
 					</div>
 				</div>
