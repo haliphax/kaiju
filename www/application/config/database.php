@@ -45,13 +45,16 @@
 | the active record class
 */
 
+$services_json = json_decode(getenv('VCAP_SERVICES'), true);
+$mysql_config = $services_json['mysql-5.1'][0]['credentials'];
+
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = getenv('MYSQL_DB_HOST');
-$db['default']['username'] = getenv('MYSQL_USERNAME'); 
-$db['default']['password'] = getenv('MYSQL_PASSWORD');
-$db['default']['database'] = getenv('MYSQL_DB_NAME');
+$db['default']['hostname'] = $mysql_config['hostname'];
+$db['default']['username'] = $mysql_config['username'];
+$db['default']['password'] = $mysql_config['password'];
+$db['default']['database'] = $mysql_config['name'];
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
