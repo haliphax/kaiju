@@ -33,7 +33,7 @@ class Fb extends CI_Controller
 			if($data)
 			{
 				if(empty($data['user_id']))
-					echo '<script type="text/javascript">top.location.href="https://www.facebook.com/dialog/oauth?client_id=197452126983118&redirect_uri=' . urlencode('http://kaiju-dev.oddnetwork.org/fb/') . '";</script>';
+					echo '<script type="text/javascript">top.location.href="https://www.facebook.com/dialog/oauth?client_id=197452126983118&redirect_uri=' . urlencode(site_url('fb')) . '";</script>';
 				else
 				{
 					$this->session->set_userdata('fb_user', $data['user_id']);
