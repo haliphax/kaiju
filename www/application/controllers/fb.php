@@ -4,7 +4,7 @@ class Fb extends CI_Controller
 {
 	private $die = 0;
 
-	function Fb()
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->library('session');

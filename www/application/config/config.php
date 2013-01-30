@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'https://kaiju-qa.aws.af.cm/';
+$config['base_url']	= 'https://kaijugame-qa.rs.af.cm/';
 
 /*
 |--------------------------------------------------------------------------
@@ -266,9 +266,9 @@ $config['sess_time_to_update']	= 300;
 |
 */
 $config['cookie_prefix']	= "";
-$config['cookie_domain']	= "kaiju-qa.aws.af.cm";
+$config['cookie_domain']	= "kaijugame-qa.rs.af.cm";
 $config['cookie_path']		= "/";
-$config['cookie_secure']	= FALSE;
+$config['cookie_secure']	= TRUE;
 
 /*
 |--------------------------------------------------------------------------
