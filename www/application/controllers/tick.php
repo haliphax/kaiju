@@ -24,6 +24,49 @@ class tick extends CI_Controller
 		$this->load->database();
 	}
 
+	function twitter()
+	{
+		$feed = $this->input->post('feed');
+		$xml = simplexml_load_string($feed);
+		$news = "<ul id='tweets'>";
+		$tweets = 0;
+
+		foreach($xml as $status)
+		{
+			$news .= "<li>";
+			$text = $status->text;
+
+			# convert URLs into links
+			$text = preg_replace(
+				"#(https?://([-a-z0-9]+\.)+[a-z]{2,5}([/?][-a-z0-9!\#()/?&+]*)?)#i", "<a href='$1' target='_blank'>$1</a>",
+				$text);
+			# convert protocol-less URLs into links
+			$text = preg_replace(
+				"#(?!https?://|<a[^>]+>)(^|\s)(([-a-z0-9]+\.)+[a-z]{2,5}([/?][-a-z0-9!\#()/?&+.]*)?)\b#i", "$1<a href='http://$2'>$2</a>",
+				$text);
+			# convert @mentions into follow links
+			$text = preg_replace(
+				"#(?!https?://|<a[^>]+>)(^|\s)(@([_a-z0-9\-]+))#i", "$1<a href=\"{$instance['mention_url']}$3\" title=\"Follow $3\" target=\"_blank\">@$3</a>",
+				$text);
+			# convert #hashtags into tag search links
+			$text = preg_replace(
+				"#(?!https?://|<a[^>]+>)(^|\s)(\#([_a-z0-9\-]+))#i", "$1<a href='{$instance['hashtag_url']}$3' title='Search tag: $3' target='_blank'>#$3</a>",
+				$text);	
+
+			$news .= "{$text}<span>";
+			$news .= date('D M j @ g:i A', strtotime($status->created_at) + (-5 * 60));
+			$news .= "</span></li>";
+
+			if(++$tweets == 5)
+				break;
+		}
+
+		$news .= "</ul>";
+		$this->load->spark("cache/2.0.0");
+		$this->cache->write($news, "twitter_feed", 905);
+		echo "Cache set.\n";
+	}
+
 	# ticks ====================================================================
 	function fire($tick = 20)
 	{

@@ -1,0 +1,3 @@
+runtime 'php'
+file 'config.php'
+exec 'twitter.php'

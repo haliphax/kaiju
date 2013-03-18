@@ -19,51 +19,6 @@ class Login extends CI_Controller
 		$this->load->spark("cache/2.0.0");
 		$this->news = $this->cache->get("twitter_feed", true);
 
-		if($this->news == false)
-		{
-			$ch = curl_init($xml_url);
-			curl_setopt($ch, CURLOPT_HEADER, 0);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			$result = curl_exec($ch);
-			curl_close($ch);
-			$xml = simplexml_load_string($result);
-			$this->news = "<ul id='tweets'>";
-			$tweets = 0;
-
-			foreach($xml as $status)
-			{
-				$this->news .= "<li>";
-				$text = $status->text;
-
-				# convert URLs into links
-				$text = preg_replace(
-					"#(https?://([-a-z0-9]+\.)+[a-z]{2,5}([/?][-a-z0-9!\#()/?&+]*)?)#i", "<a href='$1' target='_blank'>$1</a>",
-					$text);
-				# convert protocol-less URLs into links
-				$text = preg_replace(
-					"#(?!https?://|<a[^>]+>)(^|\s)(([-a-z0-9]+\.)+[a-z]{2,5}([/?][-a-z0-9!\#()/?&+.]*)?)\b#i", "$1<a href='http://$2'>$2</a>",
-					$text);
-				# convert @mentions into follow links
-				$text = preg_replace(
-					"#(?!https?://|<a[^>]+>)(^|\s)(@([_a-z0-9\-]+))#i", "$1<a href=\"{$instance['mention_url']}$3\" title=\"Follow $3\" target=\"_blank\">@$3</a>",
-					$text);
-				# convert #hashtags into tag search links
-				$text = preg_replace(
-					"#(?!https?://|<a[^>]+>)(^|\s)(\#([_a-z0-9\-]+))#i", "$1<a href='{$instance['hashtag_url']}$3' title='Search tag: $3' target='_blank'>#$3</a>",
-					$text);	
-
-				$this->news .= "{$text}<span>";
-				$this->news .= date('D M j @ g:i A', strtotime($status->created_at) + (-5 * 60));
-				$this->news .= "</span></li>";
-
-				if(++$tweets == 5)
-					break;
-			}
-
-			$this->news .= "</ul>";
-			$this->cache->write($this->news, "twitter_feed", 900);
-		}
-
 		if(file_exists($this->config->item('maintfile')))
 		{
 			$this->load->view('login', array('maint' => 1, 'error' =>
