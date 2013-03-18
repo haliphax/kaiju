@@ -1,7 +1,7 @@
 <?php
 require(dirname(__FILE__) . '/config.php');
 $payload = getPayload();
-$url = $config['url'] . 'tick/' . $payload->tick;
+$url = $config['url'] . 'fire/' . $payload->tick;
 $success = false;
 
 for($a = 0; $a < 5 && ! $success; $a++)
