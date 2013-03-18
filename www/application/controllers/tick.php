@@ -46,11 +46,11 @@ class tick extends CI_Controller
 				$text);
 			# convert @mentions into follow links
 			$text = preg_replace(
-				"#(?!https?://|<a[^>]+>)(^|\s)(@([_a-z0-9\-]+))#i", "$1<a href=\"{$instance['mention_url']}$3\" title=\"Follow $3\" target=\"_blank\">@$3</a>",
+				"#(?!https?://|<a[^>]+>)(^|\s)(@([_a-z0-9\-]+))#i", "$1<a href=\"https://twitter.com/$3\" title=\"Follow $3\" target=\"_blank\">@$3</a>",
 				$text);
 			# convert #hashtags into tag search links
 			$text = preg_replace(
-				"#(?!https?://|<a[^>]+>)(^|\s)(\#([_a-z0-9\-]+))#i", "$1<a href='{$instance['hashtag_url']}$3' title='Search tag: $3' target='_blank'>#$3</a>",
+				"#(?!https?://|<a[^>]+>)(^|\s)(\#([_a-z0-9\-]+))#i", "$1<a href=\"https://twitter.com/search?q=%23$3\" title=\"Search tag: $3\" target=\"_blank\">#$3</a>",
 				$text);	
 
 			$news .= "{$text}<span>";
