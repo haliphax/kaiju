@@ -10,7 +10,8 @@ class Login extends CI_Controller
 
 		if($this->session->userdata('fb_user'))
 		{
-			$this->output->set_header('Location: ' . site_url('game'));
+			$this->load->helper('url');
+			redirect(site_url('game'), 'location');
 			exit();
 		}
 

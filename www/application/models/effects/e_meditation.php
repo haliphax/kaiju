@@ -17,7 +17,7 @@ class e_meditation extends EffectModel
 	
 	function defend(&$vic, &$actor, &$swing)
 	{
-		$this->ci->actor->removeEffect('meditation', &$vic);
+		$this->ci->actor->removeEffect('meditation', $vic);
 		$this->ci->actor->sendEvent(
 			"You were attacked by {$actor['aname']}, and your concentration was broken!",
 			$vic['actor']);

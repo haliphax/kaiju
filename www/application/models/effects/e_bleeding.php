@@ -20,7 +20,7 @@ class e_bleeding extends EffectModel
 		{
 			$actors[] = $r['actor'];
 			$ret[] = "{$r['actor']} - Bleeding";
-			$this->ci->actor->damage(1, &$r);
+			$this->ci->actor->damage(1, $r);
 			
 			# died of bleeding
 			if($r['stat_hp'] == 1)
@@ -86,7 +86,7 @@ SQL;
 	{
 		$who = $actor;
 		if (! is_array($who)) $who = $this->ci->actor->getInfo($actor);
-		$this->ci->actor->damage(1, &$who);
+		$this->ci->actor->damage(1, $who);
 		return array("Your actions cause you to bleed further.");
 	}
 	

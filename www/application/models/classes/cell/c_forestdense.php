@@ -19,13 +19,13 @@ class c_forestdense extends CI_Model
 		{
 			$msg[] =
 				"You climb through the treetops, avoiding the impeding underbrush.";
-			$ret = $this->ci->actor->spendAP(1, &$actor);
+			$ret = $this->ci->actor->spendAP(1, $actor);
 			foreach($ret as $r) $msg[] = $r;		
 		}	
 		else
 		{
 			$msg[] = "You slowly fight your way through the dense underbrush.";
-			$ret = $this->ci->actor->spendAP(2, &$actor);
+			$ret = $this->ci->actor->spendAP(2, $actor);
 			foreach($ret as $r) $msg[] = $r;
 		}
 		

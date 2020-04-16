@@ -159,7 +159,7 @@ SQL;
 		$res = $query->row_array();
 		$which = $res['abbrev'];		
 		$this->ci->load->model("skills/{$which}");
-		call_user_func(array($this->ci->$which, 'purchase'), $actor);
+		$this->ci->$which->purchase($actor);
 		return true;
 	}
 	
@@ -201,7 +201,7 @@ SQL;
 		$res = $query->row_array();
 		$which = $res['abbrev'];
 		$this->ci->load->model('skills/' . $which);
-		return call_user_func(array($this->ci->$which, 'params'), $actor);
+		return $this->ci->$which->params($actor);
 	}
 	
 	# is skill repeatable? =====================================================

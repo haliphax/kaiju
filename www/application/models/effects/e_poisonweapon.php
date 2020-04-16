@@ -31,7 +31,7 @@ class e_poisonweapon extends EffectModel
 		
 		if($roll == 1)
 		{
-			$this->ci->actor->removeEffect('poisonweapon', &$actor);
+			$this->ci->actor->removeEffect('poisonweapon', $actor);
 			return array(
 				"You have poisoned your victim with the last bit of toxin on your weapon."
 				);
@@ -40,7 +40,7 @@ class e_poisonweapon extends EffectModel
 		return array("You have poisoned your victim.");
 	}
 	
-	function disp(&$actor)
+	function disp($actor)
 	{
 		$this->ci->load->model('pdata');
 		$cnt = $this->ci->pdata->get('effect', 'poisonweapon', $actor['actor']);
@@ -68,7 +68,7 @@ SQL;
 				"The poison on your weapon has lost its effect.",
 				$row['actor']
 				);
-			$this->ci->actor->removeEffect('poisonweapon', &$row);
+			$this->ci->actor->removeEffect('poisonweapon', $row);
 		}
 		
 		return;

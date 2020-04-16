@@ -19,7 +19,7 @@ class e_npc_counterattack extends EffectModel
 		}
 		
 		$this->ci->tdata->set('counteratk', 1);
-		$res = $this->ci->actor->attack($actor['actor'], &$victim);
+		$res = $this->ci->actor->attack($actor['actor'], $victim);
 		foreach($res as $r) $this->ci->actor->sendEvent($r, $victim['actor']);
 	}
 }

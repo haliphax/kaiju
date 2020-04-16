@@ -21,7 +21,7 @@ class e_counterattack extends EffectModel
 		$this->ci->tdata->set('counteratk', 1);
 		$this->ci->actor->sendEvent(
 			"You use this opportunity to counter-attack!", $victim['actor']);
-		$res = $this->ci->actor->attack($actor['actor'], &$victim);
+		$res = $this->ci->actor->attack($actor['actor'], $victim);
 		foreach($res as $r) $this->ci->actor->sendEvent($r, $victim['actor']);
 		return array("Your attack granted them an opportunity!");
 	}

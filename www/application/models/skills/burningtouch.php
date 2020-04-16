@@ -24,7 +24,7 @@ class burningtouch extends SkillModel
 			);
 		$msg = array();
 		$ret = $this->ci->actor->attackWith($victim, $wep, false, false, false,
-			$actor, &$fail);
+			$actor, $fail);
 		foreach($ret as $r) $msg[] = $r;
 		if($fail) return $msg;
 		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);

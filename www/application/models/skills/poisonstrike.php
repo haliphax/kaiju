@@ -15,19 +15,19 @@ class poisonstrike extends SkillModel
 		$victim = $this->ci->actor->getInfo($args[0]);
 		if(! $this->show($actor, $victim)) return;
 		$weps = $this->ci->actor->getWeapons($actor['actor']);
-		$this->ci->actor->addEffect('poisonstrike', &$actor);
-		$ret = $this->ci->actor->attackWith(&$victim, $weps[0], false,
-			max(5, $this->ci->actor->getChanceToHit(&$actor, &$victim) - 6),
-			0, &$actor, $fail);
+		$this->ci->actor->addEffect('poisonstrike', $actor);
+		$ret = $this->ci->actor->attackWith($victim, $weps[0], false,
+			max(5, $this->ci->actor->getChanceToHit($actor, $victim) - 6),
+			0, $actor, $fail);
 		if(! $fail) $msg[] = "You attempt to poison {$victim['aname']}...";
 		foreach($ret as $r) $msg[] = $r;
-		$this->ci->actor->removeEffect('poisonstrike', &$actor);
+		$this->ci->actor->removeEffect('poisonstrike', $actor);
 		
 		if(! $fail)
 		{
-			$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+			$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 			foreach($ret as $r) $msg[] = $r;
-			$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], &$actor);
+			$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], $actor);
 			foreach($ret as $r) $msg[] = $r;
 		}
 		

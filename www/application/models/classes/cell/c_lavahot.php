@@ -14,9 +14,9 @@ class c_lavahot extends CI_Model
 	function arrive(&$actor)
 	{
 		$msg = array();
-		$ret = $this->ci->actor->spendAP(1, &$actor);
+		$ret = $this->ci->actor->spendAP(1, $actor);
 		foreach($ret as $r) $msg[] = $r;
-		$ret = $this->ci->actor->damage(5, &$actor);
+		$ret = $this->ci->actor->damage(5, $actor);
 		foreach($ret as $r) $msg[] = $r;
 		$msg[] = 'OH, GOD! THE PAIN! Your flesh is being seared!';
 		return array(true, $msg);

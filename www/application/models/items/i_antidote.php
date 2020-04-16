@@ -14,7 +14,7 @@ class i_antidote extends CI_Model
 	{
 		$this->ci->load->model('actor');
 		if(! $victim) $victim = $actor;
-		$this->ci->actor->spendAP(1, &$actor);
+		$this->ci->actor->spendAP(1, $actor);
 		if($victim['stat_hp'] <= 0)
 			return array('They are dead. Whatever poison they suffered from '
 				. 'has claimed their life already.');
@@ -44,9 +44,9 @@ class i_antidote extends CI_Model
 				. "their poison.";
 		}
 		
-		$ret = $this->ci->actor->removeEffect('poison', &$victim);
+		$ret = $this->ci->actor->removeEffect('poison', $victim);
 		foreach($ret as $r) $omsg[] = $r;
-		$ret = $this->ci->actor->removeEffect('poisondeadly', &$victim);
+		$ret = $this->ci->actor->removeEffect('poisondeadly', $victim);
 		foreach($ret as $r) $omsg[] = $r;
 		foreach($omsg as $o)
 			$this->ci->actor->sendEvent($o, $victim['actor']);

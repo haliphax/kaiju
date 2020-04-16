@@ -377,8 +377,7 @@ SQL;
 				{
 					$skill = $r['abbrev'];
 					$this->ci->load->model('skills/' . $skill);
-					$ret[$k]['params'] = call_user_func(
-						array($this->ci->$skill, 'params'), $actor);
+					$ret[$k]['params'] = $this->ci->$skill->params($actor);
 				}
 		return $ret;
 	}
@@ -429,7 +428,7 @@ SQL;
 		{
 			$which = "c_{$t}";
 			$this->ci->load->model("classes/cell/{$which}");
-			$res = call_user_func(array($this->ci->$which, 'leave'), $actor);
+			$res = $this->ci->$which->leave($actor);
 			if($res[0] === false) return $res[1];
 			foreach($res[1] as $r) $msg[] = $r;
 		}
@@ -447,7 +446,7 @@ SQL;
 		{
 			$which = "c_{$t}";
 			$this->ci->load->model("classes/cell/{$which}");
-			$res = call_user_func(array($this->ci->$which, 'arrive'), $actor);
+			$res = $this->ci->$which->arrive($actor);
 			if($res[0] === false) return $res[1];
 			foreach($res[1] as $r) $msg[] = $r;
 		}
@@ -479,8 +478,7 @@ SQL;
 			{
 				$which = "e_{$r['abbrev']}";
 				$this->ci->load->model('effects/' . $which);
-				$ret = call_user_func(array($this->ci->$which, "move"), &$where,
-					$actor);
+				$ret = $this->ci->$which->move($where, $actor);
 				foreach($ret as $rr) $msg[] = $rr;
 			}
 		}
@@ -523,8 +521,7 @@ SQL;
 		{
 			$which = "e_{$r['abbrev']}";
 			$this->ci->load->model('effects/' . $which);
-			$ret = call_user_func(array($this->ci->$which, "move"), &$where,
-				&$who);
+			$ret = $this->ci->$which->move($where, $who);
 			foreach($ret as $rr) $msg[] = $rr;
 		}
 		
@@ -647,8 +644,7 @@ SQL;
 			{
 				$which = "i_{$row['abbrev']}";		
 				$this->ci->load->model("items/{$which}");
-				$res = call_user_func(array($this->ci->$which, 'equip'),
-					&$actor, &$instance);
+				$res = $this->ci->$which->equip($actor, $instance);
 				foreach($res as $r) $msg[] = $r;		
 			}
 		}
@@ -667,7 +663,7 @@ SQL;
 		}
 		
 		$msg[] = 'Item equipped.';
-		$ret = $this->spendAP(1, &$actor);
+		$ret = $this->spendAP(1, $actor);
 		foreach($ret as $r) $msg[] = $r;		
 		return $msg;
 	}
@@ -702,8 +698,7 @@ SQL;
 			{
 				$which = "i_{$row['abbrev']}";
 				$this->ci->load->model("items/{$which}");
-				$ret = call_user_func(array($this->ci->$which, 'remove'), &$actor,
-					&$instance);
+				$ret = $this->ci->$which->remove($actor, $instance);
 				foreach($ret as $r) $msg[] = $r;
 			}
 		}
@@ -719,7 +714,7 @@ SQL;
 		$sql = 'delete from actor_item_ammo where instance = ?';
 		$query = $this->db->query($sql, array($instance));
 		$msg[] = 'Item removed.';
-		$ret = $this->spendAP(1, &$actor);
+		$ret = $this->spendAP(1, $actor);
 		foreach($ret as $r) $msg[] = $r;
 		return $msg;
 	}
@@ -740,8 +735,8 @@ SQL;
 			return array("You don't know how to do that.");
 		$this->ci->load->model('skills/' . $skill);
 		if($args === false || count($args) == 0)
-			return call_user_func(array($this->ci->$skill, 'fire'), &$actor);
-		return call_user_func(array($this->ci->$skill, 'fire'), &$actor, $args);
+			return $this->ci->$skill->fire($actor);
+		return $this->ci->$skill->fire($actor, $args);
 	}
 	
 	# attack an actor ==========================================================
@@ -812,8 +807,7 @@ SQL;
 				{
 					$which = "e_{$r['abbrev']}";
 					$this->ci->load->model('effects/' . $which);
-					$rres = call_user_func(array($this->ci->$which, "attack"),
-						&$vic, &$actor, &$swing);
+					$rres = $this->ci->$which->attack($vic, $actor, $swing);
 					foreach($rres as $rr) $msg[] = $rr;
 				}
 			}
@@ -836,14 +830,13 @@ SQL;
 				{
 					$which = "e_{$r['abbrev']}";
 					$this->ci->load->model('effects/' . $which);
-					$rres = call_user_func(array($this->ci->$which, "defend"),
-						&$vic, &$actor, &$swing);
+					$rres = $this->ci->$which->defend($vic, $actor, $swing);
 					foreach($rres as $rr) $msg[] = $rr;
 				}
 			}
 			
-			$ret = $this->attackWith(&$vic, $swing['wep'], $swing['target'],
-				&$swing['chance'], $swing['crit'], &$actor, &$fail, &$hit);
+			$ret = $this->attackWith($vic, $swing['wep'], $swing['target'],
+				$swing['chance'], $swing['crit'], $actor, $fail, $hit);
 			foreach($ret as $r) $msg[] = $r;
 			if($fail) break;
 			if(isset($hit['hit']))
@@ -852,7 +845,7 @@ SQL;
 		
 		if(! $fail)
 		{
-			$ret = $this->spendAP(1, &$actor);
+			$ret = $this->spendAP(1, $actor);
 			if($ret) foreach($ret as $r) $msg[] = $r;
 			$this->setStatFlag($victim);
 		}
@@ -947,7 +940,7 @@ SQL;
 			}
 		}
 		
-		if($o === false) $o = $this->getChanceToHit(&$actor, &$vic);
+		if($o === false) $o = $this->getChanceToHit($actor, $vic);
 		if($c === false) $c = 1; # 5% chance to crit
 		$succ = rand(1, 20);
 		$hit['target'] = $target;
@@ -986,8 +979,7 @@ SQL;
 				{
 					$which = "e_{$rr['abbrev']}";
 					$this->ci->load->model('effects/' . $which);
-					$mmsg = call_user_func(array($this->ci->$which, "struck"),
-						&$vic, &$actor, &$hit);
+					$mmsg = $this->ci->$which->struck($vic, $actor, $hit);
 					foreach($mmsg as $mm) $msg[] = $mm;
 				}
 			}
@@ -1010,8 +1002,7 @@ SQL;
 				{
 					$which = "e_{$rr['abbrev']}";
 					$this->ci->load->model('effects/' . $which);
-					$mmsg = call_user_func(array($this->ci->$which, "hit"),
-							&$vic, &$actor, &$hit);
+					$mmsg = $this->ci->$which->hit($vic, $actor, $hit);
 					foreach($mmsg as $mm) $msg[] = $mm;
 				}
 			}
@@ -1054,7 +1045,7 @@ SQL;
 					$this->addXP($actor, round($hit['dmg'] / 2));
 				else
 					$this->addXP($actor, round($hit['dmg'] / 3));
-				$this->damage($hit['dmg'], &$vic, &$actor);
+				$this->damage($hit['dmg'], $vic, $actor);
 				$vic['stat_hp'] -= $hit['dmg'];
 				
 				# armor durability decrement
@@ -1139,8 +1130,7 @@ SQL;
 				{
 					$which = "e_{$r['abbrev']}";
 					$this->ci->load->model('effects/' . $which);
-					$rres = call_user_func(array($this->ci->$which, "miss"),
-						&$vic, &$actor, &$hit);
+					$rres = $this->ci->$which->miss($vic, $actor, $hit);
 					foreach($rres as $rr) $msg[] = $rr;
 				}
 			}
@@ -1253,8 +1243,7 @@ SQL;
 			{
 				$which = "e_{$r['abbrev']}";
 				$this->ci->load->model('effects/' . $which);
-				call_user_func(array($this->ci->$which, "armor"), $actor,
-					&$armor);
+				$this->ci->$which->armor($actor, $armor);
 			}
 		}
 		
@@ -1283,7 +1272,7 @@ SQL;
 		{
 			$which = "e_{$r['abbrev']}";
 			$this->ci->load->model('effects/' . $which);
-			$ret = call_user_func(array($this->ci->$which, "ap"), $ap, $actor);
+			$ret = $this->ci->$which->ap($ap, $actor);
 			foreach($ret as $rr) $msg[] = $rr;
 		}
 		
@@ -1338,7 +1327,7 @@ SQL;
 			{
 				$which = "e_{$row['abbrev']}";
 				$this->ci->load->model("effects/{$which}");
-				$ret = call_user_func(array($this->ci->$which, "on"), &$actor);
+				$ret = $this->ci->$which->on($actor);
 				foreach($ret as $rr) $msg[] = $rr;
 			}
 		}
@@ -1366,7 +1355,7 @@ SQL;
 			
 			foreach($res as $r)
 			{
-				$ret = $this->removeEffect($r['effect'], &$actor);
+				$ret = $this->removeEffect($r['effect'], $actor);
 				foreach($ret as $r) $msg[] = $r;
 			}
 			
@@ -1408,7 +1397,7 @@ SQL;
 			{
 				$which = "e_{$row['abbrev']}";
 				$this->ci->load->model("effects/{$which}");
-				$ret = call_user_func(array($this->ci->$which, "off"), &$actor);
+				$ret = $this->ci->$which->off($actor);
 				foreach($ret as $rr) $msg[] = $rr;
 			}
 		}
@@ -1499,7 +1488,7 @@ SQL;
 			return false;
 		#TODO: effect_damage
 		if($dmg >= $vic['stat_hp'])
-			$this->removeEffect('all', &$vic);
+			$this->removeEffect('all', $vic);
 	}
 	
 	# heal =====================================================================
@@ -1523,8 +1512,7 @@ SQL;
 			{
 				$which = "e_{$r['abbrev']}";
 				$this->ci->load->model('effects/' . $which);
-				$rres = call_user_func(array($this->ci->$which, "heal"),
-					&$victim, &$actor, &$heal);
+				$rres = $this->ci->$which->heal($victim, $actor, $heal);
 				foreach($rres as $rr) $msg[] = $rr;
 			}
 		}
@@ -1546,8 +1534,7 @@ SQL;
 			{
 				$which = "e_{$r['abbrev']}";
 				$this->ci->load->model('effects/' . $which);
-				$rres = call_user_func(array($this->ci->$which, "healed"),
-					&$victim, &$actor, &$heal);
+				$rres = $this->ci->$which->healed($victim, $actor, $heal);
 				foreach($rres as $rr) $msg[] = $rr;
 			}
 		}
@@ -1670,8 +1657,7 @@ SQL;
 			{
 				$which = "e_{$r['abbrev']}";
 				$this->ci->load->model('effects/' . $which);
-				$chance += call_user_func(array($this->ci->$which,
-					"chancetohit"), &$actor, &$victim);
+				$chance += $this->ci->$which->chancetohit($actor, $victim);
 			}
 		}
 		

@@ -19,11 +19,11 @@ class kujiin_kyo extends SkillModel
 		$this->ci->kujikiri->kujikiri_remove($actor['actor']);
 		$msg = array(
 			"You fold your hands into form, providing additional accuracy.");
-		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($ret as $r) $msg[] = $r;
-		$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], &$actor);
+		$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], $actor);
 		foreach($ret as $r) $msg[] = $r;
-		$ret = $this->ci->actor->addEffect('kujiin_kyo', &$actor);
+		$ret = $this->ci->actor->addEffect('kujiin_kyo', $actor);
 		foreach($ret as $r) $msg[] = $r;
 		return $msg;	
 	}

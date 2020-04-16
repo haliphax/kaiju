@@ -31,8 +31,8 @@ class e_climbing extends EffectModel
 			# actor fell
 			if($roll <= $cf)
 			{
-				$this->ci->actor->removeEffect('climbing', &$actor);
-				$this->ci->actor->damage(3, &$actor);
+				$this->ci->actor->removeEffect('climbing', $actor);
+				$this->ci->actor->damage(3, $actor);
 				$this->ci->actor->setStatFlag($actor['actor']);
 				return array(
 					'You fall short of your mark and come crashing to the ground.'
@@ -44,7 +44,7 @@ class e_climbing extends EffectModel
 			return;
 		}
 		
-		$this->ci->actor->removeEffect('climbing', &$actor);
+		$this->ci->actor->removeEffect('climbing', $actor);
 		$this->ci->actor->setStatFlag($actor['actor']);
 		
 		# jumped to a water cell
@@ -57,7 +57,7 @@ class e_climbing extends EffectModel
 		}
 		
 		# jumped to a cell with no climbable structure
-		$this->ci->actor->damage(3, &$actor);
+		$this->ci->actor->damage(3, $actor);
 		return array(
 			"You go flying through the air toward a landing that doesn't exist, and injure yourself in the fall."
 			);

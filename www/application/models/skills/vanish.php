@@ -12,20 +12,20 @@ class vanish extends SkillModel
 	# use skill
 	function fire(&$actor)
 	{
-		if(! $this->show(&$actor)) return false;
+		if(! $this->show($actor)) return false;
 		if($actor['stat_mp'] < $this->cost['cost_mp'])
 			return $this->ci->skills->nomp;
 		$msg = array();
-		$res = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$res = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($res as $r) $msg[] = $r;
-		$res = $this->ci->actor->spendMP($this->cost['cost_mp'], &$actor);
+		$res = $this->ci->actor->spendMP($this->cost['cost_mp'], $actor);
 		foreach($res as $r) $msg[] = $r;
 		$roll = rand(1, 20);
 		
 		if($roll > 1)
 		{
 			$msg[] = "You conceal yourself in mystical smoke.";
-			$res = $this->ci->actor->addEffect('hiding', &$actor);
+			$res = $this->ci->actor->addEffect('hiding', $actor);
 			foreach($res as $r) $msg[] = $r;
 		}
 		else

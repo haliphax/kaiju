@@ -4,7 +4,7 @@ class bldg_enter extends CI_Model
 {
 	private $ci;
 	
-	function bldg_enter()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();
@@ -49,14 +49,13 @@ SQL;
 			$which = "st_{$row['abbrev']}";
 			
 			$this->ci->load->model("classes/structure/{$which}");
-			$allowed = call_user_func(
-				array($this->ci->$which, 'b_enter'), $actor);
+			$allowed = $this->ci->$which->b_enter($actor);
 			foreach($allowed[1] as $m) $ret[] = $m;
 			if($allowed[0] === false) return $ret;
 		}
 		
 		$this->ci->load->model('action');
-		$res = $this->ci->action->indoors(&$actor, &$succ, 1);
+		$res = $this->ci->action->indoors($actor, $succ, 1);
 		if($res === false) return;
 		if($succ) $ret[] = "You go inside.";
 		foreach($res as $r) $ret[] = $r;

@@ -18,13 +18,13 @@ class i_bandage extends CI_Model
 			return array('They are dead. Bandages cannot help them now.');
 		if($victim['stat_hp'] >= $victim['stat_hpmax'])
 			return array('No healing is necessary.');
-		$this->ci->actor->spendAP(1, &$actor);
+		$this->ci->actor->spendAP(1, $actor);
 		$msg = array();
 		$heal = array();
 		$heal['hp'] = 5;
 		$down = $victim['stat_hpmax'] - $victim['stat_hp'];
 		if($down < $heal['hp']) $heal['hp'] = $down;
-		$res = $this->ci->actor->heal(&$actor, &$victim, &$heal);
+		$res = $this->ci->actor->heal($actor, $victim, $heal);
 		foreach($res as $r) $msg[] = $r;
 		$this->ci->actor->dropItems(array($item['instance']), $actor['actor']);
 		

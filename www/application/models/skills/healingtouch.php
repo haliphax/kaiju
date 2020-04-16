@@ -35,7 +35,7 @@ class healingtouch extends SkillModel
 		$heal['hp'] = 5;
 		$down = $victim['stat_hpmax'] - $victim['stat_hp'];
 		if($down < $heal['hp']) $heal['hp'] = $down;
-		$ret = $this->ci->actor->heal($actor, $victim, &$heal);
+		$ret = $this->ci->actor->heal($actor, $victim, $heal);
 		foreach($ret as $r) $msg[] = $r;
 		
 		# self

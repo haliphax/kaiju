@@ -28,18 +28,18 @@ class c_water extends CI_Model
 		if($cnt < 6)
 		{
 			$msg[] = "You swim through the water with minor difficulty.";
-			$ret = $this->ci->actor->spendAP(2, &$actor);
+			$ret = $this->ci->actor->spendAP(2, $actor);
 		}
 		else if($cnt < 11)
 		{
 			$msg[] = "Fighting against the pain in your lungs, you swim on.";
-			$ret = $this->ci->actor->spendAP(3, &$actor);
+			$ret = $this->ci->actor->spendAP(3, $actor);
 		}
 		else if($cnt < 16)
 		{
 			$msg[] =
 				"Your muscles burn like they're on fire, but you continue swimming.";
-			$ret = $this->actor->damage(1, &$actor);
+			$ret = $this->actor->damage(1, $actor);
 			foreach($ret as $r) $msg[] = $r;
 			$ret = $this->ci->actor->spendAP(5, $actor);
 		}

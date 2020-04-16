@@ -13,7 +13,7 @@ class ascend extends CI_Model
 	
 	function fire(&$actor, &$retval, $args)
 	{
-		if(! $this->show(&$actor)) return false;
+		if(! $this->show($actor)) return false;
 		$class = $args[0];
 		if($class < 2 || $class > 4) return false;
 		$this->ci->load->model('actor');

@@ -14,7 +14,7 @@ class c_mountains extends CI_Model
 	function arrive(&$actor)
 	{
 		$msg = array();		
-		$ret = $this->ci->actor->spendAP(5, &$actor);
+		$ret = $this->ci->actor->spendAP(5, $actor);
 		foreach($ret as $r) $msg[] = $r;
 		return array(true, $msg);	
 	}

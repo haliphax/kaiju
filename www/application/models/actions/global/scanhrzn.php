@@ -41,7 +41,7 @@ class scanhrzn extends CI_Model
 	{
 		if($actor['indoors']
 			|| ! $this->ci->map->cellHasClass('scan', $actor['map'],
-				$actor['x'], $actor['y'], $actor['indoors']))
+				$actor['x'], $actor['y'], $actor['indoors'], $cinfo))
 		{
 			return false;
 		}

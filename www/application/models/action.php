@@ -35,7 +35,7 @@ SQL;
 		{
 			$which = $row['abbrev'];			
 			$this->ci->load->model("actions/global/{$which}");
-			$res = call_user_func(array($this->ci->$which, "show"), &$actor);
+			$res = $this->ci->$which->show($actor);
 			if($res !== false) $actions[] = $row;
 		}
 		
@@ -63,8 +63,7 @@ SQL;
 		{
 			$which = $row['abbrev'];			
 			$this->ci->load->model("actions/actor/{$which}");
-			$res = call_user_func(array($this->ci->$which, "show"), &$actor,
-				&$victim);
+			$res = $this->ci->$which->show($actor, $victim);
 			if($res !== false) $actions[] = $row;
 		}
 		
@@ -117,8 +116,7 @@ SQL;
 		{
 			$which = $row['abbrev'];
 			$this->ci->load->model("actions/cell/{$which}");
-			$res = call_user_func(array($this->ci->$which, "show"), &$actor,
-				&$victim);
+			$res = $this->ci->$which->show($actor, $victim);
 			if($res !== false) $actions[] = $row;
 		}
 		
@@ -144,7 +142,7 @@ SQL;
 		{
 			$which = $row['abbrev'];
 			$this->ci->load->model("actions/dead/{$which}");
-			$res = call_user_func(array($this->ci->$which, "show"), &$actor);
+			$res = $this->ci->$which->show($actor);
 			if($res !== false) $actions[] = $row;
 		}
 		
@@ -217,8 +215,7 @@ SQL;
 		{
 			$which = $row['abbrev'];			
 			$this->ci->load->model("actions/{$row['atype']}/{$which}");
-			$res = call_user_func(array($this->ci->$which, "show"),
-				&$actor);
+			$res = $this->ci->$which->show($actor);
 			if($res !== false) $actions[] = $row;
 		}
 		
@@ -268,7 +265,7 @@ SQL;
 	function getParameters($type, $action, $actor)
 	{
 		$this->ci->load->model("actions/{$type}/{$action}");
-		return call_user_func(array($this->ci->$action, "params"), &$actor);
+		return $this->ci->$action->params($actor);
 	}
 	
 #===============================================================================
@@ -325,7 +322,7 @@ SQL;
 				$actor['y'], $i);
 			$this->ci->actor->setStatFlag($actor['actor']);
 			foreach($ret as $r) $msg[] = $r;
-			$rret = $this->ci->actor->spendAP(1, &$actor);
+			$rret = $this->ci->actor->spendAP(1, $actor);
 			foreach($rret as $r) $msg[] = $r;
 		}
 		

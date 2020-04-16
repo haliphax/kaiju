@@ -16,7 +16,7 @@ class e_poisonstrike extends EffectModel
 	function hit(&$victim, &$actor, &$hit)
 	{
 		if(! $hit['hit']) return false;
-		$ret = $this->ci->actor->addEffect('poison', &$victim);
+		$ret = $this->ci->actor->addEffect('poison', $victim);
 		foreach($ret as $r)
 			if($r) $this->ci->actor->sendEvent($r, $victim['actor']);
 		return array('You have poisoned your victim.');

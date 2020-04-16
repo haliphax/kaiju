@@ -15,8 +15,8 @@ class kendo_kote extends SkillModel
 		if($actor['stat_ap'] < $this->cost['cost_ap']) 
 			return $this->ci->skills->noap;
 		$weps = $this->ci->actor->getWeapons($actor['actor']);
-		$res = $this->ci->actor->attackWith(&$victim, $weps[0], 'arms',
-			false, false, &$actor, $fail, $hit);
+		$res = $this->ci->actor->attackWith($victim, $weps[0], 'arms',
+			false, false, $actor, $fail, $hit);
 		foreach($res as $r) $msg[] = $r;
 		
 		if($hit['hit'])
@@ -41,7 +41,7 @@ SQL;
 			}
 		}
 		
-		$res = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$res = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($res as $r) $msg[] = $r;
 		return $msg;
 	}

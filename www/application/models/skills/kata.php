@@ -22,7 +22,7 @@ class kata extends SkillModel
 		
 		$r = $this->ci->skills->getInfo($kata);
 		$which = $r['abbrev'];
-		return call_user_func(array($this->ci->$which, 'fire'), $actor);
+		return $this->ci->$which->fire($actor);
 	}
 	
 	function show()

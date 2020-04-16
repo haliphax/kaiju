@@ -1,0 +1,314 @@
+body {
+	margin: 0;
+}
+#loading-screen {
+	height: 100%;
+	width: 100%;
+	min-height: 100%;
+	background-color: white;
+	position: absolute;
+	z-index: 99;
+}
+# loading-screen img {
+	max-width: 90%;
+}
+#loading-screen table {
+	height: 100%;
+	width: 100%;
+}
+#loading-screen table td {
+	width: 100%;
+	vertical-align: middle;
+	text-align: center;
+}
+#loadingzone {
+	display: none;
+}
+.ui-block-b {
+	float: right;
+}
+@media screen and (min-width: 769px) {
+	.hide-desktop {
+		display: none !important;
+	}
+}
+@media screen and (max-width: 768px) {
+	.hide-mobile {
+		display: none !important;
+	}
+}
+@media screen and (min-width: 769px) and (max-width: 860px) {
+	.ui-grid-a > div {
+		width: 100% !important;
+	}
+}
+@media screen and (min-width: 651px) and (max-width: 768px) {
+	.ui-grid-a > .ui-block-a,
+	.ui-grid-a > .ui-block-b
+	{
+		width: 50% !important;
+	}
+	.ui-grid-c > div {
+		width: 33% !important;
+		clear: none;
+	}
+}
+@media screen and (max-width: 650px) {
+	.ui-grid-a > .ui-block-a,
+	.ui-grid-a > .ui-block-b
+	{
+		width: 100% !important;
+	}
+	.ui-grid-c > div {
+		width: 50% !important;
+		clear: none;
+	}
+}
+.hide-text {
+	text-indent: -100%;
+}
+.yk-desktop-menu {
+	float: left;
+	width: 25%;
+	min-height: 100%;
+	margin-top: -2px;
+}
+h4.ui-bar-a {
+	margin: 0;
+}
+.ui-content {
+	padding: 0 0.25em 0 0.25em !important;
+}
+.yk-block-wrapper {
+	margin: 0.25em;
+	border: 1px solid #888;
+	border-radius: 8px;
+}
+.yk-block-wrapper > div {
+	padding: 0.5em;
+}
+.yk-block-wrapper ul[data-role="listview"] {
+	margin: 0;
+	border-radius: 0 0 8px 8px;
+	width: 100%;
+}
+.yk-block-wrapper ul[data-role="listview"] li a {
+	font-size: 1em;
+}
+.yk-block-wrapper > .ui-collapsible-content
+{
+	padding: 0;
+	font-size: 0.8em;
+}
+.yk-block-wrapper.yk-status-wrapper > .ui-collapsible-content,
+.yk-block-wrapper.yk-log-wrapper > .ui-collapsible-content,
+.yk-block-wrapper.yk-surroundings-wrapper > .ui-collapsible-content
+{
+	padding: 0.5em;
+}
+.yk-status-wrapper .ui-grid-c > div {
+	padding: 0.25em;
+	line-height: 1em;
+	vertical-align: middle;
+}
+.yk-status-wrapper .ui-bar-a {
+	border-radius: 8px;
+}
+#log_text {
+	min-height: 6em;
+	height: 6em;
+	overflow: auto;
+}
+#log_text ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	text-indent: 0;
+}
+.yk-log-wrapper div .ui-btn {
+	display: none;
+}
+.yk-log-wrapper .ui-input-text {
+	margin: -0.5em -0.5em 0.5em -0.5em;
+}
+.yk-log-wrapper ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	text-indent: 0;
+}
+.location-info {
+	padding: 0.5em;
+	text-align: center;
+}
+.ui-grid-a > .ui-block-c {
+	width: 100%;
+}
+.yk-progress-bar {
+	border-radius: 8px;
+	height: 1.2em;
+	border: 1px solid #ccc;
+	line-height: 0.8em;
+}
+.yk-progress-bar-value {
+	height: 100%;
+	border-radius: 8px;
+	background-color: rgba(255, 255, 255, 0.4);
+	margin-top: -1.2em;
+}
+.yk-progress-bar-text {
+	margin: 0 auto;
+	text-align: center;
+	height: 100%;
+	line-height: 1.2em;
+	text-shadow: 0px 1px 0px #666;
+	color: #fff;
+}
+.yk-hp-bar {
+	background-color: #700;
+}
+.yk-mp-bar {
+	background-color: #007;
+}
+.yk-ap-bar {
+	background-color: #070;
+}
+.yk-xp-bar {
+	background-color: #707;
+}
+#map
+{
+	height: 300px;
+	width: 300px;
+	background-color: black;
+	margin: 0.25em auto;
+	padding: 1px;
+}
+.map_cell
+{
+	float: left;
+	height: 60px;
+	width: 60px;
+	cursor: default;
+	text-align: center;
+}
+.mvarrow
+{
+	height: 60px;
+	width: 60px;
+}
+h4.ui-bar-a a {
+	font-size: 0.85em;
+	padding: 0.5em 2.2em;
+	background-color: #eee !important;
+}
+h4.ui-bar-a a::after {
+	font-size: 0.85em;
+	height: 18px;
+	width: 18px;
+	margin-top: -9px;
+}
+div[data-role="popup"] ul[data-role="listview"] li a {
+	font-size: 0.85em;
+}
+#occupants .goodguy {
+	color: Blue;
+}
+#occupants .badguy {
+	color: Red;
+}
+#profile table {
+	font-size: 75%;
+}
+#effect_desc {
+	max-width: 600px;
+}
+
+.map_cell .sh
+{
+	height: 60px;
+	width: 60px;
+	position: absolute;
+	background: url(../img/ui/stronghold.gif) no-repeat left top;
+}
+.tile {
+	background: url(https://oddnetwork.org/kaiju/img/tiles-spritesheet.png) no-repeat top left;
+	height: 60px;
+	width: 60px;
+}
+.tile-blank { background-image: none; }
+.tile-auction-house { background-position: 0 0; }
+.tile-blacksmith { background-position: 0 -61px; }
+.tile-box-hi { background-position: 0 -122px; }
+.tile-box { background-position: 0 -183px; }
+.tile-capital { background-position: 0 -244px; }
+.tile-dirt { background-position: 0 -305px; }
+.tile-forest-dense { background-position: 0 -366px; }
+.tile-forest { background-position: 0 -427px; }
+.tile-gate { background-position: 0 -488px; }
+.tile-grass { background-position: 0 -549px; }
+.tile-graveyard { background-position: 0 -610px; }
+.tile-hills { background-position: 0 -671px; }
+.tile-house { background-position: 0 -732px; }
+.tile-indoors { background-position: 0 -793px; }
+.tile-lava-cool { background-position: 0 -854px; }
+.tile-lava-hot { background-position: 0 -915px; }
+.tile-mountain { background-position: 0 -976px; }
+.tile-mountains { background-position: 0 -1037px; }
+.tile-palace { background-position: 0 -1098px; }
+.tile-ricepaddy1 { background-position: 0 -1159px; }
+.tile-ricepaddy2 { background-position: 0 -1220px; }
+.tile-ruins { background-position: 0 -1281px; }
+.tile-ryokan { background-position: 0 -1342px; }
+.tile-sand { background-position: 0 -1403px; }
+.tile-scaffolding { background-position: 0 -1464px; }
+.tile-shack { background-position: 0 -1525px; }
+.tile-shrine { background-position: 0 -1586px; }
+.tile-swamp { background-position: 0 -1647px; }
+.tile-temple { background-position: 0 -1708px; }
+.tile-tower { background-position: 0 -1769px; }
+.tile-water-anim { background-position: 0 -1830px; }
+.tile-water { background-position: 0 -1891px; }
+.tile-workshop { background-position: 0 -1952px; }
+
+/* walls sprites */
+.walls { background: url(https://oddnetwork.org/kaiju/img/walls-spritesheet.png) no-repeat 60px 60px; }
+.walls-e{ background-position: 0 0;  }
+.walls-n{ background-position: 0 -61px;  }
+.walls-ne{ background-position: 0 -122px;  }
+.walls-ns{ background-position: 0 -183px;  }
+.walls-nse{ background-position: 0 -244px;  }
+.walls-nsw{ background-position: 0 -305px;  }
+.walls-nswe{ background-position: 0 -366px;  }
+.walls-nw{ background-position: 0 -427px;  }
+.walls-nwe{ background-position: 0 -488px;  }
+.walls-s{ background-position: 0 -549px;  }
+.walls-se{ background-position: 0 -610px;  }
+.walls-sw{ background-position: 0 -671px;  }
+.walls-swe{ background-position: 0 -732px;  }
+.walls-w{ background-position: 0 -793px;  }
+.walls-we{ background-position: 0 -854px;  }
+
+/* ui sprites */
+.ui-sprite { background: url(https://oddnetwork.org/kaiju/img/ui-spritesheet.png) no-repeat 60px 60px; }
+.door-icon:hover { background-position: 0 0; }
+.move-e:hover { background-position: 0 -61px; }
+.move-n:hover { background-position: 0 -122px; }
+.move-ne:hover { background-position: 0 -183px; }
+.move-nw:hover { background-position: 0 -244px; }
+.move-s:hover { background-position: 0 -305px; }
+.move-se:hover { background-position: 0 -366px; }
+.move-sw:hover { background-position: 0 -427px; }
+.move-w:hover { background-position: 0 -488px; }
+.door-icon:hover,
+.move-e:hover,
+.move-n:hover,
+.move-ne:hover,
+.move-nw:hover,
+.move-s:hover,
+.move-se:hover,
+.move-sw:hover,
+.move-w:hover {
+	cursor: pointer;
+}
+

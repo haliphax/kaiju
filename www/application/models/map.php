@@ -802,8 +802,7 @@ SQL;
 			$which = "mc_{$row['abbrev']}";
 			$type = $row['type'];			
 			$this->ci->load->model("classes/{$type}/{$which}");
-			$ret[] = call_user_func(
-				array($this->ci->$which, 'surr'), $actor);
+			$ret[] = $this->ci->$which->surr($actor);
 		}
 		
 		if($i == 1)

@@ -4,7 +4,7 @@ class bldg_exit extends CI_Model
 {
 	private $ci;
 	
-	function bldg_exit()
+	function __construct()
 	{
 		parent::__construct();
 		$this->ci =& get_instance();
@@ -45,14 +45,13 @@ SQL;
 		{
 			$which = "st_{$row['abbrev']}";
 			$this->ci->load->model("classes/structure/{$which}");
-			$allowed = call_user_func(
-				array($this->ci->$which, 'b_exit'), $actor);
+			$allowed = $this->ci->$which->b_exit($actor);
 			foreach($allowed[1] as $m) $ret[] = $m;
 			if($allowed[0] === false) return $ret;
 		}
 		
 		$this->ci->load->model('action');
-		$res = $this->ci->action->indoors(&$actor, &$succ, 0);
+		$res = $this->ci->action->indoors($actor, $succ, 0);
 		if($res === false) return;
 		if($succ) $ret[] = "You go outside.";
 		foreach($res as $r) $ret[] = $r;

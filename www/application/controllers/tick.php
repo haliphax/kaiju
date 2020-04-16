@@ -91,7 +91,7 @@ SQL;
 			{
 				$which = "e_{$r['abbrev']}";
 				$this->load->model("effects/{$which}");
-				print_r(call_user_func(array($this->$which, "tick")));
+				print_r($this->$which->tick());
 			}
 		}
 		

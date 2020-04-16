@@ -11,7 +11,7 @@ class e_kujikiri extends EffectModel
 	function chancetohit(&$actor)
 	{
 		$this->ci->load->model('effects/e_karate');
-		return $this->ci->e_karate->chancetohit(&$actor);
+		return $this->ci->e_karate->chancetohit($actor);
 	}
 	
 	# helper

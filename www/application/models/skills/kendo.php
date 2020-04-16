@@ -18,8 +18,7 @@ class kendo extends SkillModel
 		$victim = $this->ci->actor->getInfo($args[0]);	
 		if(! $this->show($actor, $victim)) return;
 		$which = "kendo_{$st}";
-		$ret = call_user_func(array($this->ci->$which, 'fire'),
-			&$victim, &$actor);
+		$ret = $this->ci->$which->fire($victim, $actor);
 		$msg = array();
 		foreach($ret as $r) $msg[] = $r;
 		return $msg;

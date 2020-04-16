@@ -14,7 +14,9 @@
 		<img src="<?=base_url()?>images/ui/kaiju.png" alt="kaiju!" id="logo" />
 		<div id="news" class="accordion-fixed" title="News">
 			<h3>News</h3>
-			<div><?=$news?></div>
+			<div>
+				<p>kaiju! is being revived while work on a new browser game is underway.</p>
+			</div>
 		</div>
 		<div id="login" class="accordion-fixed" title="Login">
 			<h3>Login</h3>
@@ -54,13 +56,6 @@
 <?php endif; ?>
 			</div>
 		</div>
-		<div id="mailinglist" class="accordion-fixed" title="Mailing List">
-			<h3>Mailing List</h3>
-			<div>
-				Subscribe to the kaiju! Closed Alpha Newsletter to be considered for upcoming alpha test phases.
-				<p style="text-align:center"><button id="btn_mailinglist" class="button" onclick="window.open('http://eepurl.com/dpAZP');">Subscribe</button></p>
-			</div>
-		</div>
 		<div id="media" class="accordion-fixed" title="Media">
 			<h3>Media</h3>
 			<div>
@@ -70,11 +65,11 @@
 				<a title="Twitter" href="http://twitter.com/kaijugame" target="_blank"><div class="social-icon social-twitter"></div></a>
 				<a title="Photobucket" href="http://s282.photobucket.com/albums/kk267/oddboyd/kaiju" target="_blank"><div class="social-icon social-photobucket"></div></a>
 				<a title="RSS" href="http://rss.indiedb.com/games/kaiju/news/feed/rss.xml" target="_blank"><div class="social-icon social-rss"></div></a>
-			</div>		
+			</div>
 		</div>
 		<div id="buttons">
-			<button id="btn_forum" class="button homepage-button" onclick="window.location = '<?=base_url()?>forum';">Forum</button>
-			<button id="btn_wiki" class="button homepage-button">Wiki</button>
+			<a class="ui-widget ui-state-default ui-corner-all button homepage-button" href="https://haliphax.github.io/kaiju-wiki" target="_blank" style="height: auto; padding: 4px 0 4px 0; text-decoration: none;">Wiki</a>
+			<a class="ui-widget ui-state-default ui-corner-all button homepage-button" href="https://kaijuforum.oddnetwork.org" target="_blank" style="height: auto; padding: 4px 0 4px 0; text-decoration: none;">Forum</a>
 		</div>
 		<div id="spacer">&nbsp;</div>
 	</div>

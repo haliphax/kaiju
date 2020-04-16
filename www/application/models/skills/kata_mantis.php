@@ -18,11 +18,11 @@ class kata_mantis extends SkillModel
 			return $this->ci->skills->nomp;
 		$this->ci->kata->kata_remove($actor['actor']);
 		$msg = array();
-		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($ret as $r) $msg[] = $r;
-		$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], &$actor);
+		$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], $actor);
 		foreach($ret as $r) $msg[] = $r;
-		$ret = $this->ci->actor->addEffect('kata_mantis', &$actor);
+		$ret = $this->ci->actor->addEffect('kata_mantis', $actor);
 		foreach($ret as $r) $msg[] = $r;
 		return $msg;
 	}

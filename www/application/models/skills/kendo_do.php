@@ -21,20 +21,20 @@ class kendo_do extends SkillModel
 		$chance = $this->ci->actor->getChanceToHit($actor, $victim);
 		$chance -= 3;
 		if($chance <= 0) $chance = 1;
-		$res = $this->ci->actor->attackWith(&$victim, $weps[0], 'torso',
-			$chance, false, &$actor, $fail, $hit);
+		$res = $this->ci->actor->attackWith($victim, $weps[0], 'torso',
+			$chance, false, $actor, $fail, $hit);
 		foreach($res as $r) $msg[] = $r;
 		
 		if($hit['hit']
 			&& $this->ci->actor->hasEffect('climbing', $victim['actor']))
 		{
-			$res = $this->ci->actor->removeEffect('climbing', &$victim);
+			$res = $this->ci->actor->removeEffect('climbing', $victim);
 			foreach($res as $r)
 				$this->ci->actor->sendEvent($r, $victim['actor']);
 			$msg[] = "You have knocked them to the ground!";
 		}
 		
-		$res = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$res = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($res as $r) $msg[] = $r;
 		return $msg;
 	}

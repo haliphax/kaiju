@@ -29,7 +29,7 @@ SQL;
 
 		if(rand(1, 10) == 1)
 		{
-			$this->ci->actor->addEffect('poison', &$actor); 
+			$this->ci->actor->addEffect('poison', $actor); 
 			$msg[] = "Suddenly, you don't feel so good...";
 		}
 		else

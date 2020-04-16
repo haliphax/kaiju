@@ -26,8 +26,8 @@ class aimedshot extends SkillModel
 		
 		foreach($weps as $w)
 		{
-			$ret = $this->ci->actor->attackWith(&$victim, $w, $t, 7, false,
-				&$actor, $fail);
+			$ret = $this->ci->actor->attackWith($victim, $w, $t, 7, false,
+				$actor, $fail);
 			if(! $fail) $msg[] = "You carefully aim your shot...";
 			foreach($ret as $r) $msg[] = $r;
 			if($fail) break;
@@ -35,9 +35,9 @@ class aimedshot extends SkillModel
 		
 		if(! $fail)
 		{
-			$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+			$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 			foreach($ret as $r) $msg[] = $r;
-			$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], &$actor);
+			$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], $actor);
 			foreach($ret as $r) $msg[] = $r;
 		}
 		

@@ -56,7 +56,7 @@ class poetryrecital extends SkillModel
 					continue;
 				else if($down < $heal['hp'])
 					$heal['hp'] = $down;
-				$ret = $this->ci->actor->heal($actor, $victim, &$heal);
+				$ret = $this->ci->actor->heal($actor, $victim, $heal);
 				foreach($ret as $r) $msg[] = $r;
 				$this->ci->actor->sendEvent(
 					"You were healed for {$heal['hp']}HP.", $victim['actor']);				

@@ -37,8 +37,7 @@ class act_use extends CI_Model
 		if(! $item['target']) return array("That item is unusable.");
 		$which = "i_{$item['abbrev']}";
 		$this->ci->load->model("items/{$which}");
-		return call_user_func(array($this->ci->$which, 'fire'),
-			&$item, &$actor, &$tar);
+		return $this->ci->$which->fire($item, $actor, $tar);
 	}
 	
 	function params(&$actor, $target = false)
@@ -61,7 +60,7 @@ class act_use extends CI_Model
 	function show(&$actor, &$victim)
 	{
 		if($victim['actor'] <= 0) return false;
-		if($this->params(&$actor, &$victim))
+		if($this->params($actor, $victim))
 			return true;
 		return false;
 	}

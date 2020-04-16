@@ -20,7 +20,7 @@ class e_poisondeadly extends EffectModel
 		{
 			$actors[] = $r['actor'];
 			$ret[] = "{$r['actor']} - Poison";
-			$this->ci->actor->damage(1, &$r);
+			$this->ci->actor->damage(1, $r);
 			
 			# died of poison
 			if($r['stat_hp'] == 1)

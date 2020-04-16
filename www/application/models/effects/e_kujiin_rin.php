@@ -11,7 +11,7 @@ class e_kujiin_rin extends EffectModel
 	function attack(&$vic, &$actor, &$swing)
 	{
 		$this->ci->load->model('effects/e_kujikiri');
-		$this->ci->e_kujikiri->_attack(&$actor);
+		$this->ci->e_kujikiri->_attack($actor);
 	}
 	
 	function hit(&$vic, &$actor, &$hit)

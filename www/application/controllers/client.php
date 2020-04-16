@@ -192,7 +192,7 @@ class Client extends CI_Controller
 		if($gactions) $this->ret_val['actg'] = $gactions;
 		$cell = $this->map->getCellInfo($this->who['map'], $this->who['x'],
 			$this->who['y']);
-		$bactions = $this->action->getBuilding(&$this->who, $this->who['map'],
+		$bactions = $this->action->getBuilding($this->who, $this->who['map'],
 			$cell['building']);
 		if($bactions) $this->ret_val['actb'] = $bactions;
 		$cactions = $this->action->getCellActions($this->who);
@@ -253,7 +253,7 @@ class Client extends CI_Controller
 				
 				try {
 					$this->load->model('skills/' . $skill);
-					if(call_user_func(array($this->$skill, 'show'), &$this->who))
+					if($this->$skill->show($this->who))
 					{
 						$this->ret_val['skills'][] = array(
 							'abbrev'	=> $s['abbrev'],
@@ -283,10 +283,11 @@ class Client extends CI_Controller
 				$which = "e_{$e['abbrev']}";
 				$this->load->model('effects/' . $which);
 				# dynamic display
-				$res = call_user_func(array($this->$which, "disp"),
-					&$this->who);
-				if($res)
-					$e['ename'] = $res;
+				if(method_exists($this->$which, 'disp')) {
+					$res = $this->$which->disp($this->who);
+					if($res) $e['ename'] = $res;
+				}
+
 				$this->ret_val['effects'][] = $e;
 			}
 		}
@@ -445,8 +446,7 @@ SQL;
 			$num = func_num_args();
 			
 			if($num == 1)
-				$ret = call_user_func(array($this->$which, 'fire'), &$item,
-					&$this->who, &$this->who);
+				$ret = $this->$which->fire($item, $this->who, $this->who);
 			else
 			{
 				# grab target actor's info to pass
@@ -454,8 +454,7 @@ SQL;
 				$target = $this->actor->getInfo(func_get_arg(1));
 				# grab other params
 				for($a = 2; $a <= func_num_args; $args[] = func_get_arg($a++));
-				$ret = call_user_func(array($this->$which, 'fire'),
-					$item, &$this->who, &$target, $args);
+				$ret = $this->$which->fire($item, $this->who, $target, $args);
 			}
 			
 			foreach($ret as $r)
@@ -652,7 +651,7 @@ SQL;
 		$this->ret_val['attack'] = $any;
 		# calculate chance to hit
 		$this->ret_val['cth'] = round(
-			$this->actor->getChanceToHit(&$this->who, &$who) / 20 * 100);
+			$this->actor->getChanceToHit($this->who, $who) / 20 * 100);
 		# get active skills
 		$skills = $this->actor->getSkills($this->who, 2);
 		
@@ -661,7 +660,7 @@ SQL;
 			$which = $sk['abbrev'];
 			$this->load->model("skills/{$which}");
 			
-			if(call_user_func(array($this->$which, 'show'), $this->who, $who)
+			if($this->$which->show($this->who, $who)
 				!== false)
 			{
 				$this->ret_val['skills'][] = $sk;
@@ -740,16 +739,15 @@ SQL;
 		}
 		
 		$this->load->model('action');
-		$aactions = $this->action->getActors(&$this->who, $actor);
+		$aactions = $this->action->getActors($this->who, $actor);
 		
 		foreach($aactions as $k => $aa)
 			if($aa['params'])
 			{				
 				$which = $aa['abbrev'];
 				$this->load->model("actions/actor/{$which}");
-				$aactions[$k]['params'] = call_user_func(
-					array($this->$which, "params"), &$this->who, &$retval,
-						array($who));
+				$aactions[$k]['params'] = $this->$which->params(
+					$this->who, $retval, array($who));
 			}
 			
 		if($aactions) $this->ret_val['acta'] = $aactions;
@@ -764,7 +762,7 @@ SQL;
 		if($this->actor->isOverEncumbered($this->who['actor']))
 			return $this->ret_val['msg'][] = $this->_logText(
 				"You are too encumbered to attack.");
-		$ret = $this->actor->attack($victim, &$this->who);
+		$ret = $this->actor->attack($victim, $this->who);
 		foreach($ret as $m) $this->ret_val['msg'][] = $this->_logText($m);
 		$this->status(1);
 	}
@@ -781,7 +779,7 @@ SQL;
 		
 		foreach($items as $i)
 		{
-			$ret = $this->actor->equipItems($i, &$this->who);
+			$ret = $this->actor->equipItems($i, $this->who);
 			foreach($ret as $r)
 				$this->ret_val['msg'][] = $this->_logText($r);
 		}
@@ -799,7 +797,7 @@ SQL;
 		
 		foreach($items as $i)
 		{
-			$ret = $this->actor->removeItems($i, &$this->who);
+			$ret = $this->actor->removeItems($i, $this->who);
 			foreach($ret as $r)
 				$this->ret_val['msg'][] = $this->_logText($r);
 		}
@@ -832,7 +830,7 @@ SQL;
 			for($a = 1; $a < $c; $params[] = func_get_arg($a++));
 		}
 		
-		$ret = $this->actor->useSkill($skill, &$this->who, $params);
+		$ret = $this->actor->useSkill($skill, $this->who, $params);
 		foreach($ret as $r)
 			$this->ret_val['msg'][] = $this->_logText($r);
 		if(! preg_match('#/repeat/#i', $_SERVER['REQUEST_URI']))
@@ -864,8 +862,7 @@ SQL;
 		
 		$retval = array();
 		$this->load->model("actions/{$type}/{$abbrev}");
-		$res = call_user_func(array($this->$abbrev, "fire"), &$this->who,
-			&$retval, $params);
+		$res = $this->$abbrev->fire($this->who,$retval, $params);
 		foreach($retval as $k => $v) $this->ret_val[$k] = $v;
 		foreach($res as $r) $this->ret_val['msg'][] = $this->_logText($r);
 		if(! preg_match('#/repeat/#i', $_SERVER['REQUEST_URI']))
@@ -1050,7 +1047,7 @@ SQL;
 				$this->_logText("You say, <i>\"{$txt}\"</i>");
 		}
 		
-		$ret = $this->actor->removeEffect('hiding', &$this->who);
+		$ret = $this->actor->removeEffect('hiding', $this->who);
 		foreach($ret as $r)
 			$this->ret_val['msg'][] = $this->_logText($r);
 		$this->status(1);

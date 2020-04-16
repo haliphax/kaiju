@@ -19,7 +19,7 @@ class give extends CI_Model
 	function fire(&$actor, &$retval, $args)
 	{
 		$tar = $this->ci->actor->getInfo($args[0]);
-		if(! $this->show(&$actor, &$tar))
+		if(! $this->show($actor, $tar))
 			return;
 		
 		$i = $args[1];
@@ -60,7 +60,7 @@ class give extends CI_Model
 	function show(&$actor, &$victim)
 	{
 		if($victim['actor'] <= 0) return false;
-		if(! $this->params(&$actor)) return false;
+		if(! $this->params($actor)) return false;
 		if($this->ci->actor->hasEffect('noinventory', $victim['actor'])) return false;
 		
 		if($this->ci->skills->canMelee($victim['actor'], $actor['actor'],

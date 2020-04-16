@@ -1,0 +1,123 @@
+div#login table
+{
+	margin: 0 auto;
+}
+
+div#login *
+{
+	font-size: 9pt;
+}
+
+div#copyright
+{
+	color: black;
+	margin-bottom: 8px;
+	margin-top: 8px;
+}
+
+#logo
+{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#mailinglist
+{
+	float: right;
+	clear: right;
+	width: 300px;
+	margin-top: 10px;
+}
+
+#mailinglist div
+{
+	padding-bottom: 0;
+}
+
+#media img
+{
+	border-width: 0px !important;
+}
+
+#media > div
+{
+	padding: 4px;
+	text-align: center;
+	height: 80px;
+}
+
+div.spacer { height: 24px; }
+
+#login
+{
+	float: right;
+	clear: right;
+	width: 300px;
+	margin-left: 10px;
+}
+
+#news
+{
+	float: left;
+	width: 430px;
+}
+
+#media
+{
+	margin-top: 10px;
+	float: right;
+	clear: right;
+	width: 300px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.accordion-fixed h3
+{
+	font-size: 12pt !important;
+	font-weight: bold;
+}
+
+#buttons
+{
+	float: right;
+	clear: right;
+	margin-bottom: 10px;
+}
+
+.homepage-button
+{
+	width: 300px;
+	float: right;
+	clear: right;
+	margin-bottom: 2px;
+	margin-left: 10px;
+	font-size: 12pt;
+	height: 28px;
+	font-weight: bold;
+}
+
+#tweets li
+{
+	padding: 4px;
+}
+
+#tweets li span
+{
+	display: block;
+	font-size: 75%;
+	color: #ccc;
+}
+
+/* social icons */
+.social-icon {
+	background: url(../images/social-spritesheet.png) no-repeat top left;
+	display: inline-block;
+	height: 46px;
+	width: 46px;
+}
+.social-facebook { background-position: 0 0; } 
+.social-indiedb { background-position: 0 -47px; } 
+.social-photobucket { background-position: 0 -94px; } 
+.social-rss { background-position: 0 -141px; } 
+.social-twitter { background-position: 0 -188px; } 

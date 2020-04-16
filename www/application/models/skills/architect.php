@@ -23,7 +23,7 @@ class architect extends SkillModel
 		if($cost['cost_mp'] > $actor['stat_mp'])
 			return $this->ci->skills->nomp;
 		$this->ci->load->model("skills/$which");
-		$ret = call_user_func(array($this->ci->$which, 'fire'), &$actor);
+		$ret = $this->ci->$which->fire($actor);
 		$msg = array();
 		$this->ci->actor->addXP($actor, 1);
 		foreach($ret as $r) $msg[] = $r;

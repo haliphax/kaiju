@@ -18,7 +18,7 @@ class kujikiri extends SkillModel
 		if($kujiin == 0)
 		{
 			$this->kujikiri_remove($actor['actor']);
-			$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+			$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 			foreach($ret as $r) $msg[] = $r;
 			$msg[] = "You are no longer maintaining any kuji-in.";
 			return $msg;
@@ -26,7 +26,7 @@ class kujikiri extends SkillModel
 		
 		$r = $this->ci->skills->getInfo($kujiin);
 		$which = $r['abbrev'];
-		return call_user_func(array($this->ci->$which, 'fire'), $actor);
+		return $this->ci->$which->fire($actor);
 	}
 	
 	# skill parameters
@@ -55,7 +55,7 @@ SQL;
 	# purchase skill
 	function purchase(&$actor)
 	{
-		$this->ci->actor->addEffect('kujikiri', &$actor);
+		$this->ci->actor->addEffect('kujikiri', $actor);
 	}
 
 	# remove kuji-in

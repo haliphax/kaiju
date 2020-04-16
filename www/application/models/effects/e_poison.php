@@ -22,7 +22,7 @@ class e_poison extends EffectModel
 	
 	function ap($ap, &$actor)
 	{
-		$this->ci->actor->damage(1, &$actor);
+		$this->ci->actor->damage(1, $actor);
 		return array('You take damage from poison.');
 	}
 }

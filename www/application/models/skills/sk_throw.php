@@ -33,16 +33,16 @@ class sk_throw extends SkillModel
 			$wep['dmg'] = round($wep['dmg'] * 1.1); # +10% damage
 		}
 		
-		$ret = $this->ci->actor->attackWith(&$victim, $wep, false, $cth, false,
-			&$actor, $fail);
+		$ret = $this->ci->actor->attackWith($victim, $wep, false, $cth, false,
+			$actor, $fail);
 		foreach($ret as $r) $msg[] = $r;
 		
 		if(! $fail)
 		{
 			$this->ci->actor->dropItems(array($ins), $actor['actor']);
-			$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+			$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 			foreach($ret as $r) $msg[] = $r;
-			$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], &$actor);
+			$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], $actor);
 			foreach($ret as $r) $msg[] = $r;
 		}
 		

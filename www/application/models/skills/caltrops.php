@@ -27,9 +27,9 @@ SQL;
 			$actor['y'], $actor['actor'], $actor['actor']));
 		$r = $q->result_array();
 		foreach($r as $row)
-			$this->ci->actor->addEffect('caltrops', &$row);
+			$this->ci->actor->addEffect('caltrops', $row);
 		$msg = array("You litter the floor with caltrops.");
-		$res = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$res = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($res as $r) $msg[] = $r;
 		return $msg;
 	}

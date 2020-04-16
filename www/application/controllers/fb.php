@@ -16,7 +16,7 @@ class Fb extends CI_Controller
 				'The system is currently down for maintenance.',
 				'news' => $this->news));
 			$this->die = 1;
-		}		
+		}
 	}
 
 	function index()
@@ -38,7 +38,7 @@ class Fb extends CI_Controller
 				{
 					$this->session->set_userdata('fb_user', $data['user_id']);
 					$user = $this->facebook->getUser();
-					
+
 					if(! $user)
 						$this->output->set_header('Location: ' . site_url('fb/create'));
 					else

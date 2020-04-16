@@ -21,10 +21,10 @@ class kendo_men extends SkillModel
 		$chance = $this->ci->actor->getChanceToHit($actor, $victim);
 		$chance -= 3;
 		if($chance <= 0) $chance = 1;
-		$ret = $this->ci->actor->attackWith(&$victim, $weps[0], 'head', $chance,
-			0, &$actor, $fail);
+		$ret = $this->ci->actor->attackWith($victim, $weps[0], 'head', $chance,
+			0, $actor, $fail);
 		foreach($ret as $r) $msg[] = $r;
-		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($ret as $r) $msg[] = $r;
 		return $msg;
 	}

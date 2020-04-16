@@ -20,11 +20,11 @@ class kujiin_sha extends SkillModel
 		$msg = array(
 			"You fold your hands into form, potentially healing yourself through combat."
 			);
-		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($ret as $r) $msg[] = $r;
-		$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], &$actor);
+		$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], $actor);
 		foreach($ret as $r) $msg[] = $r;
-		$ret = $this->ci->actor->addEffect('kujiin_sha', &$actor);
+		$ret = $this->ci->actor->addEffect('kujiin_sha', $actor);
 		foreach($ret as $r) $msg[] = $r;
 		return $msg;	
 	}

@@ -26,18 +26,18 @@ class climb extends SkillModel
 		
 		if($this->ci->actor->hasEffect('climbing', $actor['actor']))
 		{
-			$ret = $this->ci->actor->removeEffect('climbing', &$actor);
+			$ret = $this->ci->actor->removeEffect('climbing', $actor);
 			foreach($ret as $r) $msg[] = $r;
 		}
 		else
 		{
-			$ret = $this->ci->actor->addEffect('climbing', &$actor);
+			$ret = $this->ci->actor->addEffect('climbing', $actor);
 			foreach($ret as $r) $msg[] = $r;
 		}
 		
-		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($ret as $r) $msg[] = $r;
-		$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], &$actor);
+		$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], $actor);
 		foreach($ret as $r) $msg[] = $r;
 		return $msg;
 	}

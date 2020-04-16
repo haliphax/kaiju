@@ -20,7 +20,7 @@ class srch extends CI_Model
 		if($this->ci->actor->getEncumbrance($actor['actor']) > 60)
 			return array("You are too encumbered to move.");
 		$msg = array();
-		$ret = $this->ci->map->searchCell(&$actor, $actor['map'], $actor['x'],
+		$ret = $this->ci->map->searchCell($actor, $actor['map'], $actor['x'],
 			$actor['y'], $actor['indoors']);
 		
 		if($ret[0] == false && $ret[1] == false)
@@ -33,7 +33,7 @@ class srch extends CI_Model
 				$msg[] = "You found {$ret[1]}! They were hiding.";
 		}
 		
-		$ret = $this->ci->actor->spendAP($this->cost, &$actor);
+		$ret = $this->ci->actor->spendAP($this->cost, $actor);
 		foreach($ret as $r) $msg[] = $r;
 		return $msg;
 	}

@@ -91,7 +91,7 @@ SQL;
 			}
 		}
 		
-		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($ret as $r) $msg[] = $r;
 		$this->ci->actor->addXP($actor, 1);
 		return $msg;

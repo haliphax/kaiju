@@ -10,7 +10,7 @@ class e_ancestralrage extends EffectModel
 	
 	function on(&$actor)
 	{
-		$this->ci->actor->damage(1, &$actor);
+		$this->ci->actor->damage(1, $actor);
 		return array('Your soul burns for the vengeance of your ancestors.');
 	}
 	
@@ -28,8 +28,8 @@ class e_ancestralrage extends EffectModel
 		if($roll > $c) return false;
 		$this->ci->tdata->set('missed', 1);
 		$msg[] = 'You deftly shift your momentum and attack again.';
-		$ret = $this->ci->actor->attackWith(&$victim, $hit['wep'], false, false,
-			false, &$actor, $fail);
+		$ret = $this->ci->actor->attackWith($victim, $hit['wep'], false, false,
+			false, $actor, $fail);
 		foreach($ret as $r) $msg[] = $r;
 		return $msg;
 	}
@@ -49,7 +49,7 @@ class e_ancestralrage extends EffectModel
 				$r['actor']);
 			$actors[] = $r['actor'];			
 			$ret[] = "{$r['actor']} - Ancestral Rage";
-			$this->ci->actor->damage(1, &$r);
+			$this->ci->actor->damage(1, $r);
 			
 			# 1 hp left
 			if($r['stat_hp'] == 2)
@@ -61,7 +61,7 @@ class e_ancestralrage extends EffectModel
 					$this->ci->actor->sendEvent(
 						"You are too weak to hold your weapons. You drop them before the rage consumes you completely.",
 						$r['actor']);
-					$res = $this->ci->actor->removeItems($w['instance'], &$r);
+					$res = $this->ci->actor->removeItems($w['instance'], $r);
 					foreach($res as $m)
 						$this->ci->actor->sendEvent($m, $r['actor']);
 				}

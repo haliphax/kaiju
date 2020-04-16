@@ -16,7 +16,7 @@ class carpentry extends SkillModel
 		$recipe = $args[0];
 		$r = $this->ci->skills->getInfo($recipe);
 		$which = $r['abbrev'];
-		return $this->$which(&$actor);
+		return $this->$which($actor);
 	}
 	
 	function params(&$actor)

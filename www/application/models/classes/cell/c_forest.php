@@ -21,7 +21,7 @@ class c_forest extends CI_Model
 				"You sail effortlessly between trees through the forest.";
 		}
 		
-		$ret = $this->ci->actor->spendAP(1, &$actor);
+		$ret = $this->ci->actor->spendAP(1, $actor);
 		foreach($ret as $r) $msg[] = $r;
 		return array(true, $msg);
 	}

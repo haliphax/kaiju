@@ -18,8 +18,8 @@ class kendo_tsuki extends SkillModel
 		$chance = $this->ci->actor->getChanceToHit($actor, $victim);
 		$chance -= 5;
 		if($chance <= 0) $chance = 1;
-		$ret = $this->ci->actor->attackWith(&$victim, $weps[0], 'head', $chance,
-			false, &$actor, $fail, $hit);
+		$ret = $this->ci->actor->attackWith($victim, $weps[0], 'head', $chance,
+			false, $actor, $fail, $hit);
 		foreach($ret as $r) $msg[] = $r;
 			
 		if($hit['hit'])
@@ -28,14 +28,14 @@ class kendo_tsuki extends SkillModel
 			
 			if($victim['stat_hp'] > 0)
 			{
-				$ret = $this->ci->actor->addEffect('bleeding', &$victim);
+				$ret = $this->ci->actor->addEffect('bleeding', $victim);
 				foreach($ret as $r)
 					$this->ci->actor->sendEvent($r, $victim['actor']);
 				$msg[] = "Blood begins pouring from their wound.";
 			}
 		}
 		
-		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($ret as $r) $msg[] = $r;
 		return $msg;
 	}

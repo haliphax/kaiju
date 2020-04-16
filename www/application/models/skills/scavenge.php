@@ -22,9 +22,9 @@ class scavenge extends SkillModel
 		$chance = 3;
 		$found = 0;
 		$msg = array();
-		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], &$actor);
+		$ret = $this->ci->actor->spendAP($this->cost['cost_ap'], $actor);
 		foreach($ret as $r) $msg[] = $r;
-		$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], &$actor);
+		$ret = $this->ci->actor->spendMP($this->cost['cost_mp'], $actor);
 		foreach($ret as $r) $msg[] = $r;
 		
 		foreach($classes as $class)
